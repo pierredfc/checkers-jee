@@ -11,20 +11,31 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Inject
     @Named("checkers.board.row")
-    public Integer NbRows;
-
+    private Integer nbRows;
 
     @Inject
     @Named("checkers.board.column")
-    public Integer NbColumns;
+    private Integer nbColumns;
 
-    public CheckersGameImpl()
-    {
+    private Board board;
+
+    @Override
+    public void init() {
+        this.board = new Board();
+    }
+
+    @Override
+    public void run() {
         this.init();
     }
 
     @Override
-    public void init() {
-        Board board = new Board();
+    public Integer getNbRows() {
+        return nbRows;
+    }
+
+    @Override
+    public Integer getNbColumns() {
+        return nbColumns;
     }
 }

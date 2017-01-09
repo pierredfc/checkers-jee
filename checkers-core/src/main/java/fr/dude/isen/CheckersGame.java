@@ -6,4 +6,8 @@ package fr.dude.isen;
 public interface CheckersGame {
 
     void init();
+    void run();
+
+    Integer getNbRows();
+    Integer getNbColumns();
 }
