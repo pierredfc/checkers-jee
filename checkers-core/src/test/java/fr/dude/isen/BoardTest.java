@@ -86,6 +86,8 @@ public class BoardTest {
                 {
                     assertThat(currentCell).isEqualTo(currentPawn.getCell());
                     assertThat(currentCell.getColor()).isEqualTo(ColorCell.DARK);
+                    assertThat(currentCell.getPosition().getRowIndex()).isNotEqualTo(4);
+                    assertThat(currentCell.getPosition().getRowIndex()).isNotEqualTo(5);
                 }
             }
             System.out.println();
