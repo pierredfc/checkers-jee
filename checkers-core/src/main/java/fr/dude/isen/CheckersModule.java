@@ -9,7 +9,6 @@ import com.google.inject.name.Names;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
-import java.util.function.Function;
 
 /**
  * Created by Clement on 09/01/2017.
