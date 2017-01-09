@@ -3,6 +3,8 @@ package fr.dude.isen;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by pierredfc on 09/01/2017.
  */
 public class BoardTest {
+
+    private static Logger logger = LogManager.getLogger(BoardTest.class);
 
     private int nbColumns = 10;
     private int nbRows = 10;
@@ -31,6 +35,8 @@ public class BoardTest {
         for (int i = 0; i < nbRows; i++) {
             assertThat(board.getCells().get(i).size()).isEqualTo(nbColumns);
         }
+
+        logger.info("[BoardTest][isBoardInitialized] Board size =  " + nbRows + "x" + nbColumns);
     }
 
     @Test
