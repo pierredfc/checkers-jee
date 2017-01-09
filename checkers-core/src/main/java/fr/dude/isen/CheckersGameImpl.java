@@ -17,4 +17,12 @@ public class CheckersGameImpl implements CheckersGame {
     @Named("checkers.board.column")
     public Integer NbColumns;
 
+    public CheckersGameImpl() {
+
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Running checkers game with size : "+NbRows+":"+NbColumns);
+    }
 }
