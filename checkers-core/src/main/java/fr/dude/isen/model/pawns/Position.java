@@ -5,29 +5,35 @@ package fr.dude.isen.model.pawns;
  */
 public class Position {
 
-    private Integer x;
+    /**
+     * Indicates column index
+     */
+    private Integer columnIndex;
 
-    private Integer y;
+    /**
+     * Indicates row index
+     */
+    private Integer rowIndex;
 
-    public Position(int x, int y)
+    public Position(int columnIndex, int rowIndex)
     {
-        this.x = x;
-        this.y = y;
+        this.columnIndex = columnIndex;
+        this.rowIndex = rowIndex;
     }
 
-    public Integer getX() {
-        return x;
+    public Integer getColumnIndex() {
+        return columnIndex;
     }
 
-    public void setX(Integer x) {
-        this.x = x;
+    public void setColumnIndex(Integer columnIndex) {
+        this.columnIndex = columnIndex;
     }
 
-    public Integer getY() {
-        return y;
+    public Integer getRowIndex() {
+        return rowIndex;
     }
 
-    public void setY(Integer y) {
-        this.y = y;
+    public void setRowIndex(Integer rowIndex) {
+        this.rowIndex = rowIndex;
     }
 }

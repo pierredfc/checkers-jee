@@ -7,7 +7,6 @@ import fr.dude.isen.model.Cell;
  */
 public abstract class Pawn {
 
-
     private ColorPawn color;
 
     private Direction direction;

@@ -14,10 +14,10 @@ public class Cell {
 
     private Pawn currentPawn;
 
-    public Cell(int x, int y)
+    public Cell(int column, int row)
     {
-        this.position = new Position(x, y);
-        this.color = (((y + (x % 2 == 0? 0:1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
+        this.position = new Position(column, row);
+        this.color = (((row + (column % 2 == 0? 0:1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
     }
 
     public Pawn getCurrentPawn() {

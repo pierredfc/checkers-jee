@@ -3,6 +3,7 @@ package fr.dude.isen;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
+import fr.dude.isen.model.pawns.Pawn;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import fr.dude.isen.model.User;
@@ -63,8 +64,8 @@ public class BoardTest {
 
     @Test
     public void isUsersCellsOk() {
-        this.isUserCellsOk(this.board.getUser1());
-        this.isUserCellsOk(this.board.getUser2());
+        this.isUserCellsOk(this.board.getUserWhite());
+        this.isUserCellsOk(this.board.getUserBlack());
     }
 
     private void isUserCellsOk(User user) {
@@ -74,17 +75,20 @@ public class BoardTest {
 
     @Test
     public void isPawnsWellPlaced() {
-        for(List<Cell> row : this.board.getCells()) {
-            for(Cell cell : row) {
-                System.out.print(cell.getCurrentPawn() != null ? "o" : ".");
-                if (cell.getCurrentPawn() != null) {
-                    assertThat(cell).isEqualTo(cell.getCurrentPawn().getCell());
-                    assertThat(cell.getColor()).isEqualTo(ColorCell.DARK);
+        for (int row = 0; row < nbRows; row++)
+        {
+            for (int column = 0; column < nbColumns; column++)
+            {
+                Cell currentCell = this.board.getCell(column, row);
+                Pawn currentPawn = currentCell.getCurrentPawn();
+
+                if (currentPawn != null)
+                {
+                    assertThat(currentCell).isEqualTo(currentPawn.getCell());
+                    assertThat(currentCell.getColor()).isEqualTo(ColorCell.DARK);
                 }
             }
             System.out.println();
         }
     }
-
-
 }
