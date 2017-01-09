@@ -19,7 +19,6 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Override
     public void run() {
-        System.out.println("Running checkers game with size : "+NbRows+":"+NbColumns);
     }
 
     @Override
