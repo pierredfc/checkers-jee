@@ -2,6 +2,8 @@ package fr.dude.isen;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
