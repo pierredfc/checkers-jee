@@ -5,6 +5,7 @@ import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import fr.dude.isen.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,11 +22,12 @@ public class BoardTest {
 
     private int nbColumns = 10;
     private int nbRows = 10;
+    private int nbPawns = 20;
     private Board board;
 
     @Before
     public void doBefore() throws Exception {
-        this.board = new Board(nbRows, nbColumns);
+        this.board = new Board(nbRows, nbColumns, nbPawns);
     }
 
     @Test
@@ -58,4 +60,31 @@ public class BoardTest {
             }
         }
     }
+
+    @Test
+    public void isUsersCellsOk() {
+        this.isUserCellsOk(this.board.getUser1());
+        this.isUserCellsOk(this.board.getUser2());
+    }
+
+    private void isUserCellsOk(User user) {
+        assertThat(user.getPawns()).isNotNull();
+        assertThat(user.getPawns().size()).isEqualTo(this.nbPawns);
+    }
+
+    @Test
+    public void isPawnsWellPlaced() {
+        for(List<Cell> row : this.board.getCells()) {
+            for(Cell cell : row) {
+                System.out.print(cell.getCurrentPawn() != null ? "o" : ".");
+                if (cell.getCurrentPawn() != null) {
+                    assertThat(cell).isEqualTo(cell.getCurrentPawn().getCell());
+                    assertThat(cell.getColor()).isEqualTo(ColorCell.DARK);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
 }

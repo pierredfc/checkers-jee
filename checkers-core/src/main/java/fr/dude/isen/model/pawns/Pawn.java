@@ -1,17 +1,25 @@
 package fr.dude.isen.model.pawns;
 
+import fr.dude.isen.model.Cell;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
 public abstract class Pawn {
 
-    private Position currentPosition;
 
     private ColorPawn color;
 
     private Direction direction;
 
-    public abstract void move(Position position);
+    private Cell cell;
+
+    public Pawn(ColorPawn color, Direction direction) {
+        this.color = color;
+        this.direction = direction;
+    }
+
+    public abstract void move(Cell cell);
 
     public ColorPawn getColor() {
         return color;
@@ -21,12 +29,12 @@ public abstract class Pawn {
         this.color = color;
     }
 
-    public Position getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(Position currentPosition) {
-        this.currentPosition = currentPosition;
+    public void setCell(Cell cell) {
+        if (this.cell != null) {
+            this.cell.setCurrentPawn(null);
+        }
+        cell.setCurrentPawn(this);
+        this.cell = cell;
     }
 
     public Direction getDirection() {
@@ -35,5 +43,9 @@ public abstract class Pawn {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public Cell getCell() {
+        return cell;
     }
 }

@@ -1,6 +1,7 @@
 package fr.dude.isen.model;
 
 import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.pawns.Position;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -9,10 +10,13 @@ public class Cell {
 
     private ColorCell color;
 
+    private Position position;
+
     private Pawn currentPawn;
 
     public Cell(int x, int y)
     {
+        this.position = new Position(x, y);
         this.color = (((y + (x % 2 == 0? 0:1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
     }
 
@@ -30,5 +34,9 @@ public class Cell {
 
     public void setColor(ColorCell color) {
         this.color = color;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

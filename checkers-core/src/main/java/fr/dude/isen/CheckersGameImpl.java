@@ -17,11 +17,15 @@ public class CheckersGameImpl implements CheckersGame {
     @Named("checkers.board.column")
     private Integer nbColumns;
 
+    @Inject
+    @Named("checkers.board.pawns_per_user")
+    private Integer nbPawnsPerUser;
+
     private Board board;
 
     @Override
     public void init() {
-        this.board = new Board(this.getNbRows(), this.getNbColumns());
+        this.board = new Board(this.getNbRows(), this.getNbColumns(), this.getNbPawnsPerUser());
     }
 
     @Override
@@ -38,4 +42,6 @@ public class CheckersGameImpl implements CheckersGame {
     public Integer getNbColumns() {
         return nbColumns;
     }
+
+    public Integer getNbPawnsPerUser() { return this.nbPawnsPerUser; }
 }
