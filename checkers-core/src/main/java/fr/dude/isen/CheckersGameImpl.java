@@ -2,9 +2,10 @@ package fr.dude.isen;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import fr.dude.isen.model.Board;
 
 /**
- * Created by Pierre Defache on 09/01/2017.
+ * Created by pierredfc on 09/01/2017.
  */
 public class CheckersGameImpl implements CheckersGame {
 
@@ -17,4 +18,13 @@ public class CheckersGameImpl implements CheckersGame {
     @Named("checkers.board.column")
     public Integer NbColumns;
 
+    public CheckersGameImpl()
+    {
+        this.init();
+    }
+
+    @Override
+    public void init() {
+        Board board = new Board();
+    }
 }

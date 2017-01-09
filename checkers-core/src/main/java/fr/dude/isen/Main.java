@@ -5,6 +5,6 @@ package fr.dude.isen;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Coucou");
+        CheckersGame game = new CheckersGameImpl();
     }
 }
