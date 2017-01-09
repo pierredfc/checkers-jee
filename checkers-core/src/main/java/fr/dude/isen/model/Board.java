@@ -10,17 +10,17 @@ public class Board {
 
     private List<List<Cell>> cells;
 
-    public Board()
+    public Board(int nbRows, int nbColumns)
     {
-        this.cells = new ArrayList<>(10);
+        this.cells = new ArrayList<>(nbRows);
 
-        for (int i = 0; i < 10; i++)
+        for (int row = 0; row < nbRows; row++)
         {
-            this.cells.add(new ArrayList<>(10));
+            this.cells.add(new ArrayList<>(nbColumns));
 
-            for(int j = 0; j < 10; j++)
+            for(int column = 0; column < nbColumns; column++)
             {
-                this.cells.get(i).add(new Cell(i, j));
+                this.cells.get(row).add(new Cell(row, column));
             }
         }
     }

@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 
@@ -23,12 +24,12 @@ public class CheckersApplicationTest {
     }
 
     @Test
-    public void gameIsCheckersGameImpl() {
-        assertEquals(CheckersGameImpl.class, game.getClass());
+    public void gameIsCheckersGameImpl() throws Exception {
+        assertEquals(CheckersGameImpl.class, game.getClass()); // assertThat(CheckersGameImpl.class).isEqualTo(game.getClass());
     }
 
     @Test
-    public void gameHasCorrectProperties() {
+    public void gameHasCorrectProperties() throws Exception {
         assertEquals(10, (int)game.getNbColumns());
         assertEquals(10, (int)game.getNbRows());
     }

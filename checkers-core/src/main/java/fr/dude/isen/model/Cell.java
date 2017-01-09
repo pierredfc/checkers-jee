@@ -1,5 +1,7 @@
 package fr.dude.isen.model;
 
+import fr.dude.isen.model.pawns.Pawn;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */

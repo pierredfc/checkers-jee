@@ -21,7 +21,7 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Override
     public void init() {
-        this.board = new Board();
+        this.board = new Board(this.getNbRows(), this.getNbColumns());
     }
 
     @Override
