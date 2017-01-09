@@ -10,19 +10,33 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Inject
     @Named("checkers.board.row")
-    public Integer NbRows;
+    private Integer NbRows;
 
 
     @Inject
     @Named("checkers.board.column")
-    public Integer NbColumns;
-
-    public CheckersGameImpl() {
-
-    }
+    private Integer NbColumns;
 
     @Override
     public void run() {
         System.out.println("Running checkers game with size : "+NbRows+":"+NbColumns);
+    }
+
+    @Override
+    public Integer getNbRows() {
+        return NbRows;
+    }
+
+    public void setNbRows(Integer nbRows) {
+        NbRows = nbRows;
+    }
+
+    @Override
+    public Integer getNbColumns() {
+        return NbColumns;
+    }
+
+    public void setNbColumns(Integer nbColumns) {
+        NbColumns = nbColumns;
     }
 }

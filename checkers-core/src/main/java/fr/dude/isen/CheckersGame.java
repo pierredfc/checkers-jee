@@ -9,4 +9,7 @@ public interface CheckersGame {
 
     void run();
 
+    Integer getNbRows();
+    Integer getNbColumns();
+
 }
