@@ -3,6 +3,7 @@ package fr.dude.isen.model.pawns;
 import fr.dude.isen.model.Cell;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -70,19 +71,41 @@ public abstract class Pawn {
         boolean down = direction == Direction.DOWN;
         boolean both = direction == Direction.BOTH;
 
+        boolean hasMandatoryMoves = false;
+
         if (up || both) {
-            tryAddMove(col-1, row+1, cells, result);
-            tryAddMove(col+1, row+1, cells, result);
+            hasMandatoryMoves = tryAddMove(col-1, row+1, cells, result)  || hasMandatoryMoves;
+            hasMandatoryMoves = tryAddMove(col+1, row+1, cells, result) || hasMandatoryMoves;
         }
 
         if (down || both) {
-            tryAddMove(col-1, row-1, cells, result);
-            tryAddMove(col+1, row-1, cells, result);
+            hasMandatoryMoves = tryAddMove(col-1, row-1, cells, result)  || hasMandatoryMoves;
+            hasMandatoryMoves = tryAddMove(col+1, row-1, cells, result) || hasMandatoryMoves;
         }
+
+        if (hasMandatoryMoves) {
+            List<Move> mandatoryMoves = new ArrayList<>(2);
+            for(Move move : result) {
+                if (move.isMandatory()) {
+                    mandatoryMoves.add(move);
+                }
+            }
+            result = mandatoryMoves;
+        }
+
         return result;
     }
 
-    private void tryAddMove(int col, int row, List<List<Cell>> cells, List<Move> result) {
+    /**
+     *
+     * @param col
+     * @param row
+     * @param cells
+     * @param result true if this move is mandatory
+     * @return
+     */
+    private boolean tryAddMove(int col, int row, List<List<Cell>> cells, List<Move> result) {
+        boolean isMandatory = false;
         try {
             Cell cell = cells.get(col).get(row);
             if (!cell.hasPawn()) {
@@ -101,11 +124,13 @@ public abstract class Pawn {
 
                 if (!cell2.hasPawn()) {
                     result.add(new Move(cell2, cell.getCurrentPawn()));
+                    isMandatory = true;
                 }
             }
         }
         catch(IndexOutOfBoundsException ex) {
             //
         }
+        return isMandatory;
     }
 }

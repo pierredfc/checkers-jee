@@ -130,24 +130,29 @@ public class BoardTest {
         Pawn pawn1 = this.board.getCells().get(1).get(6).getCurrentPawn();
         Pawn pawn2 = this.board.getCells().get(4).get(3).getCurrentPawn();
 
-        move(1,6,2,5);
-        move(4,3,3,4);
-        move(2,5,4,3);
+        move(1,6,2,5, 2, false);
+        move(4,3,3,4, 2, false);
+        move(0,3,1,4,1, false);
+        move(2,5,4,3, 2, true);
 
         assertThat(pawn2.getCell()).isNull();
         assertThat(pawn1.getCell().getPosition()).isEqualTo(new Position(4,3));
     }
 
-    private void move(int col, int row, int destCol, int destRow) {
+    private void move(int col, int row, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
         Pawn pawn = this.board.getCells().get(col).get(row).getCurrentPawn();
-        Move move = getMove(pawn, destCol, destRow);
+        Move move = getMove(pawn, destCol, destRow, nbMoves, hasMandatory);
         if (move == null) return;
         this.board.movePawn(pawn, move.getDestination());
     }
 
-    private Move getMove(Pawn pawn, int destCol, int destRow) {
+    private Move getMove(Pawn pawn, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
         List<Move> moves = pawn.getPossibleMoves(this.board.getCells());
+        assertThat(moves.size()).isEqualTo(nbMoves);
+
         for(Move move : moves) {
+                assertThat(move.isMandatory()).isEqualTo(hasMandatory);
+
             Position position = move.getDestination().getPosition();
             if (position.getRowIndex().equals(destRow) && position.getColumnIndex().equals(destCol)) {
                 return move;

@@ -30,4 +30,8 @@ public class Move {
     public boolean hasPawnToDelete() {
         return this.pawnToDelete != null;
     }
+
+    public boolean isMandatory() {
+        return hasPawnToDelete();
+    }
 }
