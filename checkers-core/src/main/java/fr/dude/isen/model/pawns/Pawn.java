@@ -2,6 +2,9 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.model.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
@@ -46,5 +49,39 @@ public abstract class Pawn {
 
     public Cell getCell() {
         return cell;
+    }
+
+    public List<Cell> getPossibleMoves(List<List<Cell>> cells) {
+        Cell current = this.getCell();
+        Position position = current.getPosition();
+        int col = position.getColumnIndex();
+        int row = position.getRowIndex();
+
+        List<Cell> result = new ArrayList<>(2);
+
+        Direction direction = getDirection();
+        boolean up = direction == Direction.UP;
+        boolean down = direction == Direction.DOWN;
+        boolean both = direction == Direction.BOTH;
+
+        if (up || both) {
+            tryAddCell(col-1, row+1, cells, result);
+            tryAddCell(col+1, row+1, cells, result);
+        }
+
+        if (down || both) {
+            tryAddCell(col-1, row-1, cells, result);
+            tryAddCell(col+1, row-1, cells, result);
+        }
+        return result;
+    }
+
+    private void tryAddCell(int col, int row, List<List<Cell>> cells, List<Cell> result) {
+        try {
+            result.add(cells.get(col).get(row));
+        }
+        catch(IndexOutOfBoundsException ex) {
+            //
+        }
     }
 }

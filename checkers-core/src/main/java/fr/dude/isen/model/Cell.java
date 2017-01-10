@@ -3,6 +3,8 @@ package fr.dude.isen.model;
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 
+import java.util.List;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */

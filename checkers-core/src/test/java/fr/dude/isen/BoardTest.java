@@ -4,6 +4,7 @@ import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
 import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.pawns.Position;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import fr.dude.isen.model.User;
@@ -92,5 +93,36 @@ public class BoardTest {
             }
             System.out.println();
         }
+    }
+
+    @Test
+    public void canPawnsMoveWell() {
+        List<List<Cell>> cells = this.board.getCells();
+
+        //Centered
+        Pawn centeredPawn = cells.get(5).get(6).getCurrentPawn();
+        assertThat(centeredPawn).isNotNull();
+        List<Cell> moves = centeredPawn.getPossibleMoves(cells);
+        assertThat(moves).isNotNull();
+        assertThat(moves.size()).isEqualTo(2);
+
+        Position position1 = moves.get(0).getPosition();
+        Position position2 = moves.get(1).getPosition();
+
+        assertThat(position1.getRowIndex()).isEqualTo(5);
+        assertThat(position2.getRowIndex()).isEqualTo(5);
+        assertThat(position1.getColumnIndex()).isIn(4,6);
+        assertThat(position2.getColumnIndex()).isIn(4,6);
+
+        //Bordered - Only 1 move
+        Pawn borderedPawn = this.board.getCells().get(9).get(6).getCurrentPawn();
+        assertThat(borderedPawn).isNotNull();
+        List<Cell> moves2 = borderedPawn.getPossibleMoves(cells);
+        assertThat(moves2).isNotNull();
+        assertThat(moves2.size()).isEqualTo(1);
+
+        Position position2_1 = moves2.get(0).getPosition();
+        assertThat(position2_1.getRowIndex()).isEqualTo(5);
+        assertThat(position2_1.getColumnIndex()).isEqualTo(8);
     }
 }

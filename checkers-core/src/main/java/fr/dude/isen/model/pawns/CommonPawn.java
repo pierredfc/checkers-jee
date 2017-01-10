@@ -2,6 +2,8 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.model.Cell;
 
+import java.util.List;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
