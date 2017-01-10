@@ -21,7 +21,7 @@ public abstract class Pawn {
         this.direction = direction;
     }
 
-    public abstract void move(Cell cell);
+    public abstract Move move(Cell cell, List<List<Cell>> cells);
 
     public ColorPawn getColor() {
         return color;
@@ -35,12 +35,18 @@ public abstract class Pawn {
         if (this.cell != null) {
             this.cell.setCurrentPawn(null);
         }
-        cell.setCurrentPawn(this);
+        if (cell != null) {
+            cell.setCurrentPawn(this);
+        } // else : Pawn removed from board
         this.cell = cell;
     }
 
     public Direction getDirection() {
         return direction;
+    }
+
+    private Position getPosition() {
+        return this.cell != null ? this.cell.getPosition() : null;
     }
 
     public void setDirection(Direction direction) {
@@ -51,13 +57,13 @@ public abstract class Pawn {
         return cell;
     }
 
-    public List<Cell> getPossibleMoves(List<List<Cell>> cells) {
+    public List<Move> getPossibleMoves(List<List<Cell>> cells) {
         Cell current = this.getCell();
         Position position = current.getPosition();
         int col = position.getColumnIndex();
         int row = position.getRowIndex();
 
-        List<Cell> result = new ArrayList<>(2);
+        List<Move> result = new ArrayList<>(2);
 
         Direction direction = getDirection();
         boolean up = direction == Direction.UP;
@@ -65,20 +71,38 @@ public abstract class Pawn {
         boolean both = direction == Direction.BOTH;
 
         if (up || both) {
-            tryAddCell(col-1, row+1, cells, result);
-            tryAddCell(col+1, row+1, cells, result);
+            tryAddMove(col-1, row+1, cells, result);
+            tryAddMove(col+1, row+1, cells, result);
         }
 
         if (down || both) {
-            tryAddCell(col-1, row-1, cells, result);
-            tryAddCell(col+1, row-1, cells, result);
+            tryAddMove(col-1, row-1, cells, result);
+            tryAddMove(col+1, row-1, cells, result);
         }
         return result;
     }
 
-    private void tryAddCell(int col, int row, List<List<Cell>> cells, List<Cell> result) {
+    private void tryAddMove(int col, int row, List<List<Cell>> cells, List<Move> result) {
         try {
-            result.add(cells.get(col).get(row));
+            Cell cell = cells.get(col).get(row);
+            if (!cell.hasPawn()) {
+                result.add(new Move(cell));
+            }
+            else if (cell.hasOpponentPawn(this)) {
+                //Check for 2-step cell
+                Position current = this.getPosition();
+                int currentCol = current.getColumnIndex();
+                int currentRow = current.getRowIndex();
+
+                //col+2 && row+2
+                int col2 = currentCol + (col - currentCol)*2;
+                int row2 = currentRow + (row - currentRow)*2;
+                Cell cell2 = cells.get(col2).get(row2);
+
+                if (!cell2.hasPawn()) {
+                    result.add(new Move(cell2, cell.getCurrentPawn()));
+                }
+            }
         }
         catch(IndexOutOfBoundsException ex) {
             //

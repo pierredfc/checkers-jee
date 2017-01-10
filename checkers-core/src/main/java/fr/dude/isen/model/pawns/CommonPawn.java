@@ -14,7 +14,17 @@ public class CommonPawn extends Pawn {
     }
 
     @Override
-    public void move(Cell cell) {
-
+    public Move move(Cell cell, List<List<Cell>> cells) {
+        List<Move> possibleMoves = this.getPossibleMoves(cells);
+        for(Move move : possibleMoves) {
+            if (move.getDestination().equals(cell)) {
+                this.setCell(move.getDestination());
+                if (move.hasPawnToDelete()) {
+                    move.getPawnToDelete().setCell(null);
+                }
+                return move;
+            }
+        }
+        return null;
     }
 }

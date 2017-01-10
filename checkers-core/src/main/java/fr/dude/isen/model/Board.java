@@ -2,6 +2,7 @@ package fr.dude.isen.model;
 
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
+import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Pawn;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Board {
 
     private User userWhite;
     private User userBlack;
+
 
     public Board(int nbRows, int nbColumns, int nbPawnRows) {
         this.initCells(nbRows, nbColumns);
@@ -90,5 +92,19 @@ public class Board {
 
     public User getUserBlack() {
         return this.userBlack;
+    }
+
+
+    public void movePawn(Pawn pawn, Cell cell) {
+        Move move = pawn.move(cell, cells);
+
+        Pawn pawnToDelete = move.getPawnToDelete();
+        if (pawnToDelete == null) return;
+
+        if (pawnToDelete.getColor() == ColorPawn.BLACK) {
+            userBlack.removePawn(pawnToDelete);
+        } else {
+            userWhite.removePawn(pawnToDelete);
+        }
     }
 }

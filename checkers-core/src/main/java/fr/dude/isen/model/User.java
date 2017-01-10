@@ -26,4 +26,8 @@ public class User {
     public List<Pawn> getPawns() {
         return pawns;
     }
+
+    public void removePawn(Pawn pawnToDelete) {
+        this.pawns.remove(pawnToDelete);
+    }
 }

@@ -3,6 +3,7 @@ package fr.dude.isen;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
+import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 import org.apache.log4j.LogManager;
@@ -11,6 +12,7 @@ import fr.dude.isen.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -101,28 +103,56 @@ public class BoardTest {
 
         //Centered
         Pawn centeredPawn = cells.get(5).get(6).getCurrentPawn();
-        assertThat(centeredPawn).isNotNull();
-        List<Cell> moves = centeredPawn.getPossibleMoves(cells);
-        assertThat(moves).isNotNull();
-        assertThat(moves.size()).isEqualTo(2);
-
-        Position position1 = moves.get(0).getPosition();
-        Position position2 = moves.get(1).getPosition();
-
-        assertThat(position1.getRowIndex()).isEqualTo(5);
-        assertThat(position2.getRowIndex()).isEqualTo(5);
-        assertThat(position1.getColumnIndex()).isIn(4,6);
-        assertThat(position2.getColumnIndex()).isIn(4,6);
+        testPossibleMoves(centeredPawn, 2, new Position(4,5), new Position(6,5));
 
         //Bordered - Only 1 move
         Pawn borderedPawn = this.board.getCells().get(9).get(6).getCurrentPawn();
-        assertThat(borderedPawn).isNotNull();
-        List<Cell> moves2 = borderedPawn.getPossibleMoves(cells);
-        assertThat(moves2).isNotNull();
-        assertThat(moves2.size()).isEqualTo(1);
+        testPossibleMoves(borderedPawn, 1, new Position(8,5));
 
-        Position position2_1 = moves2.get(0).getPosition();
-        assertThat(position2_1.getRowIndex()).isEqualTo(5);
-        assertThat(position2_1.getColumnIndex()).isEqualTo(8);
+        //Blocked - 0 moves
+        Pawn blockedPawn = this.board.getCells().get(0).get(9).getCurrentPawn();
+        testPossibleMoves(blockedPawn, 0);
+    }
+
+    private void testPossibleMoves(Pawn pawn, int nbMoves, Position... positions) {
+        List<Move> moves = pawn.getPossibleMoves(this.board.getCells());
+        assertThat(moves).isNotNull();
+        assertThat(moves.size()).isEqualTo(nbMoves);
+
+        for(Move move : moves) {
+            Position position = move.getDestination().getPosition();
+            assertThat(position).isIn(positions);
+        }
+    }
+
+    @Test
+    public void areKilledPawnsRemoved() {
+        Pawn pawn1 = this.board.getCells().get(1).get(6).getCurrentPawn();
+        Pawn pawn2 = this.board.getCells().get(4).get(3).getCurrentPawn();
+
+        move(1,6,2,5);
+        move(4,3,3,4);
+        move(2,5,4,3);
+
+        assertThat(pawn2.getCell()).isNull();
+        assertThat(pawn1.getCell().getPosition()).isEqualTo(new Position(4,3));
+    }
+
+    private void move(int col, int row, int destCol, int destRow) {
+        Pawn pawn = this.board.getCells().get(col).get(row).getCurrentPawn();
+        Move move = getMove(pawn, destCol, destRow);
+        if (move == null) return;
+        this.board.movePawn(pawn, move.getDestination());
+    }
+
+    private Move getMove(Pawn pawn, int destCol, int destRow) {
+        List<Move> moves = pawn.getPossibleMoves(this.board.getCells());
+        for(Move move : moves) {
+            Position position = move.getDestination().getPosition();
+            if (position.getRowIndex().equals(destRow) && position.getColumnIndex().equals(destCol)) {
+                return move;
+            }
+        }
+        return null;
     }
 }

@@ -2,6 +2,8 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.model.Cell;
 
+import java.util.List;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
@@ -12,8 +14,9 @@ public class QueenPawn extends Pawn {
         super(color, Direction.BOTH);
     }
 
-    @Override
-    public void move(Cell cell) {
 
+    @Override
+    public Move move(Cell cell, List<List<Cell>> cells) {
+        return null;
     }
 }

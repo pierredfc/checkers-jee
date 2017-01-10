@@ -36,4 +36,13 @@ public class Position {
     public void setRowIndex(Integer rowIndex) {
         this.rowIndex = rowIndex;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Position) {
+            Position other = (Position) obj;
+            return other.getColumnIndex().equals(this.getColumnIndex()) && other.getRowIndex().equals(this.getRowIndex());
+        }
+        return super.equals(obj);
+    }
 }

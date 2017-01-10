@@ -16,10 +16,17 @@ public class Cell {
 
     private Pawn currentPawn;
 
-    public Cell(int column, int row)
-    {
+    public Cell(int column, int row) {
         this.position = new Position(column, row);
-        this.color = (((row + (column % 2 == 0? 0:1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
+        this.color = (((row + (column % 2 == 0 ? 0 : 1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
+    }
+
+    public boolean hasPawn() {
+        return this.currentPawn != null;
+    }
+
+    public boolean hasOpponentPawn(Pawn other) {
+        return hasPawn() && getCurrentPawn().getColor() != other.getColor();
     }
 
     public Pawn getCurrentPawn() {
@@ -40,5 +47,14 @@ public class Cell {
 
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Cell) {
+            Cell other = (Cell) obj;
+            return this.getPosition().equals(other.getPosition());
+        }
+        return super.equals(obj);
     }
 }
