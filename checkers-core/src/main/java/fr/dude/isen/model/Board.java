@@ -18,10 +18,10 @@ public class Board {
     private User userWhite;
     private User userBlack;
 
-    public Board(int nbRows, int nbColumns, int nbPawnsPerUser) {
+    public Board(int nbRows, int nbColumns, int nbPawnRows) {
         this.initCells(nbRows, nbColumns);
-        this.initUsers(nbPawnsPerUser);
-        this.initPawns(nbRows, nbColumns);
+        this.initUsers(nbPawnRows * nbColumns/2);
+        this.initPawns(nbPawnRows, nbRows, nbColumns);
     }
 
     private void initCells(int nbRows, int nbColumns) {
@@ -41,15 +41,15 @@ public class Board {
         this.userBlack = new User(nbPawns, ColorPawn.BLACK, Direction.DOWN);
     }
 
-    private void initPawns(int nbRows, int nbColumns) {
-        this.initPawnsUserWhite(nbColumns);
-        this.initPawnsUserBlack(nbColumns);
+    private void initPawns(int nbPawnRows, int nbRows, int nbColumns) {
+        this.initPawnsUserWhite(nbPawnRows, nbColumns, nbRows);
+        this.initPawnsUserBlack(nbPawnRows, nbColumns, nbRows);
     }
 
-    private void initPawnsUserWhite(int nbColumns) {
+    private void initPawnsUserWhite(int nbPawnRows, int nbColumns, int nbRows) {
         ListIterator<Pawn> it = this.userWhite.getPawns().listIterator();
 
-        for (int row = 0; row < 4; row++) {
+        for (int row = 0; row < nbPawnRows; row++) {
             for (int column = row % 2 == 0 ? 1 : 0; column < nbColumns; column += 2) {
                 if (it.hasNext()) {
                     Pawn pawn = it.next();
@@ -61,10 +61,10 @@ public class Board {
         }
     }
 
-    private void initPawnsUserBlack(int nbColumns) {
+    private void initPawnsUserBlack(int nbPawnRows, int nbColumns, int nbRows) {
         ListIterator<Pawn> it = this.userBlack.getPawns().listIterator();
 
-        for(int row = 9; row > 9-4; row--) {
+        for(int row = nbRows-1; row > (nbRows-1)-nbPawnRows; row--) {
             for (int column = (row % 2 == 1 ? 0 : 1); column < nbColumns; column+=2) {
                 if (it.hasNext()) {
                     Pawn pawn = it.next();

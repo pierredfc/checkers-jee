@@ -10,22 +10,18 @@ import fr.dude.isen.model.Board;
 public class CheckersGameImpl implements CheckersGame {
 
     @Inject
-    @Named("checkers.board.row")
-    private Integer nbRows;
+    @Named("checkers.board.size")
+    private Integer size;
 
     @Inject
-    @Named("checkers.board.column")
-    private Integer nbColumns;
-
-    @Inject
-    @Named("checkers.board.pawns_per_user")
-    private Integer nbPawnsPerUser;
+    @Named("checkers.board.pawn_rows")
+    private Integer nbPawnRows;
 
     private Board board;
 
     @Override
     public void init() {
-        this.board = new Board(this.getNbRows(), this.getNbColumns(), this.getNbPawnsPerUser());
+        this.board = new Board(this.getNbRows(), this.getNbColumns(), this.getNbPawnRows());
     }
 
     @Override
@@ -35,13 +31,15 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Override
     public Integer getNbRows() {
-        return nbRows;
+        return size;
     }
 
     @Override
     public Integer getNbColumns() {
-        return nbColumns;
+        return size;
     }
 
-    public Integer getNbPawnsPerUser() { return this.nbPawnsPerUser; }
+    public Integer getNbPawnRows() { return nbPawnRows; }
+
+    public Integer getNbPawnsPerUser() { return getNbPawnRows() * size/2; }
 }

@@ -23,12 +23,12 @@ public class BoardTest {
 
     private int nbColumns = 10;
     private int nbRows = 10;
-    private int nbPawns = 20;
+    private int nbPawnRows = 4;
     private Board board;
 
     @Before
     public void doBefore() throws Exception {
-        this.board = new Board(nbRows, nbColumns, nbPawns);
+        this.board = new Board(nbRows, nbColumns, nbPawnRows);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class BoardTest {
 
     private void isUserCellsOk(User user) {
         assertThat(user.getPawns()).isNotNull();
-        assertThat(user.getPawns().size()).isEqualTo(this.nbPawns);
+        assertThat(user.getPawns().size()).isEqualTo(this.nbPawnRows);
     }
 
     @Test
