@@ -1,5 +1,6 @@
 package fr.dude.isen.model.pawns;
 
+import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.Cell;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public abstract class Pawn {
         this.direction = direction;
     }
 
-    public abstract Move move(Cell cell, List<List<Cell>> cells);
+    public abstract Move move(Cell cell, List<List<Cell>> cells) throws UnauthorizedMoveException;
 
     public ColorPawn getColor() {
         return color;

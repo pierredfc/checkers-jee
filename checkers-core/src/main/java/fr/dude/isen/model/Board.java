@@ -1,5 +1,6 @@
 package fr.dude.isen.model;
 
+import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Move;
@@ -94,17 +95,19 @@ public class Board {
         return this.userBlack;
     }
 
-
     public void movePawn(Pawn pawn, Cell cell) {
-        Move move = pawn.move(cell, cells);
+        try {
+            Move move = pawn.move(cell, cells);
+            Pawn pawnToDelete = move.getPawnToDelete();
+            if (pawnToDelete == null) return;
 
-        Pawn pawnToDelete = move.getPawnToDelete();
-        if (pawnToDelete == null) return;
-
-        if (pawnToDelete.getColor() == ColorPawn.BLACK) {
-            userBlack.removePawn(pawnToDelete);
-        } else {
-            userWhite.removePawn(pawnToDelete);
+            if (pawnToDelete.getColor() == ColorPawn.BLACK) {
+                userBlack.removePawn(pawnToDelete);
+            } else {
+                userWhite.removePawn(pawnToDelete);
+            }
+        } catch (UnauthorizedMoveException e) {
+            e.printStackTrace();// TODO
         }
     }
 }

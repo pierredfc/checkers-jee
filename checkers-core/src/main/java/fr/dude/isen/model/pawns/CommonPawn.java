@@ -1,5 +1,6 @@
 package fr.dude.isen.model.pawns;
 
+import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.Cell;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class CommonPawn extends Pawn {
     }
 
     @Override
-    public Move move(Cell cell, List<List<Cell>> cells) {
+    public Move move(Cell cell, List<List<Cell>> cells) throws UnauthorizedMoveException {
         List<Move> possibleMoves = this.getPossibleMoves(cells);
         for(Move move : possibleMoves) {
             Cell destinationCell = move.getDestination();
@@ -36,6 +37,6 @@ public class CommonPawn extends Pawn {
                 return move;
             }
         }
-        return null;
+        throw new UnauthorizedMoveException(possibleMoves.isEmpty() ? null : possibleMoves);
     }
 }
