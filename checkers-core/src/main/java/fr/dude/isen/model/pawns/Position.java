@@ -45,4 +45,9 @@ public class Position {
         }
         return super.equals(obj);
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder().append("(").append(columnIndex).append(",").append(rowIndex).append(")").toString();
+    }
 }

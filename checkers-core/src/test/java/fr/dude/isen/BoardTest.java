@@ -99,6 +99,7 @@ public class BoardTest {
 
     @Test
     public void canPawnsMoveWell() {
+        logger.info("[BoardTest][canPawnsMoveWell] BEGIN");
         List<List<Cell>> cells = this.board.getCells();
 
         //Centered
@@ -112,14 +113,18 @@ public class BoardTest {
         //Blocked - 0 moves
         Pawn blockedPawn = this.board.getCells().get(0).get(9).getCurrentPawn();
         testPossibleMoves(blockedPawn, 0);
+
+        logger.info("[BoardTest][canPawnsMoveWell] END");
     }
 
     private void testPossibleMoves(Pawn pawn, int nbMoves, Position... positions) {
         List<Move> moves = pawn.getPossibleMoves(this.board.getCells());
         assertThat(moves).isNotNull();
+        logger.info("[BoardTest][canPawnsMoveWell][testPossibleMoves] Pawn at " + pawn.getCell().getPosition().toString() + " has " + moves.size() + " possible move(s).");
         assertThat(moves.size()).isEqualTo(nbMoves);
 
         for(Move move : moves) {
+            logger.info("[BoardTest][canPawnsMoveWell][testPossibleMoves] " + move.getDestination().getPosition());
             Position position = move.getDestination().getPosition();
             assertThat(position).isIn(positions);
         }
@@ -127,8 +132,11 @@ public class BoardTest {
 
     @Test
     public void areKilledPawnsRemoved() {
+        logger.info("[BoardTest][areKilledPawnsRemoved] BEGIN");
         Pawn pawn1 = this.board.getCells().get(1).get(6).getCurrentPawn();
         Pawn pawn2 = this.board.getCells().get(4).get(3).getCurrentPawn();
+
+        this.draw();
 
         move(1,6,2,5, 2, false);
         move(4,3,3,4, 2, false);
@@ -137,13 +145,21 @@ public class BoardTest {
 
         assertThat(pawn2.getCell()).isNull();
         assertThat(pawn1.getCell().getPosition()).isEqualTo(new Position(4,3));
+        logger.info("[BoardTest][areKilledPawnsRemoved] END");
     }
 
     private void move(int col, int row, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
         Pawn pawn = this.board.getCells().get(col).get(row).getCurrentPawn();
         Move move = getMove(pawn, destCol, destRow, nbMoves, hasMandatory);
-        if (move == null) return;
+        if (move == null)
+        {
+            logger.info("[BoardTest][areKilledPawnsRemoved][move] No move possible.");
+            return;
+        }
+        logger.info("[BoardTest][areKilledPawnsRemoved][move] Pawn at " + pawn.getCell().getPosition() + " can go at " + move.getDestination().getPosition());
+
         this.board.movePawn(pawn, move.getDestination());
+        this.draw();
     }
 
     private Move getMove(Pawn pawn, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
@@ -151,7 +167,7 @@ public class BoardTest {
         assertThat(moves.size()).isEqualTo(nbMoves);
 
         for(Move move : moves) {
-                assertThat(move.isMandatory()).isEqualTo(hasMandatory);
+            assertThat(move.isMandatory()).isEqualTo(hasMandatory);
 
             Position position = move.getDestination().getPosition();
             if (position.getRowIndex().equals(destRow) && position.getColumnIndex().equals(destCol)) {
@@ -159,5 +175,21 @@ public class BoardTest {
             }
         }
         return null;
+    }
+
+    private void draw()
+    {
+        int size = this.board.getCells().size();
+
+        for (int row = 0; row < size; row++)
+        {
+            String rowPawns = "";
+            for (int column = 0; column < size; column++)
+            {
+                rowPawns += this.board.getCell(column, row).hasPawn() ? "o" : ".";
+
+            }
+            logger.info(rowPawns);
+        }
     }
 }
