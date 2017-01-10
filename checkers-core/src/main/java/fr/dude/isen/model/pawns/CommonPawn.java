@@ -17,11 +17,22 @@ public class CommonPawn extends Pawn {
     public Move move(Cell cell, List<List<Cell>> cells) {
         List<Move> possibleMoves = this.getPossibleMoves(cells);
         for(Move move : possibleMoves) {
-            if (move.getDestination().equals(cell)) {
-                this.setCell(move.getDestination());
+            Cell destinationCell = move.getDestination();
+            if (destinationCell.equals(cell)) {
+                this.setCell(destinationCell);
                 if (move.hasPawnToDelete()) {
                     move.getPawnToDelete().setCell(null);
                 }
+
+                Integer destinationRowIndex = destinationCell.getPosition().getRowIndex();
+                if (this.getDirection().equals(Direction.UP) && destinationRowIndex.equals(cells.size()-1))
+                {
+                    this.setDirection(Direction.BOTH);
+                }
+                else if (this.getDirection().equals(Direction.DOWN) && destinationRowIndex.equals(0)){
+                    this.setDirection(Direction.BOTH);
+                }
+
                 return move;
             }
         }

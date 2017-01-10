@@ -3,10 +3,7 @@ package fr.dude.isen;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
-import fr.dude.isen.model.pawns.ColorPawn;
-import fr.dude.isen.model.pawns.Move;
-import fr.dude.isen.model.pawns.Pawn;
-import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.pawns.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import fr.dude.isen.model.User;
@@ -37,6 +34,7 @@ public class BoardTest {
 
     @Test
     public void isBoardInitialized() throws Exception {
+        logger.info("[BoardTest][isBoardInitialized] BEGIN");
         assertThat(board.getCells()).isNotNull();
         assertThat(board.getCells().size()).isEqualTo(nbRows);
         for (int i = 0; i < nbRows; i++) {
@@ -44,10 +42,12 @@ public class BoardTest {
         }
 
         logger.info("[BoardTest][isBoardInitialized] Board size =  " + nbRows + "x" + nbColumns);
+        logger.info("[BoardTest][isBoardInitialized] END");
     }
 
     @Test
     public void isBoardColorsOk() throws Exception {
+        logger.info("[BoardTest][isBoardColorsOk] BEGIN");
         List<List<Cell>> cells = board.getCells();
 
         for (int x = 0; x < nbRows; x++) {
@@ -64,12 +64,15 @@ public class BoardTest {
                 assertThat(cell.getColor()).isEqualTo(color);
             }
         }
+        logger.info("[BoardTest][isBoardColorsOk] END");
     }
 
     @Test
     public void isUsersCellsOk() {
+        logger.info("[BoardTest][isUsersCellsOk] BEGIN");
         this.isUserCellsOk(this.board.getUserWhite());
         this.isUserCellsOk(this.board.getUserBlack());
+        logger.info("[BoardTest][isUsersCellsOk] END");
     }
 
     private void isUserCellsOk(User user) {
@@ -79,6 +82,7 @@ public class BoardTest {
 
     @Test
     public void isPawnsWellPlaced() {
+        logger.info("[BoardTest][isPawnsWellPlaced] BEGIN");
         for (int row = 0; row < nbRows; row++)
         {
             for (int column = 0; column < nbColumns; column++)
@@ -96,6 +100,7 @@ public class BoardTest {
             }
             System.out.println();
         }
+        logger.info("[BoardTest][isPawnsWellPlaced] END");
     }
 
     @Test
@@ -149,8 +154,31 @@ public class BoardTest {
         logger.info("[BoardTest][areKilledPawnsRemoved] END");
     }
 
+    @Test
+    public void makeQueen()
+    {
+        logger.info("[BoardTest][makeQueen] BEGIN");
+        move(1,6,0,5,2, false);
+        move(0,3,1,4,1, false);
+        move(2,3,3,4,1, false);
+        move(1,2,0,3,2,false);
+        move(0,1,1,2,1, false);
+        move(0,5,2,3, 1, true);
+        move(2,3,0,1,1,true);
+        move(2,1,1,2,1,false);
+        move(1,0,2,1,1, false);
+        move(0,1,1,0, 1, false);
+
+        Pawn queen = this.board.getCell(1,0).getCurrentPawn();
+
+        assertThat(queen).isNotNull();
+        assertThat(queen.getDirection()).isEqualTo(Direction.BOTH);
+
+        logger.info("[BoardTest][makeQueen] END");
+    }
+
     private void move(int col, int row, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
-        Pawn pawn = this.board.getCells().get(col).get(row).getCurrentPawn();
+        Pawn pawn = this.board.getCell(col, row).getCurrentPawn();
         Move move = getMove(pawn, destCol, destRow, nbMoves, hasMandatory);
         if (move == null)
         {
@@ -188,7 +216,40 @@ public class BoardTest {
             for (int column = 0; column < size; column++)
             {
                 Cell cell = this.board.getCell(column, row);
-                rowPawns += cell.hasPawn() ? (cell.getCurrentPawn().getColor().equals(ColorPawn.BLACK) ? "x" : "o") : ".";
+                Pawn currentPawn = cell.getCurrentPawn();
+
+                if (cell.hasPawn())
+                {
+                    if (currentPawn.getDirection().equals(Direction.BOTH))
+                    {
+                        // Queen
+                        // Not Queen
+                        if (currentPawn.getColor().equals(ColorPawn.BLACK))
+                        {
+                            rowPawns += "X";
+                        }
+                        else
+                        {
+                            rowPawns += "O";
+                        }
+                    }
+                    else
+                    {
+                        // Not Queen
+                        if (currentPawn.getColor().equals(ColorPawn.BLACK))
+                        {
+                            rowPawns += "x";
+                        }
+                        else
+                        {
+                            rowPawns += "o";
+                        }
+                    }
+                }
+                else
+                {
+                    rowPawns += ".";
+                }
             }
 
             logger.info(rowPawns);
