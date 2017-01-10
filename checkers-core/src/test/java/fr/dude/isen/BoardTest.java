@@ -3,6 +3,7 @@ package fr.dude.isen;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.ColorCell;
+import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
@@ -186,9 +187,10 @@ public class BoardTest {
             String rowPawns = "";
             for (int column = 0; column < size; column++)
             {
-                rowPawns += this.board.getCell(column, row).hasPawn() ? "o" : ".";
-
+                Cell cell = this.board.getCell(column, row);
+                rowPawns += cell.hasPawn() ? (cell.getCurrentPawn().getColor().equals(ColorPawn.BLACK) ? "x" : "o") : ".";
             }
+
             logger.info(rowPawns);
         }
     }
