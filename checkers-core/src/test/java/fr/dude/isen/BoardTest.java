@@ -70,7 +70,7 @@ public class BoardTest {
 
     private void isUserCellsOk(User user) {
         assertThat(user.getPawns()).isNotNull();
-        assertThat(user.getPawns().size()).isEqualTo(this.nbPawnRows);
+        assertThat(user.getPawns().size()).isEqualTo(this.nbPawnRows * this.nbColumns/2);
     }
 
     @Test
