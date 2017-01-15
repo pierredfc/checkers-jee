@@ -24,7 +24,7 @@ public abstract class Pawn {
         this.direction = direction;
     }
 
-    public abstract Move move(Cell cell, Cells cells) throws UnauthorizedMoveException;
+    public abstract Move move(Cell destinationCell, Cells cells) throws UnauthorizedMoveException;
 
     public ColorPawn getColor() {
         return color;

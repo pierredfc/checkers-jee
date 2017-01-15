@@ -87,9 +87,9 @@ public class Board {
         return this.userBlack;
     }
 
-    public void movePawn(Pawn pawn, Cell cell) {
+    public void movePawn(Pawn pawn, Cell destinationCell) {
         try {
-            Move move = pawn.move(cell, cells);
+            Move move = this.cells.move(pawn, destinationCell);
             Pawn pawnToDelete = move.getPawnToDelete();
             if (pawnToDelete == null) return;
 

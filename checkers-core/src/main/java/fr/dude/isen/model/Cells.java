@@ -1,5 +1,9 @@
 package fr.dude.isen.model;
 
+import fr.dude.isen.exceptions.UnauthorizedMoveException;
+import fr.dude.isen.model.pawns.Move;
+import fr.dude.isen.model.pawns.Pawn;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,4 +50,7 @@ public class Cells {
         return this.nbRows;
     }
 
+    public Move move(Pawn pawn, Cell destinationCell) throws UnauthorizedMoveException {
+        return pawn.move(destinationCell, this);
+    }
 }

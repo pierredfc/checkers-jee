@@ -18,7 +18,7 @@ public class QueenPawn extends Pawn {
 
 
     @Override
-    public Move move(Cell cell, Cells cells) throws UnauthorizedMoveException {
+    public Move move(Cell destinationCell, Cells cells) throws UnauthorizedMoveException {
         return null;
     }
 }
