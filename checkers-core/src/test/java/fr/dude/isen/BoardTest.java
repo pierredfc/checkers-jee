@@ -1,12 +1,9 @@
 package fr.dude.isen;
 
-import fr.dude.isen.model.Board;
-import fr.dude.isen.model.Cell;
-import fr.dude.isen.model.ColorCell;
+import fr.dude.isen.model.*;
 import fr.dude.isen.model.pawns.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import fr.dude.isen.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,9 +33,9 @@ public class BoardTest {
     public void isBoardInitialized() throws Exception {
         logger.info("[BoardTest][isBoardInitialized] BEGIN");
         assertThat(board.getCells()).isNotNull();
-        assertThat(board.getCells().size()).isEqualTo(nbRows);
+        assertThat(board.getCells().getNbRows()).isEqualTo(nbRows);
         for (int i = 0; i < nbRows; i++) {
-            assertThat(board.getCells().get(i).size()).isEqualTo(nbColumns);
+            assertThat(board.getCells().getColumn(i).size()).isEqualTo(nbColumns);
         }
 
         logger.info("[BoardTest][isBoardInitialized] Board size =  " + nbRows + "x" + nbColumns);
@@ -48,10 +45,10 @@ public class BoardTest {
     @Test
     public void isBoardColorsOk() throws Exception {
         logger.info("[BoardTest][isBoardColorsOk] BEGIN");
-        List<List<Cell>> cells = board.getCells();
+        Cells cells = board.getCells();
 
         for (int x = 0; x < nbRows; x++) {
-            List<Cell> row = cells.get(x);
+            List<Cell> row = cells.getColumn(x);
             for(int y = 0; y < nbColumns; y++) {
                 Cell cell = row.get(y);
                 ColorCell color;
@@ -106,18 +103,18 @@ public class BoardTest {
     @Test
     public void canPawnsMoveWell() {
         logger.info("[BoardTest][canPawnsMoveWell] BEGIN");
-        List<List<Cell>> cells = this.board.getCells();
+        Cells cells = this.board.getCells();
 
         //Centered
-        Pawn centeredPawn = cells.get(5).get(6).getCurrentPawn();
+        Pawn centeredPawn = cells.get(5, 6).getCurrentPawn();
         testPossibleMoves(centeredPawn, 2, new Position(4,5), new Position(6,5));
 
         //Bordered - Only 1 move
-        Pawn borderedPawn = this.board.getCells().get(9).get(6).getCurrentPawn();
+        Pawn borderedPawn = this.board.getCells().get(9,6).getCurrentPawn();
         testPossibleMoves(borderedPawn, 1, new Position(8,5));
 
         //Blocked - 0 moves
-        Pawn blockedPawn = this.board.getCells().get(0).get(9).getCurrentPawn();
+        Pawn blockedPawn = this.board.getCells().get(0,9).getCurrentPawn();
         testPossibleMoves(blockedPawn, 0);
 
         logger.info("[BoardTest][canPawnsMoveWell] END");
@@ -139,8 +136,8 @@ public class BoardTest {
     @Test
     public void areKilledPawnsRemoved() {
         logger.info("[BoardTest][areKilledPawnsRemoved] BEGIN");
-        Pawn pawn1 = this.board.getCells().get(1).get(6).getCurrentPawn();
-        Pawn pawn2 = this.board.getCells().get(4).get(3).getCurrentPawn();
+        Pawn pawn1 = this.board.getCells().get(1, 6).getCurrentPawn();
+        Pawn pawn2 = this.board.getCells().get(4, 3).getCurrentPawn();
 
         this.draw();
 
@@ -208,7 +205,7 @@ public class BoardTest {
 
     private void draw()
     {
-        int size = this.board.getCells().size();
+        int size = this.board.getCells().getNbRows();
 
         for (int row = 0; row < size; row++)
         {

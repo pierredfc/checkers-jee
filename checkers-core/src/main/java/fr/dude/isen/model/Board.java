@@ -15,7 +15,7 @@ import java.util.ListIterator;
  */
 public class Board {
 
-    private List<List<Cell>> cells;
+    private Cells cells;
 
     private User userWhite;
     private User userBlack;
@@ -28,15 +28,7 @@ public class Board {
     }
 
     private void initCells(int nbRows, int nbColumns) {
-        this.cells = new ArrayList<>(nbColumns);
-
-        for (int column = 0; column < nbColumns; column++) {
-            this.cells.add(new ArrayList<>(nbRows));
-
-            for (int row = 0; row < nbRows; row++) {
-                this.cells.get(column).add(new Cell(column, row));
-            }
-        }
+        this.cells = new Cells(nbRows, nbColumns);
     }
 
     private void initUsers(int nbPawns) {
@@ -79,12 +71,12 @@ public class Board {
         }
     }
 
-    public List<List<Cell>> getCells() {
+    public Cells getCells() {
         return this.cells;
     }
 
     public Cell getCell(int columnIndex, int rowIndex) {
-        return this.getCells().get(columnIndex).get(rowIndex);
+        return this.getCells().get(columnIndex, rowIndex);
     }
 
     public User getUserWhite() {

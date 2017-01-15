@@ -2,6 +2,7 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.Cells;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class CommonPawn extends Pawn {
     }
 
     @Override
-    public Move move(Cell cell, List<List<Cell>> cells) throws UnauthorizedMoveException {
+    public Move move(Cell cell, Cells cells) throws UnauthorizedMoveException {
         List<Move> possibleMoves = this.getPossibleMoves(cells);
         for(Move move : possibleMoves) {
             Cell destinationCell = move.getDestination();
@@ -26,7 +27,7 @@ public class CommonPawn extends Pawn {
                 }
 
                 Integer destinationRowIndex = destinationCell.getPosition().getRowIndex();
-                if (this.getDirection().equals(Direction.UP) && destinationRowIndex.equals(cells.size()-1))
+                if (this.getDirection().equals(Direction.UP) && destinationRowIndex.equals(cells.getNbRows()-1))
                 {
                     this.setDirection(Direction.BOTH);
                 }

@@ -2,6 +2,7 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.Cells;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,7 +24,7 @@ public abstract class Pawn {
         this.direction = direction;
     }
 
-    public abstract Move move(Cell cell, List<List<Cell>> cells) throws UnauthorizedMoveException;
+    public abstract Move move(Cell cell, Cells cells) throws UnauthorizedMoveException;
 
     public ColorPawn getColor() {
         return color;
@@ -59,7 +60,7 @@ public abstract class Pawn {
         return cell;
     }
 
-    public List<Move> getPossibleMoves(List<List<Cell>> cells) {
+    public List<Move> getPossibleMoves(Cells cells) {
         Cell current = this.getCell();
         Position position = current.getPosition();
         int col = position.getColumnIndex();
@@ -105,10 +106,10 @@ public abstract class Pawn {
      * @param result true if this move is mandatory
      * @return
      */
-    private boolean tryAddMove(int col, int row, List<List<Cell>> cells, List<Move> result) {
+    private boolean tryAddMove(int col, int row, Cells cells, List<Move> result) {
         boolean isMandatory = false;
         try {
-            Cell cell = cells.get(col).get(row);
+            Cell cell = cells.get(col, row);
             if (!cell.hasPawn()) {
                 result.add(new Move(cell));
             }
@@ -121,7 +122,7 @@ public abstract class Pawn {
                 //col+2 && row+2
                 int col2 = currentCol + (col - currentCol)*2;
                 int row2 = currentRow + (row - currentRow)*2;
-                Cell cell2 = cells.get(col2).get(row2);
+                Cell cell2 = cells.get(col2, row2);
 
                 if (!cell2.hasPawn()) {
                     result.add(new Move(cell2, cell.getCurrentPawn()));

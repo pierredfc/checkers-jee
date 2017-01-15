@@ -2,6 +2,7 @@ package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.Cells;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class QueenPawn extends Pawn {
 
 
     @Override
-    public Move move(Cell cell, List<List<Cell>> cells) throws UnauthorizedMoveException {
+    public Move move(Cell cell, Cells cells) throws UnauthorizedMoveException {
         return null;
     }
 }
