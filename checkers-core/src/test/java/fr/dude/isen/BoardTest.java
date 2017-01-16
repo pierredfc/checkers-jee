@@ -142,10 +142,10 @@ public class BoardTest {
 
         this.draw();
 
-        move(1, 3, 2, 4, 2, false);
-        move(4, 6, 3, 5, 2, false);
-        move(0, 6, 1, 5, 1, false);
-        move(2, 4, 4, 6, 2, true);
+        move(3, 1, 4, 2, 2, false);
+        move(6, 4, 5, 3, 2, false);
+        move(6, 0, 5, 1, 1, false);
+        move(4, 2, 6, 4, 2, true);
 
         assertThat(cell_6_4.getPawn()).isEqualTo(pawn1);
         assertThat(cell_3_1.getPawn()).isNull();
@@ -155,16 +155,16 @@ public class BoardTest {
     @Test
     public void makeQueen() {
         logger.info("[BoardTest][makeQueen] BEGIN");
-        move(1, 3, 0, 4, 2, false);
-        move(0, 6, 1, 5, 1, false);
-        move(2, 6, 3, 5, 1, false);
-        move(1, 7, 0, 6, 2, false);
-        move(0, 8, 1, 7, 1, false);
-        move(0, 4, 2, 6, 1, true);
-        move(2, 6, 0, 8, 1, true);
-        move(2, 8, 1, 7, 1, false);
-        move(1, 9, 2, 8, 1, false);
-        move(0, 8, 1, 9, 1, false);
+        move(3, 1, 4, 0, 2, false);
+        move(6, 0, 5, 1, 1, false);
+        move(6, 2, 5, 3, 1, false);
+        move(7, 1, 6, 0, 2, false);
+        move(8, 0, 7, 1, 1, false);
+        move(4, 0, 6, 2, 1, true);
+        move(6, 2, 8, 0, 1, true);
+        move(8, 2, 7, 1, 1, false);
+        move(9, 1, 8, 2, 1, false);
+        move(8, 0, 9, 1, 1, false);
 
         Pawn queen = this.board.getCell(1, 9).getPawn();
 
@@ -174,7 +174,7 @@ public class BoardTest {
         logger.info("[BoardTest][makeQueen] END");
     }
 
-    private void move(int col, int row, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
+    private void move(int row, int col, int destRow, int destCol, int nbMoves, boolean hasMandatory) {
         Cell pawnCell = this.board.getCell(col, row);
         Move move = getMove(pawnCell, destCol, destRow, nbMoves, hasMandatory);
         if (move == null) {
@@ -205,7 +205,7 @@ public class BoardTest {
     private void draw() {
         int size = this.board.getCells().getNbRows();
 
-        for (int row = 0; row < size; row++) {
+        for (int row = size - 1; row >= 0; row--) {
             String rowPawns = "";
             for (int column = 0; column < size; column++) {
                 Cell cell = this.board.getCell(column, row);
