@@ -3,6 +3,7 @@ package fr.dude.isen;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
+import fr.dude.isen.model.User;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -26,7 +27,8 @@ public class CheckersGameImpl implements CheckersGame {
 
     @Override
     public void run() {
-        this.init();
+        User winner = this.board.launchGame();
+        // TODO gestion vainqueur + rejouer
     }
 
     @Override
@@ -42,4 +44,12 @@ public class CheckersGameImpl implements CheckersGame {
     public Integer getNbPawnRows() { return nbPawnRows; }
 
     public Integer getNbPawnsPerUser() { return getNbPawnRows() * size/2; }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 }

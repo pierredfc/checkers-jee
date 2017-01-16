@@ -1,14 +1,12 @@
 package fr.dude.isen.model;
 
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
-import fr.dude.isen.model.pawns.ColorPawn;
-import fr.dude.isen.model.pawns.Direction;
-import fr.dude.isen.model.pawns.Move;
-import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.pawns.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Scanner;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -19,7 +17,6 @@ public class Board {
 
     private User userWhite;
     private User userBlack;
-
 
     public Board(int nbRows, int nbColumns, int nbPawnRows) {
         this.initCells(nbRows, nbColumns);
@@ -71,12 +68,43 @@ public class Board {
         }
     }
 
-    public Cells getCells() {
+    public User launchGame()
+    {
+        // White start!
+        Scanner sc = new Scanner(System.in);
+        int col = sc.nextInt();
+        int row = sc.nextInt();
+
+        int destinationCol = sc.nextInt();
+        int destinationRow = sc.nextInt();
+
+        sc.close();
+
+        Position begin = new Position(col, row);
+        Position end = new Position(destinationCol, destinationRow);
+
+        System.out.println(begin.toString() + " to " + end.toString());
+
+        Cell beginCell = this.getCell(begin);
+        Cell endCell = this.getCell(end);
+
+        movePawn(beginCell.getCurrentPawn(), endCell);
+
+        return null;
+    }
+
+    public Cells getCells()
+    {
         return this.cells;
     }
 
     public Cell getCell(int columnIndex, int rowIndex) {
         return this.getCells().get(columnIndex, rowIndex);
+    }
+
+    public Cell getCell(Position position)
+    {
+        return this.getCells().get(position.getColumnIndex(), position.getRowIndex());
     }
 
     public User getUserWhite() {
