@@ -18,7 +18,7 @@ public class User {
     public User(int nbPawns, ColorPawn colorPawn, Direction direction) {
         this.pawns = new ArrayList<>(nbPawns);
 
-        for(int i = 0; i < nbPawns; i++) {
+        for (int i = 0; i < nbPawns; i++) {
             this.pawns.add(new CommonPawn(colorPawn, direction));
         }
     }
@@ -30,4 +30,5 @@ public class User {
     public void removePawn(Pawn pawnToDelete) {
         this.pawns.remove(pawnToDelete);
     }
+
 }

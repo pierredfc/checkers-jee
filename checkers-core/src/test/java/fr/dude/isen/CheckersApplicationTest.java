@@ -22,7 +22,7 @@ public class CheckersApplicationTest {
     public void doBefore() {
         Injector injector = Guice.createInjector(new CheckersModule());
         game = injector.getInstance(CheckersGameImpl.class);
-        game.run();
+        game.init();
     }
 
     @Test

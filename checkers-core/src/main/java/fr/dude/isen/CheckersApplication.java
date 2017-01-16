@@ -13,6 +13,8 @@ public class CheckersApplication {
         Injector injector = Guice.createInjector(new CheckersModule());
         CheckersGame game = injector.getInstance(CheckersGameImpl.class);
 
+        game.init();
+
         game.run();
     }
 }

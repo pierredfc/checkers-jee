@@ -73,7 +73,14 @@ public class BoardTest {
 
     private void isUserCellsOk(User user) {
         assertThat(user.getPawns()).isNotNull();
-        assertThat(user.getPawns().size()).isEqualTo(this.nbPawnRows * this.nbColumns/2);
+        assertThat(user.getPawns().size()).isEqualTo(this.nbPawnRows * this.nbColumns / 2);
+    }
+
+    @Test
+    public void checkBottomLeftColorCell()
+    {
+        // Must be dark
+        assertThat(this.board.getCell(0,this.nbRows-1).getColor()).isEqualTo(ColorCell.DARK);
     }
 
     @Test
