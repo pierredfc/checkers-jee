@@ -11,5 +11,19 @@
 
     <artifactId>checkers-web</artifactId>
 
+    <dependencies>
+    <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+    </dependency>
+
+    </dependencies>
+
+
 
 </project>
