@@ -5,7 +5,6 @@ import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.Cells;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -71,23 +70,24 @@ public abstract class Pawn {
         Direction direction = getDirection();
         boolean up = direction == Direction.UP;
         boolean down = direction == Direction.DOWN;
-        boolean both = direction == Direction.BOTH;
+        boolean queen = direction == Direction.QUEEN;
+        int step = queen ? -1 : 1;
 
         boolean hasMandatoryMoves = false;
 
-        if (up || both) {
-            hasMandatoryMoves = tryAddMove(col-1, row+1, cells, result)  || hasMandatoryMoves;
-            hasMandatoryMoves = tryAddMove(col+1, row+1, cells, result) || hasMandatoryMoves;
+        if (up || queen) {
+            hasMandatoryMoves = tryAddMove(new Position(-1, 1), step, cells, result) || hasMandatoryMoves;
+            hasMandatoryMoves = tryAddMove(new Position(1, 1), step, cells, result) || hasMandatoryMoves;
         }
 
-        if (down || both) {
-            hasMandatoryMoves = tryAddMove(col-1, row-1, cells, result)  || hasMandatoryMoves;
-            hasMandatoryMoves = tryAddMove(col+1, row-1, cells, result) || hasMandatoryMoves;
+        if (down || queen) {
+            hasMandatoryMoves = tryAddMove(new Position(-1, -1), step, cells, result) || hasMandatoryMoves;
+            hasMandatoryMoves = tryAddMove(new Position(1, -1), step, cells, result) || hasMandatoryMoves;
         }
 
         if (hasMandatoryMoves) {
             List<Move> mandatoryMoves = new ArrayList<>(2);
-            for(Move move : result) {
+            for (Move move : result) {
                 if (move.isMandatory()) {
                     mandatoryMoves.add(move);
                 }
@@ -99,40 +99,45 @@ public abstract class Pawn {
     }
 
     /**
-     *
-     * @param col
-     * @param row
+     * @param direction the direction to go to
+     * @param nbSteps the maximum number of steps a pawn can move
      * @param cells
      * @param result true if this move is mandatory
      * @return
      */
-    private boolean tryAddMove(int col, int row, Cells cells, List<Move> result) {
+    private boolean tryAddMove(Position direction, int nbSteps, Cells cells, List<Move> result) {
         boolean isMandatory = false;
-        try {
-            Cell cell = cells.get(col, row);
-            if (!cell.hasPawn()) {
-                result.add(new Move(cell));
-            }
-            else if (cell.hasOpponentPawn(this)) {
-                //Check for 2-step cell
-                Position current = this.getPosition();
-                int currentCol = current.getColumnIndex();
-                int currentRow = current.getRowIndex();
+        int step = 1;
+        int isPreviousPawn = 0;
+        int isPawn = 0;
+        Pawn pawnToDelete = null;
 
-                //col+2 && row+2
-                int col2 = currentCol + (col - currentCol)*2;
-                int row2 = currentRow + (row - currentRow)*2;
-                Cell cell2 = cells.get(col2, row2);
+        Cell cell;
 
-                if (!cell2.hasPawn()) {
-                    result.add(new Move(cell2, cell.getCurrentPawn()));
-                    isMandatory = true;
+        do {
+            cell = cells.translate(this.getCell(), direction, step + isPawn);
+            if (cell != null) {
+                if (!cell.hasPawn()) {
+                    result.add(new Move(cell, pawnToDelete));
+                    isMandatory = pawnToDelete != null;
+                    if (step != -1) step++; //Limited steps
+                    isPreviousPawn = 0;
+                }
+                else if (cell.hasOpponentPawn(this)){
+                    if (isPreviousPawn == 1) {
+                        break;
+                    }
+                    isPreviousPawn = 1;
+                    isPawn = 1;
+                    pawnToDelete = cell.getCurrentPawn();
+                }
+                else { //Player pawn
+                    cell = null; //Stop
                 }
             }
-        }
-        catch(IndexOutOfBoundsException ex) {
-            //
-        }
+
+        } while(cell != null && (step <= nbSteps || step == -1));
+
         return isMandatory;
     }
 }

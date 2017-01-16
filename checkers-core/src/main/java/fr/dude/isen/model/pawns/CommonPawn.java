@@ -29,10 +29,10 @@ public class CommonPawn extends Pawn {
                 Integer destinationRowIndex = destinationCell.getPosition().getRowIndex();
                 if (this.getDirection().equals(Direction.UP) && destinationRowIndex.equals(cells.getNbRows()-1))
                 {
-                    this.setDirection(Direction.BOTH);
+                    this.setDirection(Direction.QUEEN);
                 }
                 else if (this.getDirection().equals(Direction.DOWN) && destinationRowIndex.equals(0)){
-                    this.setDirection(Direction.BOTH);
+                    this.setDirection(Direction.QUEEN);
                 }
 
                 return move;

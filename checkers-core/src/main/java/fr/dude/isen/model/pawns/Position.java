@@ -50,4 +50,8 @@ public class Position {
     public String toString() {
         return new StringBuilder().append("(").append(columnIndex).append(",").append(rowIndex).append(")").toString();
     }
+
+    public Position translate(Position direction, int step) {
+        return new Position(this.columnIndex + direction.columnIndex*step, this.rowIndex + direction.rowIndex*step);
+    }
 }

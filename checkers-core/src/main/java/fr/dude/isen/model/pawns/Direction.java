@@ -6,5 +6,5 @@ package fr.dude.isen.model.pawns;
 public enum Direction {
     UP,
     DOWN,
-    BOTH
+    QUEEN
 }

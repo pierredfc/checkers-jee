@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -169,7 +168,7 @@ public class BoardTest {
         Pawn queen = this.board.getCell(1,0).getCurrentPawn();
 
         assertThat(queen).isNotNull();
-        assertThat(queen.getDirection()).isEqualTo(Direction.BOTH);
+        assertThat(queen.getDirection()).isEqualTo(Direction.QUEEN);
 
         logger.info("[BoardTest][makeQueen] END");
     }
@@ -217,7 +216,7 @@ public class BoardTest {
 
                 if (cell.hasPawn())
                 {
-                    if (currentPawn.getDirection().equals(Direction.BOTH))
+                    if (currentPawn.getDirection().equals(Direction.QUEEN))
                     {
                         // Queen
                         // Not Queen

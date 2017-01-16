@@ -3,6 +3,7 @@ package fr.dude.isen.model;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.pawns.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,16 @@ public class Cells {
         return this.cells.get(col);
     }
 
+    public Cell get(Position position) {
+        return get(position.getColumnIndex(), position.getRowIndex());
+    }
+
     public Cell get(int col, int row) {
-        return this.getColumn(col).get(row);
+        try  {
+            return this.getColumn(col).get(row);
+        } catch(IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
 
     public int getNbColumns() {
@@ -52,5 +61,9 @@ public class Cells {
 
     public Move move(Pawn pawn, Cell destinationCell) throws UnauthorizedMoveException {
         return pawn.move(destinationCell, this);
+    }
+
+    public Cell translate(Cell cell, Position direction, int step) {
+        return this.get(cell.getPosition().translate(direction, step));
     }
 }
