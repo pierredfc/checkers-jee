@@ -8,27 +8,27 @@ import fr.dude.isen.model.Cell;
 public class Move {
 
     private Cell destination;
-    private Pawn pawnToDelete;
+    private Cell pawnCellToDelete;
 
     public Move(Cell destination) {
         this.destination = destination;
     }
 
-    public Move(Cell destination, Pawn pawnToDelete) {
+    public Move(Cell destination, Cell pawnCellToDelete) {
         this(destination);
-        this.pawnToDelete = pawnToDelete;
+        this.pawnCellToDelete = pawnCellToDelete;
     }
 
     public Cell getDestination() {
         return destination;
     }
 
-    public Pawn getPawnToDelete() {
-        return pawnToDelete;
+    public Cell getPawnCellToDelete() {
+        return pawnCellToDelete;
     }
 
     public boolean hasPawnToDelete() {
-        return this.pawnToDelete != null;
+        return this.pawnCellToDelete != null && this.pawnCellToDelete.getPawn() != null;
     }
 
     public boolean isMandatory() {

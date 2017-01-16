@@ -1,34 +1,46 @@
 package fr.dude.isen.model;
 
 import fr.dude.isen.model.pawns.ColorPawn;
-import fr.dude.isen.model.pawns.CommonPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Clement on 09/01/2017.
  */
 public class User {
+    private final Direction pawnDirection;
+    private final int queenRow;
+    private int nbPawns;
+    private ColorPawn colorPawn;
 
-    private List<Pawn> pawns;
-
-    public User(int nbPawns, ColorPawn colorPawn, Direction direction) {
-        this.pawns = new ArrayList<>(nbPawns);
-
-        for (int i = 0; i < nbPawns; i++) {
-            this.pawns.add(new CommonPawn(colorPawn, direction));
-        }
+    public User(int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
+        this.nbPawns = nbPawns;
+        this.colorPawn = colorPawn;
+        this.pawnDirection = pawnDirection;
+        this.queenRow = queenRow;
     }
 
-    public List<Pawn> getPawns() {
-        return pawns;
+    public int getNbPawns() {
+        return nbPawns;
     }
 
-    public void removePawn(Pawn pawnToDelete) {
-        this.pawns.remove(pawnToDelete);
+    public void removePawn(Pawn pawn) {
+        this.nbPawns--;
     }
 
+    public Direction getPawnDirection() {
+        return pawnDirection;
+    }
+
+    public int getQueenRow() {
+        return queenRow;
+    }
+
+    public ColorPawn getColorPawn() {
+        return colorPawn;
+    }
+
+    public Pawn newPawn() {
+        return new Pawn(colorPawn, pawnDirection);
+    }
 }

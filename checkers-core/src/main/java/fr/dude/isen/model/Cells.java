@@ -1,8 +1,5 @@
 package fr.dude.isen.model;
 
-import fr.dude.isen.exceptions.UnauthorizedMoveException;
-import fr.dude.isen.model.pawns.Move;
-import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 
 import java.util.ArrayList;
@@ -22,30 +19,30 @@ public class Cells {
         this.nbRows = nbRows;
         this.nbColumns = nbColumns;
 
-        cells = new ArrayList<>(nbColumns);
+        cells = new ArrayList<>(nbRows);
 
-        for (int column = 0; column < nbColumns; column++) {
-            this.cells.add(new ArrayList<>(nbRows));
-
-            for (int row = 0; row < nbRows; row++) {
-                this.cells.get(column).add(new Cell(column, row));
+        for (int row = 0; row < nbRows; row++) {
+            List<Cell> rowArray = new ArrayList<>(nbColumns);
+            for(int column = 0; column < nbColumns; column++) {
+                rowArray.add(new Cell(column, this.getLastRowIndex() - row));
             }
+            this.cells.add(rowArray);
         }
     }
 
 
 
-    public List<Cell> getColumn(int col) {
-        return this.cells.get(col);
+    public List<Cell> getRow(int row) {
+        return this.cells.get(row);
     }
 
     public Cell get(Position position) {
-        return get(position.getColumnIndex(), position.getRowIndex());
+        return get(position.getRow(), position.getColumn());
     }
 
-    public Cell get(int col, int row) {
+    public Cell get(int row, int col) {
         try  {
-            return this.getColumn(col).get(row);
+            return this.getRow(this.getLastRowIndex() - row).get(col);
         } catch(IndexOutOfBoundsException ex) {
             return null;
         }
@@ -59,8 +56,8 @@ public class Cells {
         return this.nbRows;
     }
 
-    public Move move(Pawn pawn, Cell destinationCell) throws UnauthorizedMoveException {
-        return pawn.move(destinationCell, this);
+    public int getLastRowIndex() {
+        return this.nbRows - 1;
     }
 
     public Cell translate(Cell cell, Position direction, int step) {

@@ -8,50 +8,50 @@ public class Position {
     /**
      * Indicates column index
      */
-    private Integer columnIndex;
+    private Integer column;
 
     /**
      * Indicates row index
      */
-    private Integer rowIndex;
+    private Integer row;
 
-    public Position(int columnIndex, int rowIndex)
+    public Position(int rowIndex, int columnIndex)
     {
-        this.columnIndex = columnIndex;
-        this.rowIndex = rowIndex;
+        this.column = columnIndex;
+        this.row = rowIndex;
     }
 
-    public Integer getColumnIndex() {
-        return columnIndex;
+    public Integer getColumn() {
+        return column;
     }
 
-    public void setColumnIndex(Integer columnIndex) {
-        this.columnIndex = columnIndex;
+    public void setColumn(Integer column) {
+        this.column = column;
     }
 
-    public Integer getRowIndex() {
-        return rowIndex;
+    public Integer getRow() {
+        return row;
     }
 
-    public void setRowIndex(Integer rowIndex) {
-        this.rowIndex = rowIndex;
+    public void setRow(Integer row) {
+        this.row = row;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Position) {
             Position other = (Position) obj;
-            return other.getColumnIndex().equals(this.getColumnIndex()) && other.getRowIndex().equals(this.getRowIndex());
+            return other.getColumn().equals(this.getColumn()) && other.getRow().equals(this.getRow());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return new StringBuilder().append("(").append(columnIndex).append(",").append(rowIndex).append(")").toString();
+        return new StringBuilder().append("(").append(column).append(",").append(row).append(")").toString();
     }
 
     public Position translate(Position direction, int step) {
-        return new Position(this.columnIndex + direction.columnIndex*step, this.rowIndex + direction.rowIndex*step);
+        return new Position(this.row + direction.row *step, this.column + direction.column *step);
     }
 }

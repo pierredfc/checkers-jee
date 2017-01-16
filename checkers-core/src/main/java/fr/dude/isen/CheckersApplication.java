@@ -9,12 +9,15 @@ import com.google.inject.Injector;
 public class CheckersApplication {
 
     public static void main(String args[]) {
-
-        Injector injector = Guice.createInjector(new CheckersModule());
-        CheckersGame game = injector.getInstance(CheckersGameImpl.class);
-
+        CheckersGame game = launch();
         game.init();
-
         game.run();
+    }
+
+    public static CheckersGame launch() {
+        Injector injector = Guice.createInjector(new CheckersModule());
+        return injector.getInstance(CheckersGameImpl.class);
+
+
     }
 }

@@ -3,8 +3,6 @@ package fr.dude.isen.model;
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 
-import java.util.List;
-
 /**
  * Created by pierredfc on 09/01/2017.
  */
@@ -14,27 +12,27 @@ public class Cell {
 
     private Position position;
 
-    private Pawn currentPawn;
+    private Pawn pawn;
 
     public Cell(int column, int row) {
-        this.position = new Position(column, row);
-        this.color = (((row + (column % 2 == 0 ? 0 : 1)) % 2) == 0) ? ColorCell.LIGHT : ColorCell.DARK;
+        this.position = new Position(row, column);
+        this.color = (((row + (column % 2 == 0 ? 0 : 1)) % 2) == 0) ? ColorCell.DARK : ColorCell.LIGHT;
     }
 
     public boolean hasPawn() {
-        return this.currentPawn != null;
+        return this.pawn != null;
     }
 
     public boolean hasOpponentPawn(Pawn other) {
-        return hasPawn() && getCurrentPawn().getColor() != other.getColor();
+        return hasPawn() && getPawn().getColor() != other.getColor();
     }
 
-    public Pawn getCurrentPawn() {
-        return currentPawn;
+    public Pawn getPawn() {
+        return pawn;
     }
 
-    public void setCurrentPawn(Pawn currentPawn) {
-        this.currentPawn = currentPawn;
+    public void setPawn(Pawn pawn) {
+        this.pawn = pawn;
     }
 
     public ColorCell getColor() {
