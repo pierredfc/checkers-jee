@@ -13,14 +13,14 @@ public class MoveResult {
     private final Position destination;
     private final Position kill;
     private final boolean becomesQueen;
-    private final boolean nextUser;
+    private final ColorPawn nextUser;
 
 
-    public MoveResult(Cell origin, Move move, boolean nextUser, boolean becomesQueen) {
+    public MoveResult(Cell origin, Move move, ColorPawn nextUser, boolean becomesQueen) {
         this(origin, move.getDestination(), move.getPawnCellToDelete(), nextUser, becomesQueen);
     }
 
-    public MoveResult(Cell origin, Cell destination, Cell kill, boolean nextUser, boolean becomesQueen) {
+    public MoveResult(Cell origin, Cell destination, Cell kill, ColorPawn nextUser, boolean becomesQueen) {
         this.origin = origin.getPosition();
         this.destination = destination.getPosition();
         this.kill = kill != null ? kill.getPosition() : null;
@@ -44,7 +44,7 @@ public class MoveResult {
         return becomesQueen;
     }
 
-    public boolean getNextUser() {
+    public ColorPawn getNextUser() {
         return nextUser;
     }
 }

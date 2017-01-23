@@ -15,6 +15,8 @@ public class Board implements Serializable {
     private Cells cells;
     private BoardManager boardManager;
 
+    private ColorPawn nextUser = Math.random() < 0.5 ? ColorPawn.WHITE : ColorPawn.BLACK;
+
     private User userWhite;
     private User userBlack;
 
@@ -32,6 +34,8 @@ public class Board implements Serializable {
     private void initUsers(int nbPawns) {
         this.userWhite = new User(nbPawns, ColorPawn.WHITE, Direction.DOWN, 0);
         this.userBlack = new User(nbPawns, ColorPawn.BLACK, Direction.UP, this.cells.getLastRowIndex());
+        this.userWhite.setOpponent(userBlack);
+        this.userBlack.setOpponent(userWhite);
     }
 
     private void initPawns(int nbPawnRows) {
@@ -99,7 +103,7 @@ public class Board implements Serializable {
             Move move = this.boardManager.move(origin, destination);
             checkPawnToDelete(move);
             boolean becomesQueen = checkTransformToQueen(move);
-            boolean nextUser = getNextUser(move);
+            this.nextUser = getNextUser(move) ? user.getColorPawn() : user.findOpponentColor();
             return new MoveResult(origin, move,  nextUser, becomesQueen);
         } catch (UnauthorizedMoveException e)
         {
@@ -157,5 +161,13 @@ public class Board implements Serializable {
 
     public void setUserBlack(User userBlack) {
         this.userBlack = userBlack;
+    }
+
+    public ColorPawn getNextUser() {
+        return nextUser;
+    }
+
+    public void setNextUser(ColorPawn nextUser) {
+        this.nextUser = nextUser;
     }
 }
