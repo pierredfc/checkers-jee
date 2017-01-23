@@ -17,20 +17,8 @@ import java.util.StringJoiner;
 /**
  * Created by Clement on 16/01/2017.
  */
-@Path("hello")
-public class HelloWorldService {
-
-    private class Student {
-        public String name = "Hello";
-        public String firstname = "World";
-    }
-
-    @GET
-    @Path("/test")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Student hello() {
-        return new Student();
-    }
+@Path("checkers")
+public class CheckersService {
 
     @GET
     @Path("/list")
@@ -43,7 +31,7 @@ public class HelloWorldService {
     }
 
     @GET
-    @Path("/game")
+    @Path("/new")
     @Produces(MediaType.APPLICATION_JSON)
     public CheckersGameImpl createGame() {
         CheckersGame game = CheckersApplication.launch();
