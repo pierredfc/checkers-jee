@@ -41,6 +41,27 @@
             <version>2.25</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.owlike</groupId>
+            <artifactId>genson</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <scope>2.25</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>fr.dude.isen</groupId>
+            <artifactId>checkers-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 
