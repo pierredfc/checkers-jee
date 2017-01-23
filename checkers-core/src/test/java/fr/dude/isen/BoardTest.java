@@ -85,7 +85,7 @@ public class BoardTest {
         logger.info("[BoardTest][isPawnsWellPlaced] BEGIN");
         for (int row = 0; row < nbRows; row++) {
             for (int column = 0; column < nbColumns; column++) {
-                Cell currentCell = this.board.getCell(column, row);
+                Cell currentCell = this.board.getCell(row, column);
                 Pawn currentPawn = currentCell.getPawn();
 
                 if (currentPawn != null) {
@@ -166,7 +166,7 @@ public class BoardTest {
         move(9, 1, 8, 2, 1, false);
         move(8, 0, 9, 1, 1, false);
 
-        Pawn queen = this.board.getCell(1, 9).getPawn();
+        Pawn queen = this.board.getCell(9, 1).getPawn();
 
         assertThat(queen).isNotNull();
         assertThat(queen.getDirection()).isEqualTo(Direction.QUEEN);
@@ -175,7 +175,7 @@ public class BoardTest {
     }
 
     private void move(int row, int col, int destRow, int destCol, int nbMoves, boolean hasMandatory) {
-        Cell pawnCell = this.board.getCell(col, row);
+        Cell pawnCell = this.board.getCell(row, col);
         Move move = getMove(pawnCell, destCol, destRow, nbMoves, hasMandatory);
         if (move == null) {
             logger.info("[BoardTest][areKilledPawnsRemoved][move] No move possible.");
@@ -208,7 +208,7 @@ public class BoardTest {
         for (int row = size - 1; row >= 0; row--) {
             String rowPawns = "";
             for (int column = 0; column < size; column++) {
-                Cell cell = this.board.getCell(column, row);
+                Cell cell = this.board.getCell(row, column);
                 Pawn currentPawn = cell.getPawn();
 
                 if (cell.hasPawn()) {

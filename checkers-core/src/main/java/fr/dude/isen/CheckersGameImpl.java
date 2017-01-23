@@ -3,7 +3,9 @@ package fr.dude.isen;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
+import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.User;
+import fr.dude.isen.model.pawns.Position;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -29,6 +31,11 @@ public class CheckersGameImpl implements CheckersGame {
     public void run() {
         User winner = this.board.launchGame();
         // TODO gestion vainqueur + rejouer
+    }
+
+    @Override
+    public void play(Position init, Position destination) {
+        this.board.play(init, destination);
     }
 
     @Override

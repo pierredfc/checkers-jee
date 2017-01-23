@@ -99,6 +99,18 @@ public class Board {
         return this.userBlack;
     }
 
+
+    public void play(Position origin, Position destination)
+    {
+        final Cell originCell = getCell(origin.getRow(), origin.getColumn());
+        final Cell destinationCell = getCell(destination.getRow(), destination.getColumn());
+
+        if (originCell.hasPawn())
+        {
+            this.movePawn(originCell, destinationCell);
+        }
+    }
+
     public void movePawn(Cell origin, Cell destination) {
         try {
             Move move = this.boardManager.move(origin, destination);
@@ -134,7 +146,7 @@ public class Board {
         }
     }
 
-    public Cell getCell(int col, int row) {
+    public Cell getCell(int row, int col) {
         return this.cells.get(row, col);
     }
 
