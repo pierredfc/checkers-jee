@@ -9,9 +9,10 @@ import fr.dude.isen.model.pawns.Position;
 public interface CheckersGame {
 
     void init();
-    void run();
 
     void play(Position init, Position destination);
+
+    Cell getCell(int row, int column);
 
     Integer getNbRows();
     Integer getNbColumns();

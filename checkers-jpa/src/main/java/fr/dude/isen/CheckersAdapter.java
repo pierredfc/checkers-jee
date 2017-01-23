@@ -1,5 +1,7 @@
 package fr.dude.isen;
 
+import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Position;
 
 /**
@@ -17,7 +19,8 @@ public class CheckersAdapter implements CheckersGame  {
     {
         this.dao = dao;
         this.game = game;
-        this.coreGame = new CheckersGameImpl();
+        this.coreGame = CheckersApplication.launch();
+        this.coreGame.init();
 
         for (Turn turn : game.getTurns()) {
             this.coreGame.play(turn.getInitPosition(), turn.getDestination());
@@ -26,17 +29,25 @@ public class CheckersAdapter implements CheckersGame  {
 
     @Override
     public void init() {
-
-    }
-
-    @Override
-    public void run() {
-
+        this.coreGame.init();
     }
 
     @Override
     public void play(Position init, Position destination) {
+        this.coreGame.play(init, destination);
+        this.game.getTurns().add(new Turn(this.game, init, destination));
+        this.switchTurn();
+        dao.save(game);
+    }
 
+    @Override
+    public Cell getCell(int row, int column) {
+        return this.coreGame.getCell(row, column);
+    }
+
+    private void switchTurn()
+    {
+        game.setCurrentTurn(game.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
     }
 
     @Override

@@ -18,8 +18,6 @@ public class Turn {
     @ManyToOne
     Game game;
 
-    private String colorPawn;
-
     @Column(name="initRow")
     private int initRow;
 
@@ -36,18 +34,14 @@ public class Turn {
 
     }
 
-    public Turn(Game game, ColorPawn color, Position init, Position dest) {
+    public Turn(Game game, Position init, Position dest) {
         this.game = game;
-        this.colorPawn = color.toString();
         this.initRow = init.getRow();
         this.initColumn = init.getColumn();
         this.destRow = dest.getRow();
         this.destColumn = dest.getColumn();
     }
 
-    public ColorPawn getColorPawn() {
-        return ColorPawn.valueOf(colorPawn);
-    }
 
     public Position getInitPosition() {
         return new Position(initRow, initColumn);

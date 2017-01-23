@@ -63,30 +63,6 @@ public class Board {
         }
     }
 
-    public User launchGame() {
-        // White start!
-        Scanner sc = new Scanner(System.in);
-        int col = sc.nextInt();
-        int row = sc.nextInt();
-
-        int destinationCol = sc.nextInt();
-        int destinationRow = sc.nextInt();
-
-        sc.close();
-
-        Position begin = new Position(row, col);
-        Position end = new Position(destinationRow, destinationCol);
-
-        System.out.println(begin.toString() + " to " + end.toString());
-
-        Cell beginCell = this.cells.get(begin);
-        Cell endCell = this.cells.get(end);
-
-        movePawn(beginCell, endCell);
-
-        return null;
-    }
-
     public Cells getCells() {
         return this.cells;
     }
