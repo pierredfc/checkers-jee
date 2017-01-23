@@ -171,6 +171,13 @@ public class BoardTest {
         assertThat(queen).isNotNull();
         assertThat(queen.getDirection()).isEqualTo(Direction.QUEEN);
 
+        //9:1 --> 8:0
+        //8:0 --> 6:2
+        move(9,1,8,0,1,false);
+        move(8,0,6,2,1,true);
+
+
+
         logger.info("[BoardTest][makeQueen] END");
     }
 
