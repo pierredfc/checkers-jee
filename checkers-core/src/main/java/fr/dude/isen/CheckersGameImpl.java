@@ -10,10 +10,12 @@ import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 
+import java.io.Serializable;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
-public class CheckersGameImpl implements CheckersGame {
+public class CheckersGameImpl implements CheckersGame, Serializable {
 
     @Inject
     @Named("checkers.board.size")

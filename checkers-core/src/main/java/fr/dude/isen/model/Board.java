@@ -3,12 +3,13 @@ package fr.dude.isen.model;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.*;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
  * Created by pierredfc on 09/01/2017.
  */
-public class Board {
+public class Board implements Serializable {
 
     private Cells cells;
     private BoardManager boardManager;
@@ -126,7 +127,20 @@ public class Board {
         return this.cells.get(row, col);
     }
 
+
     public BoardManager getBoardManager() {
         return boardManager;
+    }
+
+    public void setCells(Cells cells) {
+        this.cells = cells;
+    }
+
+    public void setUserWhite(User userWhite) {
+        this.userWhite = userWhite;
+    }
+
+    public void setUserBlack(User userBlack) {
+        this.userBlack = userBlack;
     }
 }

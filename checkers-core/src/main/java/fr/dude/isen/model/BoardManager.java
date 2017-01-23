@@ -134,7 +134,7 @@ public class BoardManager {
                 }
             }
 
-        } while (cell != null && (step <= nbSteps || step == -1));
+        } while (cell != null && (step <= nbSteps || nbSteps == -1));
 
         return isMandatory;
     }

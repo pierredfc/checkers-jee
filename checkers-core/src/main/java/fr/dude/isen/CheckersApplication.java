@@ -14,6 +14,7 @@ public class CheckersApplication {
     }
 
     public static CheckersGame launch() {
+
         Injector injector = Guice.createInjector(new CheckersModule());
         return injector.getInstance(CheckersGameImpl.class);
     }
