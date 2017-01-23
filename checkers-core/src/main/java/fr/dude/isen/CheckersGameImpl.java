@@ -3,7 +3,12 @@ package fr.dude.isen;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
+import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.User;
+import fr.dude.isen.model.pawns.ColorPawn;
+import fr.dude.isen.model.pawns.Direction;
+import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.pawns.Position;
 
 import java.io.Serializable;
 
@@ -28,9 +33,13 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
     }
 
     @Override
-    public void run() {
-        User winner = this.board.launchGame();
-        // TODO gestion vainqueur + rejouer
+    public void play(Position init, Position destination) {
+        this.board.play(init, destination);
+    }
+
+    @Override
+    public Cell getCell(int row, int column) {
+        return this.board.getCell(row, column);
     }
 
     @Override

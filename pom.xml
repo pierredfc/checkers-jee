@@ -19,6 +19,7 @@
 
   <modules>
     <module>checkers-core</module>
+    <module>checkers-jpa</module>
   </modules>
 
   <build>

@@ -11,7 +11,6 @@ public class CheckersApplication {
     public static void main(String args[]) {
         CheckersGame game = launch();
         game.init();
-        game.run();
     }
 
     public static CheckersGame launch() {

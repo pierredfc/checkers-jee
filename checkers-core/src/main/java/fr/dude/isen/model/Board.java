@@ -64,30 +64,6 @@ public class Board implements Serializable {
         }
     }
 
-    public User launchGame() {
-        // White start!
-        Scanner sc = new Scanner(System.in);
-        int col = sc.nextInt();
-        int row = sc.nextInt();
-
-        int destinationCol = sc.nextInt();
-        int destinationRow = sc.nextInt();
-
-        sc.close();
-
-        Position begin = new Position(row, col);
-        Position end = new Position(destinationRow, destinationCol);
-
-        System.out.println(begin.toString() + " to " + end.toString());
-
-        Cell beginCell = this.cells.get(begin);
-        Cell endCell = this.cells.get(end);
-
-        movePawn(beginCell, endCell);
-
-        return null;
-    }
-
     public Cells getCells() {
         return this.cells;
     }
@@ -98,6 +74,18 @@ public class Board implements Serializable {
 
     public User getUserBlack() {
         return this.userBlack;
+    }
+
+
+    public void play(Position origin, Position destination)
+    {
+        final Cell originCell = getCell(origin.getRow(), origin.getColumn());
+        final Cell destinationCell = getCell(destination.getRow(), destination.getColumn());
+
+        if (originCell.hasPawn())
+        {
+            this.movePawn(originCell, destinationCell);
+        }
     }
 
     public void movePawn(Cell origin, Cell destination) {
@@ -135,7 +123,7 @@ public class Board implements Serializable {
         }
     }
 
-    public Cell getCell(int col, int row) {
+    public Cell getCell(int row, int col) {
         return this.cells.get(row, col);
     }
 
