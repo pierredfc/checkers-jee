@@ -15,7 +15,7 @@ public class Board implements Serializable {
     private Cells cells;
     private BoardManager boardManager;
 
-    private ColorPawn nextUser = Math.random() < 0.5 ? ColorPawn.WHITE : ColorPawn.BLACK;
+    private ColorPawn nextUser = ColorPawn.WHITE;
 
     private User userWhite;
     private User userBlack;
@@ -90,7 +90,7 @@ public class Board implements Serializable {
     }
 
     public MoveResult play(Cell origin, Cell destination) {
-        if (origin.hasPawn())
+        if (origin.hasPawn() && origin.getPawn().getColor() == this.nextUser)
         {
             User user = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getUserBlack() : this.getUserWhite();
             return this.movePawn(user, origin, destination);
