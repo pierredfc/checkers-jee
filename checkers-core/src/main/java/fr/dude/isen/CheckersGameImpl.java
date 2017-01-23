@@ -5,10 +5,12 @@ import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.User;
 
+import java.io.Serializable;
+
 /**
  * Created by pierredfc on 09/01/2017.
  */
-public class CheckersGameImpl implements CheckersGame {
+public class CheckersGameImpl implements CheckersGame, Serializable {
 
     @Inject
     @Named("checkers.board.size")

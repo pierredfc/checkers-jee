@@ -27,7 +27,7 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
     private static ObjectMapper createDefaultMapper() {
         final ObjectMapper result = new ObjectMapper();
         result.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
-
+        result.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
         return result;
     }
 

@@ -46,7 +46,9 @@ public class HelloWorldService {
     @Path("/game")
     @Produces(MediaType.APPLICATION_JSON)
     public CheckersGameImpl createGame() {
-        return (CheckersGameImpl) CheckersApplication.launch();
+        CheckersGame game = CheckersApplication.launch();
+        game.init();
+        return (CheckersGameImpl) game;
     }
 
 }

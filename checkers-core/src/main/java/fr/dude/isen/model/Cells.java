@@ -48,6 +48,14 @@ public class Cells {
         }
     }
 
+    public List<List<Cell>> getCells() {
+        return cells;
+    }
+
+    public void setCells(List<List<Cell>> cells) {
+        this.cells = cells;
+    }
+
     public int getNbColumns() {
         return this.nbColumns;
     }
