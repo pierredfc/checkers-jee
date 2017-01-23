@@ -183,7 +183,7 @@ public class BoardTest {
         }
         logger.info("[BoardTest][areKilledPawnsRemoved][move] Pawn at " + pawnCell.getPosition() + " can go at " + move.getDestination().getPosition());
 
-        this.board.movePawn(pawnCell, move.getDestination());
+        this.board.play(pawnCell, move.getDestination());
         this.draw();
     }
 

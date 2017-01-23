@@ -3,6 +3,7 @@ package fr.dude.isen.model;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.*;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -76,27 +77,39 @@ public class Board implements Serializable {
         return this.userBlack;
     }
 
-
-    public void play(Position origin, Position destination)
+    public MoveResult play(Position origin, Position destination)
     {
         final Cell originCell = getCell(origin.getRow(), origin.getColumn());
         final Cell destinationCell = getCell(destination.getRow(), destination.getColumn());
+        return play(originCell, destinationCell);
 
-        if (originCell.hasPawn())
-        {
-            this.movePawn(originCell, destinationCell);
-        }
     }
 
-    public void movePawn(Cell origin, Cell destination) {
+    public MoveResult play(Cell origin, Cell destination) {
+        if (origin.hasPawn())
+        {
+            User user = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getUserBlack() : this.getUserWhite();
+            return this.movePawn(user, origin, destination);
+        }
+        return null;
+    }
+
+    private MoveResult movePawn(User user, Cell origin, Cell destination) {
         try {
             Move move = this.boardManager.move(origin, destination);
             checkPawnToDelete(move);
-            checkTransformToQueen(move);
+            boolean becomesQueen = checkTransformToQueen(move);
+            boolean nextUser = getNextUser(move);
+            return new MoveResult(origin, move,  nextUser, becomesQueen);
         } catch (UnauthorizedMoveException e)
         {
             e.printStackTrace();// TODO
         }
+        return null;
+    }
+
+    private boolean getNextUser(Move move) {
+        return move.getPawnCellToDelete() != null;
     }
 
     private void checkPawnToDelete(Move move) {
@@ -107,12 +120,14 @@ public class Board implements Serializable {
         }
     }
 
-    public void checkTransformToQueen(Move move) {
+    public boolean checkTransformToQueen(Move move) {
         Pawn pawn = move.getDestination().getPawn();
         int row = move.getDestination().getPosition().getRow();
         if ((pawn.getColor() == ColorPawn.BLACK && row == this.userBlack.getQueenRow()) || (pawn.getColor() == ColorPawn.WHITE && row == this.userWhite.getQueenRow())) {
             pawn.toQueen();
+            return true;
         }
+        return false;
     }
 
     private void removeUserPawn(Pawn pawnToDelete) {

@@ -1,6 +1,7 @@
 package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.User;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -35,5 +36,9 @@ public class Pawn {
 
     public void toQueen() {
         this.direction = Direction.QUEEN;
+    }
+
+    public boolean isFromUser(User user) {
+        return this.color == user.getColorPawn();
     }
 }

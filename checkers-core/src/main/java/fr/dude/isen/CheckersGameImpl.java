@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.User;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
@@ -33,8 +34,8 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
     }
 
     @Override
-    public void play(Position init, Position destination) {
-        this.board.play(init, destination);
+    public MoveResult play(Position init, Position destination) {
+        return this.board.play(init, destination);
     }
 
     @Override

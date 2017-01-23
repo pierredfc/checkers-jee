@@ -8,6 +8,7 @@ import fr.dude.isen.model.pawns.Pawn;
  * Created by Clement on 09/01/2017.
  */
 public class User {
+
     private final Direction pawnDirection;
     private final int queenRow;
     private int nbPawns;

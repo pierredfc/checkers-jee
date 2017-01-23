@@ -3,10 +3,10 @@ package fr.dude.isen.api;
 import fr.dude.isen.CheckersApplication;
 import fr.dude.isen.CheckersGame;
 import fr.dude.isen.CheckersGameImpl;
+import fr.dude.isen.api.requests.PlayRequest;
+import fr.dude.isen.model.MoveResult;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,6 +19,14 @@ import java.util.StringJoiner;
  */
 @Path("checkers")
 public class CheckersService {
+
+    private static CheckersGame GAME = init();
+
+    private static CheckersGame init() {
+        CheckersGame game = CheckersApplication.launch();
+        game.init();
+        return game;
+    }
 
     @GET
     @Path("/list")
@@ -33,10 +41,30 @@ public class CheckersService {
     @GET
     @Path("/new")
     @Produces(MediaType.APPLICATION_JSON)
-    public CheckersGameImpl createGame() {
-        CheckersGame game = CheckersApplication.launch();
-        game.init();
-        return (CheckersGameImpl) game;
+    public CheckersGame createGame() {
+        GAME = init();
+        return GAME;
+    }
+
+    @GET
+    @Path("/game")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CheckersGame getGame() {
+        return GAME;
+    }
+
+    @GET
+    @Path("/game/{value}/test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String test(@PathParam("value") String test, @QueryParam("id") String id) {
+        return test + id;
+    }
+
+    @POST
+    @Path("/play")
+    @Produces(MediaType.APPLICATION_JSON)
+    public MoveResult play(PlayRequest request) {
+        return GAME.play(request.getOrigin(), request.getDestination());
     }
 
 }

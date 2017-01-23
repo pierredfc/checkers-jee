@@ -1,6 +1,7 @@
 package fr.dude.isen;
 
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Position;
 
@@ -33,11 +34,12 @@ public class CheckersAdapter implements CheckersGame  {
     }
 
     @Override
-    public void play(Position init, Position destination) {
-        this.coreGame.play(init, destination);
+    public MoveResult play(Position init, Position destination) {
+        MoveResult result = this.coreGame.play(init, destination);
         this.game.getTurns().add(new Turn(this.game, init, destination));
         this.switchTurn();
         dao.save(game);
+        return result;
     }
 
     @Override

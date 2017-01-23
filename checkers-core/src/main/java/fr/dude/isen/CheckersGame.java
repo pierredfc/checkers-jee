@@ -1,6 +1,7 @@
 package fr.dude.isen;
 
 import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Position;
 
 /**
@@ -10,7 +11,7 @@ public interface CheckersGame {
 
     void init();
 
-    void play(Position init, Position destination);
+    MoveResult play(Position init, Position destination);
 
     Cell getCell(int row, int column);
 

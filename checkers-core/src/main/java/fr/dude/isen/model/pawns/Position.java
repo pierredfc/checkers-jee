@@ -15,6 +15,10 @@ public class Position {
      */
     private Integer row;
 
+    public Position() {
+        //Deserialization
+    }
+
     public Position(int rowIndex, int columnIndex)
     {
         this.column = columnIndex;
