@@ -5,6 +5,8 @@ import fr.dude.isen.CheckersGame;
 import fr.dude.isen.CheckersGameImpl;
 import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.model.MoveResult;
+import fr.dude.isen.model.pawns.Move;
+import fr.dude.isen.model.pawns.Position;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -33,7 +35,8 @@ public class CheckersService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getList2() {
         List<String> list = new ArrayList<String>() {{
-            add("Hello"); add("World");
+            add("Hello");
+            add("World");
         }};
         return list;
     }
@@ -65,6 +68,13 @@ public class CheckersService {
     @Produces(MediaType.APPLICATION_JSON)
     public MoveResult play(PlayRequest request) {
         return GAME.play(request.getOrigin(), request.getDestination());
+    }
+
+    @POST
+    @Path("/moves")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Move> getPossibleMoves(Position position) {
+        return GAME.getPossibleMoves(position);
     }
 
 }

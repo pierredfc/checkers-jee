@@ -6,12 +6,10 @@ import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.User;
-import fr.dude.isen.model.pawns.ColorPawn;
-import fr.dude.isen.model.pawns.Direction;
-import fr.dude.isen.model.pawns.Pawn;
-import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.pawns.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -41,6 +39,11 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
     @Override
     public Cell getCell(int row, int column) {
         return this.board.getCell(row, column);
+    }
+
+    @Override
+    public List<Move> getPossibleMoves(Position position) {
+        return this.board.getBoardManager().getPossibleMoves(this.board.getCell(position));
     }
 
     @Override

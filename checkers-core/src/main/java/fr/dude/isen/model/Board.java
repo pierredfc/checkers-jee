@@ -46,7 +46,7 @@ public class Board implements Serializable {
     private void initPawnsUserWhite(int nbPawnRows) {
         for (int row = 0; row < nbPawnRows; row++) {
             /*for (int column = row % 2 == 0 ? 1 : 0; column < nbColumns; column += 2) {
-                this.cells.get(column, row).setPawn(this.userBlack.newPawn());
+                this.cells.get(column, row).setPawn(this.userrBlack.newPawn());
             }*/
             fillColumnWithPawns(this.userBlack, row);
         }
@@ -81,8 +81,7 @@ public class Board implements Serializable {
         return this.userBlack;
     }
 
-    public MoveResult play(Position origin, Position destination)
-    {
+    public MoveResult play(Position origin, Position destination) {
         final Cell originCell = getCell(origin.getRow(), origin.getColumn());
         final Cell destinationCell = getCell(destination.getRow(), destination.getColumn());
         return play(originCell, destinationCell);
@@ -90,8 +89,7 @@ public class Board implements Serializable {
     }
 
     public MoveResult play(Cell origin, Cell destination) {
-        if (origin.hasPawn() && origin.getPawn().getColor() == this.nextUser)
-        {
+        if (origin.hasPawn() && origin.getPawn().getColor() == this.nextUser) {
             User user = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getUserBlack() : this.getUserWhite();
             return this.movePawn(user, origin, destination);
         }
@@ -104,9 +102,8 @@ public class Board implements Serializable {
             checkPawnToDelete(move);
             boolean becomesQueen = checkTransformToQueen(move);
             this.nextUser = getNextUser(move) ? user.getColorPawn() : user.findOpponentColor();
-            return new MoveResult(origin, move,  nextUser, becomesQueen);
-        } catch (UnauthorizedMoveException e)
-        {
+            return new MoveResult(origin, move, nextUser, becomesQueen, this.userWhite.getNbPawns(), this.userBlack.getNbPawns());
+        } catch (UnauthorizedMoveException e) {
             e.printStackTrace();// TODO
         }
         return null;
@@ -146,6 +143,9 @@ public class Board implements Serializable {
         return this.cells.get(row, col);
     }
 
+    public Cell getCell(Position position) {
+        return getCell(position.getRow(), position.getColumn());
+    }
 
     public BoardManager getBoardManager() {
         return boardManager;
@@ -170,4 +170,6 @@ public class Board implements Serializable {
     public void setNextUser(ColorPawn nextUser) {
         this.nextUser = nextUser;
     }
+
+
 }
