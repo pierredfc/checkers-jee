@@ -16,7 +16,7 @@ public class User {
     private int nbPawns;
     private ColorPawn colorPawn;
 
-    private User opponent;
+    private transient User opponent;
 
     public User(int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
         this.nbPawns = nbPawns;
@@ -58,8 +58,8 @@ public class User {
     }
 
     @JsonIgnore
-    public User getOpponent() {
-        return opponent;
+    public void decrementOpponentPawns() {
+        opponent.decrementNbPawns();
     }
 
     public void decrementNbPawns() {

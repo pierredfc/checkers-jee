@@ -19,6 +19,14 @@ import java.util.List;
 @Produces({"application/json","text/xml"})
 public class CheckersService {
 
+    private static CheckersGame GAME = init();
+
+    private static CheckersGame init() {
+        CheckersGame game = CheckersApplication.launch();
+        game.init();
+        return game;
+    }
+
     @Inject
     CheckersBean checkersgame;
 
@@ -28,6 +36,12 @@ public class CheckersService {
         this.checkersgame.createNewGame();
         System.out.println(this.checkersgame.getGame().getCoreGame());
         return (CheckersGameImpl) this.checkersgame.getGame().getCoreGame();
+    }
+
+    @GET
+    @Path("/newgame")
+    public CheckersGame getNewGame() {
+        return GAME;
     }
 
     @GET
@@ -41,6 +55,12 @@ public class CheckersService {
         /*CheckersGame game = CheckersApplication.launch();
         game.init();
         return game.getCell(0,0).getPosition();*/
+    }
+
+    @GET
+    @Path("/position")
+    public Position getPos() {
+        return new Position(0,0);
     }
 
     @GET
