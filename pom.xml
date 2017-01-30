@@ -212,22 +212,17 @@
         <artifactId>jee-bootstrap-core</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <!-- dependency>
-        <groupId>org.dmetzler.isen.jee-bootstrap</groupId>
-        <artifactId>jee-bootstrap-jpa</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.dmetzler.isen.jee-bootstrap</groupId>
-        <artifactId>jee-bootstrap-rest</artifactId>
-        <version>${project.version}</version>
-      </dependency-->
 
       <dependency>
         <groupId>org.glassfish.jersey.media</groupId>
         <artifactId>jersey-media-json-jackson1</artifactId>
         <version>2.25.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        <version>2.7</version>
       </dependency>
 
       <dependency>

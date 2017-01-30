@@ -3,7 +3,7 @@ package fr.dude.isen.model;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  * Created by Clement on 09/01/2017.
@@ -14,7 +14,8 @@ public class User {
     private final int queenRow;
     private int nbPawns;
     private ColorPawn colorPawn;
-    private User opponent;
+
+    private transient User opponent;
 
     public User(int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
         this.nbPawns = nbPawns;
@@ -55,7 +56,6 @@ public class User {
         this.opponent = opponent;
     }
 
-    @JsonIgnore
     public User getOpponent() {
         return opponent;
     }
