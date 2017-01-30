@@ -1,13 +1,18 @@
 package fr.dude.isen.api;
 
-import fr.dude.isen.CheckersApplication;
-import fr.dude.isen.CheckersGame;
-import fr.dude.isen.CheckersGameImpl;
+import fr.dude.isen.*;
 import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
+import org.jvnet.hk2.annotations.Service;
 
+import javax.annotation.ManagedBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.inject.Inject;
+import javax.interceptor.ExcludeClassInterceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -22,9 +27,10 @@ import java.util.StringJoiner;
 @Path("checkers")
 public class CheckersService {
 
-    private static CheckersGame GAME = init();
 
-    private static CheckersGame init() {
+    private CheckersGame GAME = init();
+
+    private CheckersGame init() {
         CheckersGame game = CheckersApplication.launch();
         game.init();
         return game;
