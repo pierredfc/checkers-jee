@@ -3,7 +3,10 @@ package fr.dude.isen;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.ColorPawn;
+import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
+
+import java.util.List;
 
 /**
  * Created by pierredfc on 23/01/2017.
@@ -45,6 +48,11 @@ public class CheckersAdapter implements CheckersGame  {
     @Override
     public Cell getCell(int row, int column) {
         return this.coreGame.getCell(row, column);
+    }
+
+    @Override
+    public List<Move> getPossibleMoves(Position position) {
+        return coreGame.getPossibleMoves(position);
     }
 
     private void switchTurn()
