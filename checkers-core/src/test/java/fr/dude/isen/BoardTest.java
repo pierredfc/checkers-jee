@@ -142,10 +142,10 @@ public class BoardTest {
 
         this.draw();
 
-        move(3, 1, 4, 2, 2, false);
-        move(6, 4, 5, 3, 2, false);
-        move(6, 0, 5, 1, 1, false);
-        move(4, 2, 6, 4, 2, true);
+        assertThat(move(6, 4, 5, 3, 2, false)).isNotNull();
+        assertThat(move(3, 1, 4, 2, 2, false)).isNotNull();
+        assertThat(move(6, 0, 5, 1, 1, false)).isNotNull();
+        assertThat(move(4, 2, 6, 4, 2, true)).isNotNull();
 
         assertThat(cell_6_4.getPawn()).isEqualTo(pawn1);
         assertThat(cell_3_1.getPawn()).isNull();
@@ -155,16 +155,27 @@ public class BoardTest {
     @Test
     public void makeQueen() {
         logger.info("[BoardTest][makeQueen] BEGIN");
+        assertThat(move(6, 2, 5, 1, 2, false)).isNotNull();
         assertThat(move(3, 1, 4, 0, 2, false)).isNotNull();
-        assertThat(move(6, 0, 5, 1, 1, false)).isNotNull();
-        assertThat(move(6, 2, 5, 3, 1, false)).isNotNull();
-        assertThat(move(7, 1, 6, 0, 2, false)).isNotNull();
-        assertThat(move(8, 0, 7, 1, 1, false)).isNotNull();
-        assertThat(move(4, 0, 6, 2, 1, true)).isNotNull();
-        assertThat(move(6, 2, 8, 0, 1, true)).isNotNull();
-        assertThat(move(8, 2, 7, 1, 1, false)).isNotNull();
-        assertThat(move(9, 1, 8, 2, 1, false)).isNotNull();
-        assertThat(move(8, 0, 9, 1, 1, false)).isNotNull();
+        assertThat(move(5,1,4,2, 1, false)).isNotNull();
+        assertThat(move(3,3,5,1,1, true)).isNotNull();
+        assertThat(move(3,9,4,8,1,false)).isNotNull();
+        assertThat(move(7,1,6,2,1,false)).isNotNull();
+        assertThat(move(4,8,5,9,2,false)).isNotNull();
+        assertThat(move(8,0,7,1,1,false)).isNotNull();
+        assertThat(move(2,2,3,1,2,false)).isNotNull();
+        assertThat(move(6,2,5,3,1,false)).isNotNull();
+        assertThat(move(3,1,4,2,1,false)).isNotNull();
+        assertThat(move(5,3,3,1,1,true)).isNotNull();
+        assertThat(move(6,4,5,5,2,false)).isNotNull();
+        assertThat(move(5,1,6,2,1,false)).isNotNull();
+        assertThat(move(6,0,5,1,1,false)).isNotNull();
+        assertThat(move(6,2,8,0,1,true)).isNotNull();
+        assertThat(move(4,0,6,2,1,true)).isNotNull();
+        assertThat(move(6,2,7,1,1,false)).isNotNull();
+        assertThat(move(8,2,6,0,1,true)).isNotNull();
+        assertThat(move(9,1,8,2,1,false)).isNotNull();
+        assertThat(move(8,0,9,1,1,false)).isNotNull();
 
         Pawn queen = this.board.getCell(9, 1).getPawn();
 
