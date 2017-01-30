@@ -16,33 +16,44 @@ import java.util.List;
  * Created by Clement on 16/01/2017.
  */
 @Path("checkers")
-@Produces("application/json")
+@Produces({"application/json","text/xml"})
 public class CheckersService {
 
     @Inject
     CheckersBean checkersgame;
 
     @GET
-    @Path("/list")
-    public List<String> getList2() {
-        List<String> list = new ArrayList<String>() {{
-            add("Hello");
-            add("World");
-        }};
-        return list;
+    @Path("/new")
+    public CheckersGameImpl createGame() {
+        this.checkersgame.createNewGame();
+        System.out.println(this.checkersgame.getGame().getCoreGame());
+        return (CheckersGameImpl) this.checkersgame.getGame().getCoreGame();
     }
 
     @GET
-    @Path("/new")
-    public CheckersGame createGame() {
-        this.checkersgame.createNewGame();
-        return checkersgame.getGame();
+    @Path("/list")
+    public List<String> list()
+    {
+        List<String> returns = new ArrayList<>();
+        returns.add("coucou");
+        returns.add("ok");
+        return returns;
+        /*CheckersGame game = CheckersApplication.launch();
+        game.init();
+        return game.getCell(0,0).getPosition();*/
+    }
+
+    @GET
+    @Path("/string")
+    public String getString()
+    {
+        return "Coucou";
     }
 
     @GET
     @Path("/game")
     public CheckersGame getGame() {
-        return checkersgame.getGame();
+        return checkersgame.getGame().getCoreGame();
     }
 
     @GET

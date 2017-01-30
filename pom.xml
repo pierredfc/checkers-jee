@@ -138,6 +138,12 @@
       </dependency>
 
       <dependency>
+        <groupId>com.google.inject.extensions</groupId>
+        <artifactId>guice-servlet</artifactId>
+        <version>3.0</version>
+      </dependency>
+
+      <dependency>
         <groupId>javax.persistence</groupId>
         <artifactId>persistence-api</artifactId>
         <version>1.0.2</version>
@@ -206,6 +212,19 @@
         <artifactId>jackson-core</artifactId>
         <version>2.5.0</version>
       </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.5.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.5.0</version>
+      </dependency>
+
 
       <dependency>
         <groupId>org.dmetzler.isen.jee-bootstrap</groupId>

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by pierredfc on 23/01/2017.
  */
-public class CheckersAdapter implements CheckersGame  {
+public class CheckersAdapter {
 
     private Game game;
 
@@ -31,12 +31,14 @@ public class CheckersAdapter implements CheckersGame  {
         }
     }
 
-    @Override
+    public CheckersGame getCoreGame() {
+        return coreGame;
+    }
+
     public void init() {
         this.coreGame.init();
     }
 
-    @Override
     public MoveResult play(Position init, Position destination) {
         MoveResult result = this.coreGame.play(init, destination);
         this.game.getTurns().add(new Turn(this.game, init, destination));
@@ -45,12 +47,10 @@ public class CheckersAdapter implements CheckersGame  {
         return result;
     }
 
-    @Override
     public Cell getCell(int row, int column) {
         return this.coreGame.getCell(row, column);
     }
 
-    @Override
     public List<Move> getPossibleMoves(Position position) {
         return coreGame.getPossibleMoves(position);
     }
@@ -60,12 +60,10 @@ public class CheckersAdapter implements CheckersGame  {
         game.setCurrentTurn(game.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
     }
 
-    @Override
     public Integer getNbRows() {
         return coreGame.getNbRows();
     }
 
-    @Override
     public Integer getNbColumns() {
         return coreGame.getNbColumns();
     }

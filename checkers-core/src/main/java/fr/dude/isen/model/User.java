@@ -1,5 +1,6 @@
 package fr.dude.isen.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
@@ -15,7 +16,7 @@ public class User {
     private int nbPawns;
     private ColorPawn colorPawn;
 
-    private transient User opponent;
+    private User opponent;
 
     public User(int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
         this.nbPawns = nbPawns;
@@ -56,6 +57,7 @@ public class User {
         this.opponent = opponent;
     }
 
+    @JsonIgnore
     public User getOpponent() {
         return opponent;
     }
