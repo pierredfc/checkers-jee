@@ -155,16 +155,16 @@ public class BoardTest {
     @Test
     public void makeQueen() {
         logger.info("[BoardTest][makeQueen] BEGIN");
-        move(3, 1, 4, 0, 2, false);
-        move(6, 0, 5, 1, 1, false);
-        move(6, 2, 5, 3, 1, false);
-        move(7, 1, 6, 0, 2, false);
-        move(8, 0, 7, 1, 1, false);
-        move(4, 0, 6, 2, 1, true);
-        move(6, 2, 8, 0, 1, true);
-        move(8, 2, 7, 1, 1, false);
-        move(9, 1, 8, 2, 1, false);
-        move(8, 0, 9, 1, 1, false);
+        assertThat(move(3, 1, 4, 0, 2, false)).isNotNull();
+        assertThat(move(6, 0, 5, 1, 1, false)).isNotNull();
+        assertThat(move(6, 2, 5, 3, 1, false)).isNotNull();
+        assertThat(move(7, 1, 6, 0, 2, false)).isNotNull();
+        assertThat(move(8, 0, 7, 1, 1, false)).isNotNull();
+        assertThat(move(4, 0, 6, 2, 1, true)).isNotNull();
+        assertThat(move(6, 2, 8, 0, 1, true)).isNotNull();
+        assertThat(move(8, 2, 7, 1, 1, false)).isNotNull();
+        assertThat(move(9, 1, 8, 2, 1, false)).isNotNull();
+        assertThat(move(8, 0, 9, 1, 1, false)).isNotNull();
 
         Pawn queen = this.board.getCell(9, 1).getPawn();
 
@@ -174,17 +174,18 @@ public class BoardTest {
         logger.info("[BoardTest][makeQueen] END");
     }
 
-    private void move(int row, int col, int destRow, int destCol, int nbMoves, boolean hasMandatory) {
+    private MoveResult move(int row, int col, int destRow, int destCol, int nbMoves, boolean hasMandatory) {
         Cell pawnCell = this.board.getCell(row, col);
         Move move = getMove(pawnCell, destCol, destRow, nbMoves, hasMandatory);
         if (move == null) {
             logger.info("[BoardTest][areKilledPawnsRemoved][move] No move possible.");
-            return;
+            return null;
         }
         logger.info("[BoardTest][areKilledPawnsRemoved][move] Pawn at " + pawnCell.getPosition() + " can go at " + move.getDestination().getPosition());
 
-        this.board.play(pawnCell, move.getDestination());
+        MoveResult moveResult = this.board.play(pawnCell, move.getDestination());
         this.draw();
+        return moveResult;
     }
 
     private Move getMove(Cell pawnCell, int destCol, int destRow, int nbMoves, boolean hasMandatory) {
