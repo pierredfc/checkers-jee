@@ -10,13 +10,17 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 public class User {
 
+    public static final String USER_WHITE_DEFAULT_NAME = "Player 2";
+    public static final String USER_BLACK_DEFAULT_NAME = "Player 1";
+
     private final Direction pawnDirection;
     private final int queenRow;
     private int nbPawns;
     private ColorPawn colorPawn;
     private User opponent;
+    private String name;
 
-    public User(int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
+    public User(String name, int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
         this.nbPawns = nbPawns;
         this.colorPawn = colorPawn;
         this.pawnDirection = pawnDirection;
@@ -62,5 +66,13 @@ public class User {
 
     public void decrementNbPawns() {
         nbPawns--;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
