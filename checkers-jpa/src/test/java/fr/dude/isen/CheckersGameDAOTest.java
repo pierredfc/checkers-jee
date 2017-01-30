@@ -51,12 +51,12 @@ public class CheckersGameDAOTest {
     public void itCanPlayWithAJPAGame() throws Exception {
         CheckersAdapter game = dao.createGame();
 
-        Position origin = new Position(3,1);
-        Position destination = new Position(4,2);
-
+        Position origin = new Position(6,0);
+        Position destination = new Position(5,1);
         game.play(origin, destination);
-        origin = new Position(6,0);
-        destination = new Position(5,1);
+
+        origin = new Position(3,1);
+        destination = new Position(4,2);
         game.play(origin, destination);
 
         assertThat(game.getCell(4, 2).getPawn()).isNotNull();
