@@ -49,9 +49,6 @@ public class BoardManager {
 
         Move move = checkMove(origin, destination);
         this.movePawn(origin, destination);
-        if (move.hasPawnToDelete()) {
-            move.getPawnCellToDelete().setPawn(null);
-        }
         return move;
     }
 

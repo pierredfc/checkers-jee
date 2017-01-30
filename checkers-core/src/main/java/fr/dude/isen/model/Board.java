@@ -99,7 +99,7 @@ public class Board implements Serializable {
     private MoveResult movePawn(User user, Cell origin, Cell destination) {
         try {
             Move move = this.boardManager.move(origin, destination);
-            checkPawnToDelete(move);
+            checkPawnToDelete(move, user);
             boolean becomesQueen = checkTransformToQueen(move);
             this.nextUser = getNextUser(move) ? user.getColorPawn() : user.findOpponentColor();
             return new MoveResult(origin, move, nextUser, becomesQueen, this.userWhite.getNbPawns(), this.userBlack.getNbPawns());
@@ -113,10 +113,10 @@ public class Board implements Serializable {
         return move.getPawnCellToDelete() != null;
     }
 
-    private void checkPawnToDelete(Move move) {
+    private void checkPawnToDelete(Move move, User user) {
         if (move.hasPawnToDelete()) {
             Cell pawnCellToDelete = move.getPawnCellToDelete();
-            removeUserPawn(pawnCellToDelete.getPawn());
+            user.getOpponent().decrementNbPawns();
             pawnCellToDelete.setPawn(null);
         }
     }
@@ -129,14 +129,6 @@ public class Board implements Serializable {
             return true;
         }
         return false;
-    }
-
-    private void removeUserPawn(Pawn pawnToDelete) {
-        if (pawnToDelete.getColor() == ColorPawn.BLACK) {
-            userBlack.removePawn(pawnToDelete);
-        } else {
-            userWhite.removePawn(pawnToDelete);
-        }
     }
 
     public Cell getCell(int row, int col) {
