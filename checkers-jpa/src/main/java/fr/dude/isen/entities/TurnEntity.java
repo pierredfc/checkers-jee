@@ -1,6 +1,5 @@
-package fr.dude.isen;
+package fr.dude.isen.entities;
 
-import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Position;
 
 import javax.persistence.*;
@@ -9,14 +8,14 @@ import javax.persistence.*;
  * Created by pierredfc on 23/01/2017.
  */
 @Entity
-public class Turn {
+public class TurnEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
     @ManyToOne
-    Game game;
+    GameEntity gameEntity;
 
     @Column(name="initRow")
     private int initRow;
@@ -30,12 +29,12 @@ public class Turn {
     @Column(name="destColumn")
     private int destColumn;
 
-    public Turn() {
+    public TurnEntity() {
 
     }
 
-    public Turn(Game game, Position init, Position dest) {
-        this.game = game;
+    public TurnEntity(GameEntity gameEntity, Position init, Position dest) {
+        this.gameEntity = gameEntity;
         this.initRow = init.getRow();
         this.initColumn = init.getColumn();
         this.destRow = dest.getRow();

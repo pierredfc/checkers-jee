@@ -3,9 +3,7 @@ package fr.dude.isen.model;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.*;
 
-import java.awt.*;
 import java.io.Serializable;
-import java.util.Scanner;
 
 /**
  * Created by pierredfc on 09/01/2017.
@@ -116,7 +114,7 @@ public class Board implements Serializable {
     private void checkPawnToDelete(Move move, User user) {
         if (move.hasPawnToDelete()) {
             Cell pawnCellToDelete = move.getPawnCellToDelete();
-            user.getOpponent().decrementNbPawns();
+            user.decrementOpponentPawns();
             pawnCellToDelete.setPawn(null);
         }
     }

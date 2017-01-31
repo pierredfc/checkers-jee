@@ -5,6 +5,7 @@ import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**

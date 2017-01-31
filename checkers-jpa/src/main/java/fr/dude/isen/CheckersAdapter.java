@@ -1,5 +1,8 @@
 package fr.dude.isen;
 
+import fr.dude.isen.entities.GameEntity;
+import fr.dude.isen.entities.TurnEntity;
+import fr.dude.isen.entities.UserEntity;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.ColorPawn;
@@ -11,67 +14,74 @@ import java.util.List;
 /**
  * Created by pierredfc on 23/01/2017.
  */
-public class CheckersAdapter implements CheckersGame  {
+public class CheckersAdapter {
 
-    private Game game;
+    private GameEntity gameEntity;
 
     private CheckersGame coreGame;
 
     private CheckersGameDAO dao;
 
-    public CheckersAdapter(CheckersGameDAO dao, Game game)
+    public CheckersAdapter(CheckersGameDAO dao, GameEntity gameEntity)
     {
         this.dao = dao;
-        this.game = game;
+        this.gameEntity = gameEntity;
         this.coreGame = CheckersApplication.launch();
         this.coreGame.init();
 
-        for (Turn turn : game.getTurns()) {
-            this.coreGame.play(turn.getInitPosition(), turn.getDestination());
+        for (TurnEntity turnEntity : gameEntity.getTurnEntities()) {
+            this.coreGame.play(turnEntity.getInitPosition(), turnEntity.getDestination());
         }
     }
 
-    @Override
+    public CheckersGame getCoreGame() {
+        return coreGame;
+    }
+
     public void init() {
         this.coreGame.init();
     }
 
-    @Override
     public MoveResult play(Position init, Position destination) {
         MoveResult result = this.coreGame.play(init, destination);
-        this.game.getTurns().add(new Turn(this.game, init, destination));
+        this.gameEntity.getTurnEntities().add(new TurnEntity(this.gameEntity, init, destination));
         this.switchTurn();
-        dao.save(game);
+        dao.save(gameEntity);
         return result;
     }
 
-    @Override
     public Cell getCell(int row, int column) {
         return this.coreGame.getCell(row, column);
     }
 
-    @Override
     public List<Move> getPossibleMoves(Position position) {
         return coreGame.getPossibleMoves(position);
     }
 
     private void switchTurn()
     {
-        game.setCurrentTurn(game.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
+        gameEntity.setCurrentTurn(gameEntity.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
     }
 
-    @Override
     public Integer getNbRows() {
         return coreGame.getNbRows();
     }
 
-    @Override
     public Integer getNbColumns() {
         return coreGame.getNbColumns();
     }
 
     public String getToken()
     {
-        return this.game.getToken();
+        return this.gameEntity.getToken();
+    }
+
+    public UserEntity getUserWhite()
+    {
+        return this.gameEntity.getUserWhite();
+    }
+    public UserEntity getUserBlack()
+    {
+        return this.gameEntity.getUserBlack();
     }
 }

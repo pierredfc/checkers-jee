@@ -5,7 +5,6 @@ import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
-import fr.dude.isen.model.User;
 import fr.dude.isen.model.pawns.*;
 
 import java.io.Serializable;

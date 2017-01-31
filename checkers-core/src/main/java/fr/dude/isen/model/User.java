@@ -5,6 +5,7 @@ import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+
 /**
  * Created by Clement on 09/01/2017.
  */
@@ -17,6 +18,7 @@ public class User {
     private final int queenRow;
     private int nbPawns;
     private ColorPawn colorPawn;
+    
     private User opponent;
     private String name;
 
@@ -62,6 +64,10 @@ public class User {
     @JsonIgnore
     public User getOpponent() {
         return opponent;
+    }
+
+    public void decrementOpponentPawns() {
+        opponent.decrementNbPawns();
     }
 
     public void decrementNbPawns() {
