@@ -19,6 +19,7 @@ public class CustomJsonProvider extends JacksonJaxbJsonProvider {
         //objectMapperAtRest.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapperAtRest.configure(SerializationConfig.Feature.INDENT_OUTPUT, true); // Different from default so you can test it :)
         //objectMapperAtRest.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+        objectMapperAtRest.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
     }
 
     public CustomJsonProvider() {

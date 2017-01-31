@@ -1,9 +1,9 @@
 package fr.dude.isen.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -58,6 +58,10 @@ public class User {
     }
 
     @JsonIgnore
+    public User getOpponent() {
+        return opponent;
+    }
+
     public void decrementOpponentPawns() {
         opponent.decrementNbPawns();
     }

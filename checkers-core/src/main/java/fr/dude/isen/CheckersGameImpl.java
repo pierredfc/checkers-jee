@@ -1,6 +1,5 @@
 package fr.dude.isen;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
@@ -16,12 +15,10 @@ import java.util.List;
  */
 public class CheckersGameImpl implements CheckersGame, Serializable {
 
-    @JsonIgnore
     @Inject
     @Named("checkers.board.size")
     private Integer size;
 
-    @JsonIgnore
     @Inject
     @Named("checkers.board.pawn_rows")
     private Integer nbPawnRows;
