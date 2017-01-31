@@ -5,7 +5,9 @@ import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
+import fr.dude.isen.model.User;
 import fr.dude.isen.model.pawns.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.List;
@@ -53,6 +55,18 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
     @Override
     public Integer getNbColumns() {
         return size;
+    }
+
+    @JsonIgnore
+    @Override
+    public User getUserWhite() {
+        return this.board.getUserWhite();
+    }
+
+    @JsonIgnore
+    @Override
+    public User getUserBlack() {
+        return this.board.getUserBlack();
     }
 
     public Integer getNbPawnRows() { return nbPawnRows; }

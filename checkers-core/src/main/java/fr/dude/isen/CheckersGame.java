@@ -2,10 +2,10 @@ package fr.dude.isen;
 
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
+import fr.dude.isen.model.User;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
@@ -22,4 +22,8 @@ public interface CheckersGame {
 
     Integer getNbRows();
     Integer getNbColumns();
+
+    User getUserWhite();
+
+    User getUserBlack();
 }

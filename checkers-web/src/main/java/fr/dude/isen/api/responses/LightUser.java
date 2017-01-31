@@ -22,4 +22,27 @@ public class LightUser {
         this.nbPawns = nbPawns;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ColorPawn getColor() {
+        return color;
+    }
+
+    public void setColor(ColorPawn color) {
+        this.color = color;
+    }
+
+    public int getNbPawns() {
+        return nbPawns;
+    }
+
+    public void setNbPawns(int nbPawns) {
+        this.nbPawns = nbPawns;
+    }
 }
