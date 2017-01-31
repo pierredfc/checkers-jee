@@ -1,12 +1,16 @@
 package fr.dude.isen.api;
 
 
-import fr.dude.isen.*;
+import fr.dude.isen.CheckersApplication;
+import fr.dude.isen.CheckersGame;
+import fr.dude.isen.CheckersGameImpl;
 import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.entities.UserEntity;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
+import org.jvnet.hk2.annotations.Service;
+
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -19,6 +23,7 @@ import java.util.List;
 @Path("checkers")
 @Produces({"application/json","text/xml"})
 public class CheckersService {
+
 
     @Inject
     CheckersBean checkersgame;

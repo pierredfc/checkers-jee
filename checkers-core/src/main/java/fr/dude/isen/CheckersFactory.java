@@ -10,14 +10,33 @@ import java.util.function.Function;
  */
 public class CheckersFactory {
 
-    @SuppressWarnings("unchecked")
-    public CheckersGame getCheckersGame() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Properties getProperties() throws IOException {
         Properties props = new Properties();
 
         URL url = getClass().getClassLoader().getResource("checkers.properties");
         props.load(url.openStream());
 
-        return new CheckersGameImpl();
+        return props;
+    }
+
+    public Class<CheckersGame> getCheckersGameClass() throws IOException, ClassNotFoundException {
+        return (Class<CheckersGame>) Class.forName(getCheckersGameType());
+    }
+
+    public String getCheckersGameType() throws IOException {
+        return getCheckersGameType(getProperties());
+    }
+
+    public String getCheckersGameType(Properties properties) {
+        return properties.getProperty("checkers.application.instance");
+    }
+
+    @SuppressWarnings("unchecked")
+    public CheckersGame getCheckersGame() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Properties props = getProperties();
+
+        Class<?> klass = Class.forName(getCheckersGameType(props));
+        return (CheckersGame) klass.newInstance();
     }
 
 }

@@ -46,4 +46,16 @@ public class CheckersModule extends AbstractModule {
         return props;
     }
 
+    public Class<CheckersGame> getCheckersGameClass() throws IOException, ClassNotFoundException {
+        return (Class<CheckersGame>) Class.forName(getCheckersGameType());
+    }
+
+    public String getCheckersGameType() throws IOException {
+        return getCheckersGameType(getProperties());
+    }
+
+    public String getCheckersGameType(Properties properties) {
+        return properties.getProperty("checkers.application.instance");
+    }
+
 }

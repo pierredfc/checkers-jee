@@ -30,8 +30,8 @@ public class Board implements Serializable {
     }
 
     private void initUsers(int nbPawns) {
-        this.userWhite = new User(nbPawns, ColorPawn.WHITE, Direction.DOWN, 0);
-        this.userBlack = new User(nbPawns, ColorPawn.BLACK, Direction.UP, this.cells.getLastRowIndex());
+        this.userWhite = new User(User.USER_WHITE_DEFAULT_NAME, nbPawns, ColorPawn.WHITE, Direction.DOWN, 0);
+        this.userBlack = new User(User.USER_BLACK_DEFAULT_NAME, nbPawns, ColorPawn.BLACK, Direction.UP, this.cells.getLastRowIndex());
         this.userWhite.setOpponent(userBlack);
         this.userBlack.setOpponent(userWhite);
     }
