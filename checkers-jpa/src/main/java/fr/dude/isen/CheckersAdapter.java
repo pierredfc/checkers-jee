@@ -1,5 +1,8 @@
 package fr.dude.isen;
 
+import fr.dude.isen.entities.GameEntity;
+import fr.dude.isen.entities.TurnEntity;
+import fr.dude.isen.entities.UserEntity;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.ColorPawn;
@@ -13,21 +16,21 @@ import java.util.List;
  */
 public class CheckersAdapter {
 
-    private Game game;
+    private GameEntity gameEntity;
 
     private CheckersGame coreGame;
 
     private CheckersGameDAO dao;
 
-    public CheckersAdapter(CheckersGameDAO dao, Game game)
+    public CheckersAdapter(CheckersGameDAO dao, GameEntity gameEntity)
     {
         this.dao = dao;
-        this.game = game;
+        this.gameEntity = gameEntity;
         this.coreGame = CheckersApplication.launch();
         this.coreGame.init();
 
-        for (Turn turn : game.getTurns()) {
-            this.coreGame.play(turn.getInitPosition(), turn.getDestination());
+        for (TurnEntity turnEntity : gameEntity.getTurnEntities()) {
+            this.coreGame.play(turnEntity.getInitPosition(), turnEntity.getDestination());
         }
     }
 
@@ -41,9 +44,9 @@ public class CheckersAdapter {
 
     public MoveResult play(Position init, Position destination) {
         MoveResult result = this.coreGame.play(init, destination);
-        this.game.getTurns().add(new Turn(this.game, init, destination));
+        this.gameEntity.getTurnEntities().add(new TurnEntity(this.gameEntity, init, destination));
         this.switchTurn();
-        dao.save(game);
+        dao.save(gameEntity);
         return result;
     }
 
@@ -57,7 +60,7 @@ public class CheckersAdapter {
 
     private void switchTurn()
     {
-        game.setCurrentTurn(game.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
+        gameEntity.setCurrentTurn(gameEntity.getCurrentTurn() == ColorPawn.WHITE ? ColorPawn.BLACK : ColorPawn.WHITE);
     }
 
     public Integer getNbRows() {
@@ -70,6 +73,15 @@ public class CheckersAdapter {
 
     public String getToken()
     {
-        return this.game.getToken();
+        return this.gameEntity.getToken();
+    }
+
+    public UserEntity getUserWhite()
+    {
+        return this.gameEntity.getUserWhite();
+    }
+    public UserEntity getUserBlack()
+    {
+        return this.gameEntity.getUserBlack();
     }
 }

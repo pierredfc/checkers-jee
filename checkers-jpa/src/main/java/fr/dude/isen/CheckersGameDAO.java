@@ -1,5 +1,7 @@
 package fr.dude.isen;
 
+import fr.dude.isen.entities.GameEntity;
+import fr.dude.isen.entities.UserEntity;
 import org.apache.commons.lang.RandomStringUtils;
 
 import javax.inject.Inject;
@@ -19,12 +21,14 @@ public class CheckersGameDAO {
 
     public CheckersAdapter createGame()
     {
-        Game game = new Game();
-        game.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
+        GameEntity gameEntity = new GameEntity();
+        gameEntity.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
+        gameEntity.setUserBlack(new UserEntity(gameEntity, "Black", 20));
+        gameEntity.setUserWhite(new UserEntity(gameEntity, "White", 20));
 
         try {
             ut.begin();
-            em.persist(game);
+            em.persist(gameEntity);
             ut.commit();
 
         } catch (NotSupportedException | SystemException | SecurityException
@@ -32,21 +36,21 @@ public class CheckersGameDAO {
                 | HeuristicMixedException | HeuristicRollbackException e) {
             return null;
         }
-        return new CheckersAdapter(this, game);
+        return new CheckersAdapter(this, gameEntity);
     }
 
     public CheckersAdapter loadFromToken(String token) {
-        Game game = (Game) em
+        GameEntity gameEntity = (GameEntity) em
                 .createQuery("SELECT g FROM Game g WHERE g.token = :token")
                 .setParameter("token", token).getSingleResult();
 
-        return new CheckersAdapter(this, game);
+        return new CheckersAdapter(this, gameEntity);
     }
 
-    public void save(Game game) {
+    public void save(GameEntity gameEntity) {
         try {
             ut.begin();
-            em.merge(game);
+            em.merge(gameEntity);
             ut.commit();
         } catch (SecurityException | IllegalStateException | RollbackException
                 | HeuristicMixedException | HeuristicRollbackException
