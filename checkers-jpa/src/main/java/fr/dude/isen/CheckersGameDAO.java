@@ -7,6 +7,8 @@ import org.apache.commons.lang.RandomStringUtils;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pierredfc on 23/01/2017.
@@ -45,6 +47,26 @@ public class CheckersGameDAO {
                 .setParameter("token", token).getSingleResult();
 
         return new CheckersAdapter(this, gameEntity);
+    }
+
+    public List<CheckersAdapter> loadSavedGames()
+    {
+        List<GameEntity> gameEntity =  em
+                .createQuery("SELECT g FROM Game g").getResultList();
+
+        if (gameEntity != null && gameEntity.size() > 0)
+        {
+            List<CheckersAdapter> results = new ArrayList<>(gameEntity.size());
+
+            for (GameEntity entity : gameEntity)
+            {
+                results.add(new CheckersAdapter(this, entity));
+            }
+
+            return results;
+        }
+
+        return null;
     }
 
     public void save(GameEntity gameEntity) {

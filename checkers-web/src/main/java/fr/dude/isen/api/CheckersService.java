@@ -31,7 +31,7 @@ public class CheckersService implements CheckersApi {
     @Path("/games")
     @Override
     public List<LightGame> getGames() {
-        return null;
+        return this.checkersgame.getSavedGames();
     }
 
     @PUT
