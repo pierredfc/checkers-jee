@@ -2,6 +2,7 @@ package fr.dude.isen.api;
 
 import fr.dude.isen.CheckersAdapter;
 import fr.dude.isen.CheckersGameDAO;
+import fr.dude.isen.api.requests.UserNameRequest;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -49,6 +50,11 @@ public class CheckersBean implements Serializable {
     public void loadFromToken(String token)
     {
         this.game = dao.loadFromToken(token);
+    }
+
+    public String setUsername(UserNameRequest request)
+    {
+        return this.game.setUsername(request.getName(), request.getColor());
     }
 
 }

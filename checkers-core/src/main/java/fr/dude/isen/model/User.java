@@ -81,4 +81,9 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setNbPawns(int nbPawns)
+    {
+        this.nbPawns = nbPawns;
+    }
 }

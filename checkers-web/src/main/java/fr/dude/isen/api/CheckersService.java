@@ -1,9 +1,13 @@
 package fr.dude.isen.api;
 
 
+import fr.dude.isen.CheckersAdapter;
 import fr.dude.isen.CheckersGame;
 import fr.dude.isen.CheckersGameImpl;
 import fr.dude.isen.api.requests.PlayRequest;
+import fr.dude.isen.api.requests.UserNameRequest;
+import fr.dude.isen.api.responses.GameResponse;
+import fr.dude.isen.api.responses.LightGame;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -18,44 +22,58 @@ import java.util.List;
  */
 @Path("checkers")
 @Produces({"application/json","text/xml"})
-public class CheckersService {
-
+public class CheckersService implements CheckersApi {
 
     @Inject
     CheckersBean checkersgame;
 
     @GET
+    @Path("/games")
+    @Override
+    public List<LightGame> getGames() {
+        return null;
+    }
+
+    @PUT
+    @Path("/game/{token}/name")
+    @Override
+    public String setName(@PathParam("token") String token, UserNameRequest request) {
+        this.checkersgame.loadFromToken(token);
+        return this.checkersgame.setUsername(request);
+    }
+
+    @GET
     @Path("/new")
-    public CheckersGameImpl createGame() {
+    @Override
+    public GameResponse createGame() {
         this.checkersgame.createNewGame();
-        System.out.println(this.checkersgame.getGame().getCoreGame());
-        return (CheckersGameImpl) this.checkersgame.getGame().getCoreGame();
+        final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
+        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame());
     }
 
     @GET
-    @Path("/game/{value}")
-    public CheckersGame loadFromToken(@PathParam("value") String token)
-    {
-        checkersgame.loadFromToken(token);
-        return checkersgame.getGame().getCoreGame();
-    }
-
-    @GET
-    @Path("/game/{value}/test")
-    public String test(@PathParam("value") String test, @QueryParam("id") String id) {
-        return test + id;
+    @Path("/game/{token}")
+    @Override
+    public GameResponse getGame(@PathParam("token") String token) {
+        this.checkersgame.loadFromToken(token);
+        final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
+        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame());
     }
 
     @POST
-    @Path("/play")
-    public MoveResult play(PlayRequest request) {
-        return checkersgame.play(request.getOrigin(), request.getDestination());
+    @Path("/game/{token}/play")
+    @Override
+    public MoveResult play(@PathParam("token") String token, PlayRequest request) {
+        this.checkersgame.loadFromToken(token);
+        return this.checkersgame.play(request.getOrigin(), request.getDestination());
     }
 
     @POST
-    @Path("/moves")
-    public List<Move> getPossibleMoves(Position position) {
-        return checkersgame.getPossibleMoves(position);
+    @Path("/game/{token}/moves")
+    @Override
+    public List<Move> getPossibleMoves(@PathParam("token") String token, Position position) {
+        this.checkersgame.loadFromToken(token);
+        return this.checkersgame.getPossibleMoves(position);
     }
 
 }

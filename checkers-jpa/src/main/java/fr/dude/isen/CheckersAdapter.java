@@ -5,6 +5,7 @@ import fr.dude.isen.entities.TurnEntity;
 import fr.dude.isen.entities.UserEntity;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
+import fr.dude.isen.model.User;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -32,6 +33,20 @@ public class CheckersAdapter {
         for (TurnEntity turnEntity : gameEntity.getTurnEntities()) {
             this.coreGame.play(turnEntity.getInitPosition(), turnEntity.getDestination());
         }
+
+        User userBlack = this.coreGame.getUserBlack();
+        User userWhite = this.coreGame.getUserWhite();
+
+        if (userBlack != null && userWhite != null)
+        {
+            userBlack.setName(gameEntity.getUserBlack().getUsername());
+            userBlack.setNbPawns(gameEntity.getUserBlack().getNbPawns());
+
+            userWhite.setName(gameEntity.getUserWhite().getUsername());
+            userWhite.setNbPawns(gameEntity.getUserWhite().getNbPawns());
+            userWhite.setOpponent(userBlack);
+            userBlack.setOpponent(userWhite);
+        }
     }
 
     public CheckersGame getCoreGame() {
@@ -49,6 +64,28 @@ public class CheckersAdapter {
         dao.save(gameEntity);
         return result;
     }
+
+    public String setUsername(String username, ColorPawn colorPawn)
+    {
+        UserEntity user;
+
+        if (ColorPawn.WHITE.equals(colorPawn))
+        {
+            user = this.getUserWhite();
+            this.coreGame.getUserWhite().setName(username);
+        }
+        else
+        {
+            user = this.getUserBlack();
+            this.coreGame.getUserBlack().setName(username);
+        }
+
+        user.setUsername(username);
+        dao.save(gameEntity);
+        return user.getUsername();
+    }
+
+
 
     public Cell getCell(int row, int column) {
         return this.coreGame.getCell(row, column);
