@@ -9,13 +9,13 @@ import java.util.List;
  * Created by Clement on 30/01/2017.
  */
 public class LightGame {
-    public static int i = 0;
+
     private String date;
     private String token;
     private List<LightUser> users;
 
     public LightGame(GameResponse gameResponse) {
-        this(gameResponse.getToken(), "Now "+i++, gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
+        this(gameResponse.getToken(), gameResponse.getCreationDate().toString(), gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
     }
 
     public LightGame(String token, String date, User... users) {

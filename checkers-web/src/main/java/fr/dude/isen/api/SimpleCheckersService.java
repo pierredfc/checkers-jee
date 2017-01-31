@@ -35,9 +35,9 @@ public class SimpleCheckersService implements CheckersApi {
         game3.init();
 
         return new ArrayList<GameResponse>(3) {{
-            add(new GameResponse("game1", game1));
-            add(new GameResponse("game2", game2));
-            add(new GameResponse("game3", game3));
+            add(new GameResponse("game1", game1, null));
+            add(new GameResponse("game2", game2, null));
+            add(new GameResponse("game3", game3, null));
         }};
     }
 
@@ -77,7 +77,7 @@ public class SimpleCheckersService implements CheckersApi {
     public GameResponse createGame() {
         final CheckersGame game = CheckersApplication.launch();
         game.init();
-        final GameResponse gameResponse = new GameResponse("game"+(GAMES_RESPONSES.size()+1), game);
+        final GameResponse gameResponse = new GameResponse("game"+(GAMES_RESPONSES.size()+1), game, null);
         GAMES_RESPONSES.add(gameResponse);
         return gameResponse;
     }

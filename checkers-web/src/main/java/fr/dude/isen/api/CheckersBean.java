@@ -66,7 +66,7 @@ public class CheckersBean implements Serializable {
 
             for (CheckersAdapter game : savedGames)
             {
-                results.add(new LightGame(new GameResponse(game.getToken(), game.getCoreGame())));
+                results.add(new LightGame(new GameResponse(game.getToken(), game.getCoreGame(), game.getCreationDate())));
             }
         }
 

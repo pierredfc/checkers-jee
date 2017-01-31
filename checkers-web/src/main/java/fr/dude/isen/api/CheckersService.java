@@ -48,7 +48,7 @@ public class CheckersService implements CheckersApi {
     public GameResponse createGame() {
         this.checkersgame.createNewGame();
         final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
-        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame());
+        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame(), checkersAdapter.getCreationDate());
     }
 
     @GET
@@ -57,7 +57,7 @@ public class CheckersService implements CheckersApi {
     public GameResponse getGame(@PathParam("token") String token) {
         this.checkersgame.loadFromToken(token);
         final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
-        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame());
+        return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame(), checkersAdapter.getCreationDate());
     }
 
     @POST

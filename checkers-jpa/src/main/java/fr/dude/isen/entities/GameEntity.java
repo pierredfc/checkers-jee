@@ -4,6 +4,7 @@ import fr.dude.isen.model.pawns.ColorPawn;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,10 @@ public class GameEntity {
     private Long id;
 
     private String token;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
 
     @OneToMany(mappedBy= "gameEntity", cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     @OrderColumn(name="index")
@@ -32,6 +37,11 @@ public class GameEntity {
 
     public GameEntity() {
 
+    }
+
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
     }
 
     public String getToken() {
@@ -69,5 +79,9 @@ public class GameEntity {
 
     public void setUserWhite(UserEntity userWhite) {
         this.userWhite = userWhite;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 }

@@ -10,6 +10,7 @@ import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,5 +121,10 @@ public class CheckersAdapter {
     public UserEntity getUserBlack()
     {
         return this.gameEntity.getUserBlack();
+    }
+
+    public Date getCreationDate()
+    {
+        return this.gameEntity.getCreatedAt();
     }
 }
