@@ -36,7 +36,7 @@ public class CheckersGameDAOTest {
     }
 
     @Test
-    public void itCanCreateAGame() throws Exception {
+    public void itCanCreateAndDeleteAGame() throws Exception {
         CheckersAdapter game = dao.createGame();
         assertThat(game).isNotNull();
 
@@ -45,6 +45,10 @@ public class CheckersGameDAOTest {
         em.clear();
         game = dao.loadFromToken(token);
         assertThat(game).isNotNull();
+
+        dao.delete(token);
+        game = dao.loadFromToken(token);
+        assertThat(game).isNull();
     }
 
     @Test

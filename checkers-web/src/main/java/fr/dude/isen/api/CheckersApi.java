@@ -57,4 +57,9 @@ public interface CheckersApi {
      */
     List<Move> getPossibleMoves(String token, Position position);
 
+    /**
+     * Suppression d'une partie à partir de son identifiant (token)
+     * @param token Identifiant de la partie
+     */
+    void deleteGame(String token);
 }

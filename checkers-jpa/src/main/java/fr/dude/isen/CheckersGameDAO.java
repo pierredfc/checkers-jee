@@ -6,6 +6,7 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.transaction.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,8 @@ public class CheckersGameDAO {
     {
         GameEntity gameEntity = new GameEntity();
         gameEntity.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
-        gameEntity.setUserBlack(new UserEntity(gameEntity, "Black", 20));
-        gameEntity.setUserWhite(new UserEntity(gameEntity, "White", 20));
+        gameEntity.setUserBlack(new UserEntity("Black", 20));
+        gameEntity.setUserWhite(new UserEntity("White", 20));
 
         try {
             ut.begin();
@@ -42,17 +43,24 @@ public class CheckersGameDAO {
     }
 
     public CheckersAdapter loadFromToken(String token) {
-        GameEntity gameEntity = (GameEntity) em
-                .createQuery("SELECT g FROM Game g WHERE g.token = :token")
-                .setParameter("token", token).getSingleResult();
+        try
+        {
+            GameEntity gameEntity = (GameEntity) em
+                    .createNamedQuery("LOAD_FROM_TOKEN")
+                    .setParameter("token", token).getSingleResult();
 
-        return new CheckersAdapter(this, gameEntity);
+            return new CheckersAdapter(this, gameEntity);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     public List<CheckersAdapter> loadSavedGames()
     {
         List<GameEntity> gameEntity =  em
-                .createQuery("SELECT g FROM Game g").getResultList();
+                .createNamedQuery("GET_ALL_GAME").getResultList();
 
         if (gameEntity != null && gameEntity.size() > 0)
         {
@@ -67,6 +75,18 @@ public class CheckersGameDAO {
         }
 
         return null;
+    }
+
+    public void delete(String token)
+    {
+        GameEntity gameEntity = (GameEntity) em
+                .createNamedQuery("LOAD_FROM_TOKEN")
+                .setParameter("token", token).getSingleResult();
+
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.remove(gameEntity);
+        et.commit();
     }
 
     public void save(GameEntity gameEntity) {

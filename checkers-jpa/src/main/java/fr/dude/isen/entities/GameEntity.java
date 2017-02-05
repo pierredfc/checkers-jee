@@ -10,6 +10,10 @@ import java.util.List;
 /**
  * Created by pierredfc on 23/01/2017.
  */
+@NamedQueries({
+        @NamedQuery(name = "LOAD_FROM_TOKEN", query = "SELECT g FROM Game g WHERE g.token = :token"),
+        @NamedQuery(name = "GET_ALL_GAME", query = "SELECT g FROM Game g")
+})
 @Entity(name="Game")
 public class GameEntity {
 
@@ -27,10 +31,10 @@ public class GameEntity {
     @OrderColumn(name="index")
     private List<TurnEntity> turnEntities = new ArrayList<>();
 
-    @OneToOne(mappedBy= "gameEntity", cascade= CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private UserEntity userWhite;
 
-    @OneToOne(mappedBy= "gameEntity", cascade= CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     private UserEntity userBlack;
 
     private String currentTurn = ColorPawn.WHITE.toString();

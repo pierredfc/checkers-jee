@@ -12,9 +12,6 @@ public class UserEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
-    @OneToOne
-    GameEntity gameEntity;
-
     private String username;
 
     private Integer nbPawns;
@@ -24,9 +21,8 @@ public class UserEntity {
 
     }
 
-    public UserEntity(GameEntity gameEntity, String username, Integer nbPawns)
+    public UserEntity(String username, Integer nbPawns)
     {
-        this.gameEntity = gameEntity;
         this.username = username;
         this.nbPawns = nbPawns;
     }

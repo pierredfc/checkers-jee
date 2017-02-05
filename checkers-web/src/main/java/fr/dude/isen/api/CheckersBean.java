@@ -55,6 +55,12 @@ public class CheckersBean implements Serializable {
         this.game = dao.loadFromToken(token);
     }
 
+    public void deleteFromToken(String token)
+    {
+        dao.delete(token);
+        this.game = null;
+    }
+
     public List<LightGame> getSavedGames()
     {
         List<LightGame> results = null;

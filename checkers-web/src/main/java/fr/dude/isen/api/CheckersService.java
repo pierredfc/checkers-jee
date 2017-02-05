@@ -76,4 +76,10 @@ public class CheckersService implements CheckersApi {
         return this.checkersgame.getPossibleMoves(position);
     }
 
+    @DELETE
+    @Path("/game/{token}")
+    @Override
+    public void deleteGame(@PathParam("token") String token) {
+        this.checkersgame.deleteFromToken(token);
+    }
 }

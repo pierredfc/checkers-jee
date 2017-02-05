@@ -100,11 +100,16 @@ public class Board implements Serializable {
             checkPawnToDelete(move, user);
             boolean becomesQueen = checkTransformToQueen(move);
             this.nextUser = getNextUser(move) ? user.getColorPawn() : user.findOpponentColor();
-            return new MoveResult(origin, move, nextUser, becomesQueen, this.userWhite.getNbPawns(), this.userBlack.getNbPawns());
+            return new MoveResult(origin, move, nextUser, becomesQueen, this.userWhite.getNbPawns(), this.userBlack.getNbPawns(), this.isUserWins(user));
         } catch (UnauthorizedMoveException e) {
             e.printStackTrace();// TODO
         }
         return null;
+    }
+
+    private boolean isUserWins(User user)
+    {
+        return (user.getOpponent().getNbPawns() == 0);
     }
 
     private boolean getNextUser(Move move) {

@@ -16,13 +16,13 @@ public class MoveResult {
     private final ColorPawn nextUser;
     private final int nbPawnsUserWhite;
     private final int nbPawnsUserBlack;
+    private final boolean isWinningMove;
 
-
-    public MoveResult(Cell origin, Move move, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack) {
-        this(origin, move.getDestination(), move.getPawnCellToDelete(), nextUser, becomesQueen, nbPawnsUserWhite, nbPawnsUserBlack);
+    public MoveResult(Cell origin, Move move, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack, boolean isWinningMove) {
+        this(origin, move.getDestination(), move.getPawnCellToDelete(), nextUser, becomesQueen, nbPawnsUserWhite, nbPawnsUserBlack, isWinningMove);
     }
 
-    public MoveResult(Cell origin, Cell destination, Cell kill, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack) {
+    public MoveResult(Cell origin, Cell destination, Cell kill, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack, boolean isWinningMove) {
         this.origin = origin.getPosition();
         this.destination = destination.getPosition();
         this.kill = kill != null ? kill.getPosition() : null;
@@ -30,6 +30,7 @@ public class MoveResult {
         this.nextUser = nextUser;
         this.nbPawnsUserBlack = nbPawnsUserBlack;
         this.nbPawnsUserWhite = nbPawnsUserWhite;
+        this.isWinningMove = isWinningMove;
     }
 
     public Position getOrigin() {
@@ -55,4 +56,8 @@ public class MoveResult {
     public int getNbPawnsUserWhite() { return nbPawnsUserWhite; }
 
     public int getNbPawnsUserBlack() { return nbPawnsUserBlack; }
+
+    public boolean isWinningMove() {
+        return isWinningMove;
+    }
 }
