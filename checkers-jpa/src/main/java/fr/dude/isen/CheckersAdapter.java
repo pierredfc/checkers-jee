@@ -41,10 +41,10 @@ public class CheckersAdapter {
         if (userBlack != null && userWhite != null)
         {
             userBlack.setName(gameEntity.getUserBlack().getUsername());
-            userBlack.setNbPawns(gameEntity.getUserBlack().getNbPawns());
+/*            userBlack.setNbPawns(gameEntity.getUserBlack().getNbPawns());*/
 
             userWhite.setName(gameEntity.getUserWhite().getUsername());
-            userWhite.setNbPawns(gameEntity.getUserWhite().getNbPawns());
+/*            userWhite.setNbPawns(gameEntity.getUserWhite().getNbPawns());*/
             userWhite.setOpponent(userBlack);
             userBlack.setOpponent(userWhite);
         }

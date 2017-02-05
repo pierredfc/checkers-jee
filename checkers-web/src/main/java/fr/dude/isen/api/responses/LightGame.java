@@ -10,15 +10,15 @@ import java.util.List;
  */
 public class LightGame {
 
-    private String date;
+    private long date;
     private String token;
     private List<LightUser> users;
 
     public LightGame(GameResponse gameResponse) {
-        this(gameResponse.getToken(), gameResponse.getCreationDate().toString(), gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
+        this(gameResponse.getToken(), gameResponse.getCreationDate().getTime(), gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
     }
 
-    public LightGame(String token, String date, User... users) {
+    public LightGame(String token, long date, User... users) {
         this.token = token;
         this.date = date;
         this.users = new ArrayList<>(users.length);
@@ -27,11 +27,11 @@ public class LightGame {
         }
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
