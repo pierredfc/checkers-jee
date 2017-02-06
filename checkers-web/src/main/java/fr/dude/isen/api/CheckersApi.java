@@ -60,6 +60,7 @@ public interface CheckersApi {
     /**
      * Suppression d'une partie à partir de son identifiant (token)
      * @param token Identifiant de la partie
+     * @return Le token de la partie supprimée
      */
-    void deleteGame(String token);
+    String deleteGame(String token);
 }

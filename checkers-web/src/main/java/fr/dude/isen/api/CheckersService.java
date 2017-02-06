@@ -2,8 +2,6 @@ package fr.dude.isen.api;
 
 
 import fr.dude.isen.CheckersAdapter;
-import fr.dude.isen.CheckersGame;
-import fr.dude.isen.CheckersGameImpl;
 import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.api.requests.UserNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
@@ -79,7 +77,8 @@ public class CheckersService implements CheckersApi {
     @DELETE
     @Path("/game/{token}")
     @Override
-    public void deleteGame(@PathParam("token") String token) {
+    public String deleteGame(@PathParam("token") String token) {
         this.checkersgame.deleteFromToken(token);
+        return token;
     }
 }
