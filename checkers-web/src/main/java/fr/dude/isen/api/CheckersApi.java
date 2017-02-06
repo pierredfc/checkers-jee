@@ -71,4 +71,6 @@ public interface CheckersApi {
      * @return La liste des tours
      */
     List<TurnResponse> getHistory(String token);
+
+    GameResponse skip(String token);
 }

@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Clement on 16/01/2017.
  */
 @Path("checkers")
-@Produces({"application/json","text/xml"})
+@Produces({"application/json", "text/xml"})
 public class CheckersService implements CheckersApi {
 
     @Inject
@@ -92,11 +92,24 @@ public class CheckersService implements CheckersApi {
         List<TurnEntity> entities = this.checkersgame.getHistory(token);
         if (entities != null && entities.size() > 0) {
             List<TurnResponse> turnResponses = new ArrayList<>(entities.size());
-            for(TurnEntity entity : entities) {
+            for (TurnEntity entity : entities) {
                 turnResponses.add(new TurnResponse(entity));
             }
             return turnResponses;
         }
         return new ArrayList<>(0);
+    }
+
+    @GET
+    @Path("/game/{token}/skip")
+    public GameResponse skip(@PathParam("token") String token) {
+        System.out.println("Skipping "+token);
+        this.checkersgame.loadFromToken(token);
+        final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
+        if (checkersAdapter.skip()) {
+            return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame(), checkersAdapter.getCreationDate());
+        }
+        //return getGame(token);
+        return null;
     }
 }
