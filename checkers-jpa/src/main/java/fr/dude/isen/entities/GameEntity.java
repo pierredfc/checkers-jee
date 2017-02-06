@@ -53,7 +53,6 @@ public class GameEntity {
     }
 
     public void setToken(String token) {
-        System.out.println("TOKEN = " + token);
         this.token = token;
     }
 

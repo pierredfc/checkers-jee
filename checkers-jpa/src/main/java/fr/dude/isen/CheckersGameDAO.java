@@ -99,19 +99,16 @@ public class CheckersGameDAO {
                 .createNamedQuery("LOAD_FROM_TOKEN")
                 .setParameter("token", token).getSingleResult();
 
-        //EntityTransaction et = em.getTransaction();
-
         try {
-            //et.begin();
             ut.begin();
+            if (!em.contains(gameEntity)) {
+                gameEntity = em.merge(gameEntity);
+            }
             em.remove(gameEntity);
-            //et.commit();
             ut.commit();
         } catch(Exception ex) {
             ex.printStackTrace();
         }
-
-
     }
 
     public void save(GameEntity gameEntity) {
