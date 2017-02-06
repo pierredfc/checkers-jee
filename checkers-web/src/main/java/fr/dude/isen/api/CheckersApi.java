@@ -4,6 +4,7 @@ import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.api.requests.UserNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
 import fr.dude.isen.api.responses.LightGame;
+import fr.dude.isen.api.responses.TurnResponse;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -63,4 +64,11 @@ public interface CheckersApi {
      * @return Le token de la partie supprimée
      */
     String deleteGame(String token);
+
+    /**
+     * Récupère la liste des tours (Turn) effectués
+     * @param token Identifiant de la partie
+     * @return La liste des tours
+     */
+    List<TurnResponse> getHistory(String token);
 }

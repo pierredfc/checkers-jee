@@ -1,6 +1,7 @@
 package fr.dude.isen;
 
 import fr.dude.isen.entities.GameEntity;
+import fr.dude.isen.entities.TurnEntity;
 import fr.dude.isen.entities.UserEntity;
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -40,6 +41,21 @@ public class CheckersGameDAO {
             return null;
         }
         return new CheckersAdapter(this, gameEntity);
+    }
+
+    public List<TurnEntity> getHistoryFromToken(String token) {
+        try
+        {
+            GameEntity gameEntity = (GameEntity) em
+                    .createNamedQuery("LOAD_FROM_TOKEN")
+                    .setParameter("token", token).getSingleResult();
+
+            return gameEntity.getTurnEntities();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
     }
 
     public CheckersAdapter loadFromToken(String token) {
@@ -83,10 +99,19 @@ public class CheckersGameDAO {
                 .createNamedQuery("LOAD_FROM_TOKEN")
                 .setParameter("token", token).getSingleResult();
 
-        EntityTransaction et = em.getTransaction();
-        et.begin();
-        em.remove(gameEntity);
-        et.commit();
+        //EntityTransaction et = em.getTransaction();
+
+        try {
+            //et.begin();
+            ut.begin();
+            em.remove(gameEntity);
+            //et.commit();
+            ut.commit();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     public void save(GameEntity gameEntity) {

@@ -6,6 +6,8 @@ import fr.dude.isen.api.requests.PlayRequest;
 import fr.dude.isen.api.requests.UserNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
 import fr.dude.isen.api.responses.LightGame;
+import fr.dude.isen.api.responses.TurnResponse;
+import fr.dude.isen.entities.TurnEntity;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -13,6 +15,7 @@ import fr.dude.isen.model.pawns.Position;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,5 +83,20 @@ public class CheckersService implements CheckersApi {
     public String deleteGame(@PathParam("token") String token) {
         this.checkersgame.deleteFromToken(token);
         return token;
+    }
+
+    @GET
+    @Path("/game/{token}/history")
+    @Override
+    public List<TurnResponse> getHistory(@PathParam("token") String token) {
+        List<TurnEntity> entities = this.checkersgame.getHistory(token);
+        if (entities != null && entities.size() > 0) {
+            List<TurnResponse> turnResponses = new ArrayList<>(entities.size());
+            for(TurnEntity entity : entities) {
+                turnResponses.add(new TurnResponse(entity));
+            }
+            return turnResponses;
+        }
+        return new ArrayList<>(0);
     }
 }

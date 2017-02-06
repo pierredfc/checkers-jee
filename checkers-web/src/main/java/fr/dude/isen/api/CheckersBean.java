@@ -5,6 +5,7 @@ import fr.dude.isen.CheckersGameDAO;
 import fr.dude.isen.api.requests.UserNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
 import fr.dude.isen.api.responses.LightGame;
+import fr.dude.isen.entities.TurnEntity;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -84,4 +85,7 @@ public class CheckersBean implements Serializable {
         return this.game.setUsername(request.getName(), request.getColor());
     }
 
+    public List<TurnEntity> getHistory(String token) {
+        return dao.getHistoryFromToken(token);
+    }
 }
