@@ -103,13 +103,11 @@ public class CheckersService implements CheckersApi {
     @GET
     @Path("/game/{token}/skip")
     public GameResponse skip(@PathParam("token") String token) {
-        System.out.println("Skipping "+token);
         this.checkersgame.loadFromToken(token);
         final CheckersAdapter checkersAdapter = this.checkersgame.getGame();
         if (checkersAdapter.skip()) {
             return new GameResponse(checkersAdapter.getToken(), checkersAdapter.getCoreGame(), checkersAdapter.getCreationDate());
         }
-        //return getGame(token);
         return null;
     }
 }
