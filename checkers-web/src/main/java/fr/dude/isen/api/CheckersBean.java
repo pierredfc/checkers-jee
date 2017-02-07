@@ -38,15 +38,7 @@ public class CheckersBean implements Serializable {
     }
 
     public MoveResult play(Position init, Position destination) {
-        MoveResult result = game.play(init, destination);
-
-        // If game is over, we remove it from the database
-        if (result != null && result.isWinningMove())
-        {
-            this.deleteFromToken(this.game.getToken());
-        }
-
-        return result;
+        return game.play(init, destination);
     }
 
     public List<Move> getPossibleMoves(Position position)
