@@ -134,7 +134,7 @@ public class CheckersGameDAO {
      * Save the state of the game
      * @param gameEntity
      */
-    private void save(GameEntity gameEntity) {
+    protected void save(GameEntity gameEntity) {
         try {
             ut.begin();
             em.merge(gameEntity);
