@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by pierredfc on 23/01/2017.
+ * DAO model of the game
  */
 public class CheckersGameDAO {
 
@@ -23,6 +23,9 @@ public class CheckersGameDAO {
     @Inject
     UserTransaction ut;
 
+    /**
+     * @return a new game represented by a CheckersAdapter
+     */
     public CheckersAdapter createGame()
     {
         GameEntity gameEntity = new GameEntity();
@@ -43,6 +46,11 @@ public class CheckersGameDAO {
         return new CheckersAdapter(this, gameEntity);
     }
 
+    /**
+     * Retrieve all turns from a game
+     * @param token Identifier of the game
+     * @return the list of turns realised for the given game on success. Null otherwise.
+     */
     public List<TurnEntity> getHistoryFromToken(String token) {
         try
         {
@@ -58,6 +66,11 @@ public class CheckersGameDAO {
         }
     }
 
+    /**
+     * Load a game from its token
+     * @param token Identifier of the game
+     * @return the game represented by a CheckerAdapter on success. Null otherwise.
+     */
     public CheckersAdapter loadFromToken(String token) {
         try
         {
@@ -73,10 +86,12 @@ public class CheckersGameDAO {
         }
     }
 
+    /**
+     * @return all saved games if there are any. Null otherwise.
+     */
     public List<CheckersAdapter> loadSavedGames()
     {
-        List<GameEntity> gameEntity =  em
-                .createNamedQuery("GET_ALL_GAME").getResultList();
+        List<GameEntity> gameEntity =  em.createNamedQuery("GET_ALL_GAME").getResultList();
 
         if (gameEntity != null && gameEntity.size() > 0)
         {
@@ -93,6 +108,10 @@ public class CheckersGameDAO {
         return null;
     }
 
+    /**
+     * Delete the given game represented by its token.
+     * @param token Identifier of the game
+     */
     public void delete(String token)
     {
         GameEntity gameEntity = (GameEntity) em
@@ -111,7 +130,11 @@ public class CheckersGameDAO {
         }
     }
 
-    public void save(GameEntity gameEntity) {
+    /**
+     * Save the state of the game
+     * @param gameEntity
+     */
+    private void save(GameEntity gameEntity) {
         try {
             ut.begin();
             em.merge(gameEntity);

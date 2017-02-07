@@ -3,7 +3,7 @@ package fr.dude.isen.entities;
 import javax.persistence.*;
 
 /**
- * Created by pierredfc on 31/01/2017.
+ * Representation of a player in the database
  */
 @Entity
 public class UserEntity {

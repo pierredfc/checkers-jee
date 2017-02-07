@@ -5,7 +5,7 @@ import fr.dude.isen.model.pawns.Position;
 import javax.persistence.*;
 
 /**
- * Created by pierredfc on 23/01/2017.
+ * Representation of a turn in the database
  */
 @Entity
 public class TurnEntity {

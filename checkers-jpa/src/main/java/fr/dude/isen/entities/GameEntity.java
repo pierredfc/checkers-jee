@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by pierredfc on 23/01/2017.
+ * Representation of a Game in the database
  */
 @NamedQueries({
         @NamedQuery(name = "LOAD_FROM_TOKEN", query = "SELECT g FROM Game g WHERE g.token = :token"),
@@ -21,6 +21,9 @@ public class GameEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Unique identifier of the game, used for retrieving a game.
+     */
     private String token;
 
     @Temporal(TemporalType.DATE)
