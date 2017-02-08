@@ -14,9 +14,6 @@ public class TurnEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
-    @ManyToOne
-    GameEntity gameEntity;
-
     @Column(name="initRow")
     private int initRow;
 
@@ -33,8 +30,7 @@ public class TurnEntity {
 
     }
 
-    public TurnEntity(GameEntity gameEntity, Position init, Position dest) {
-        this.gameEntity = gameEntity;
+    public TurnEntity(Position init, Position dest) {
         this.initRow = init.getRow();
         this.initColumn = init.getColumn();
         this.destRow = dest.getRow();

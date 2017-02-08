@@ -30,7 +30,7 @@ public class GameEntity {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @OneToMany(mappedBy= "gameEntity", cascade= CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER)
     @OrderColumn(name="index")
     private List<TurnEntity> turnEntities = new ArrayList<>();
 

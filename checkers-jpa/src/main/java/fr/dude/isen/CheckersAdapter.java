@@ -68,7 +68,7 @@ public class CheckersAdapter {
      */
     public MoveResult play(Position init, Position destination) {
         MoveResult result = this.coreGame.play(init, destination);
-        this.gameEntity.getTurnEntities().add(new TurnEntity(this.gameEntity, init, destination));
+        this.gameEntity.getTurnEntities().add(new TurnEntity(init, destination));
         this.switchTurn();
         dao.save(gameEntity);
         return result;
