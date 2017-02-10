@@ -2,12 +2,11 @@ package fr.dude.isen;
 
 import fr.dude.isen.entities.GameEntity;
 import fr.dude.isen.entities.TurnEntity;
-import fr.dude.isen.entities.UserEntity;
+import fr.dude.isen.entities.PlayerEntity;
 import org.apache.commons.lang.RandomStringUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.transaction.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,6 @@ public class CheckersGameDAO {
     {
         GameEntity gameEntity = new GameEntity();
         gameEntity.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
-        gameEntity.setUserBlack(new UserEntity("Black", 20));
-        gameEntity.setUserWhite(new UserEntity("White", 20));
 
         try {
             ut.begin();

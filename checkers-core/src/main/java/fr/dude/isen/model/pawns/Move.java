@@ -3,11 +3,18 @@ package fr.dude.isen.model.pawns;
 import fr.dude.isen.model.Cell;
 
 /**
- * Created by Clement on 10/01/2017.
+ * Class that represents a pawn's move to a specific destination cell.
  */
 public class Move {
 
+    /**
+     * Destination of the pawn
+     */
     private Cell destination;
+
+    /**
+     * Set if a pawn was on the path of the move
+     */
     private Cell pawnCellToDelete;
 
     public Move(Cell destination) {
@@ -31,6 +38,10 @@ public class Move {
         return this.pawnCellToDelete != null && this.pawnCellToDelete.getPawn() != null;
     }
 
+    /**
+     * A move is mandatory if it's include to delete a pawn.
+     * @return
+     */
     public boolean isMandatory() {
         return hasPawnToDelete();
     }

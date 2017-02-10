@@ -1,5 +1,7 @@
 package fr.dude.isen.model;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.*;
 
@@ -15,8 +17,8 @@ public class Board implements Serializable {
 
     private ColorPawn nextUser = ColorPawn.WHITE;
 
-    private User userWhite;
-    private User userBlack;
+    private Player playerWhite;
+    private Player playerBlack;
 
     public Board(int nbRows, int nbColumns, int nbPawnRows) {
         this.initCells(nbRows, nbColumns);
@@ -30,10 +32,10 @@ public class Board implements Serializable {
     }
 
     private void initUsers(int nbPawns) {
-        this.userWhite = new User(User.USER_WHITE_DEFAULT_NAME, nbPawns, ColorPawn.WHITE, Direction.DOWN, 0);
-        this.userBlack = new User(User.USER_BLACK_DEFAULT_NAME, nbPawns, ColorPawn.BLACK, Direction.UP, this.cells.getLastRowIndex());
-        this.userWhite.setOpponent(userBlack);
-        this.userBlack.setOpponent(userWhite);
+        this.playerWhite = new Player("Default User 1", nbPawns, ColorPawn.WHITE, Direction.DOWN, 0);
+        this.playerBlack = new Player("Default User 2", nbPawns, ColorPawn.BLACK, Direction.UP, this.cells.getLastRowIndex());
+        this.playerWhite.setOpponent(playerBlack);
+        this.playerBlack.setOpponent(playerWhite);
     }
 
     private void initPawns(int nbPawnRows) {
@@ -46,7 +48,7 @@ public class Board implements Serializable {
             /*for (int column = row % 2 == 0 ? 1 : 0; column < nbColumns; column += 2) {
                 this.cells.get(column, row).setPawn(this.userrBlack.newPawn());
             }*/
-            fillColumnWithPawns(this.userBlack, row);
+            fillColumnWithPawns(this.playerBlack, row);
         }
     }
 
@@ -54,15 +56,15 @@ public class Board implements Serializable {
         for (int row = this.cells.getLastRowIndex(); row > this.cells.getLastRowIndex() - nbPawnRows; row--) {
             /*for(int column = (row % 2 == 1 ? 0:1); column < nbColumns; column+=2) {
             }*/
-            fillColumnWithPawns(this.userWhite, row);
+            fillColumnWithPawns(this.playerWhite, row);
         }
     }
 
-    private void fillColumnWithPawns(User user, int row) {
+    private void fillColumnWithPawns(Player player, int row) {
         for (int column = 0; column < this.cells.getNbColumns(); column++) {
             Cell cell = cells.get(row, column);
             if (cell.getColor() == ColorCell.DARK) {
-                cell.setPawn(user.newPawn());
+                cell.setPawn(player.newPawn());
             }
         }
     }
@@ -71,12 +73,12 @@ public class Board implements Serializable {
         return this.cells;
     }
 
-    public User getUserWhite() {
-        return this.userWhite;
+    public Player getPlayerWhite() {
+        return this.playerWhite;
     }
 
-    public User getUserBlack() {
-        return this.userBlack;
+    public Player getPlayerBlack() {
+        return this.playerBlack;
     }
 
     public MoveResult play(Position origin, Position destination) {
@@ -88,37 +90,37 @@ public class Board implements Serializable {
 
     public MoveResult play(Cell origin, Cell destination) {
         if (origin.hasPawn() && origin.getPawn().getColor() == this.nextUser) {
-            User user = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getUserBlack() : this.getUserWhite();
-            return this.movePawn(user, origin, destination);
+            Player player = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getPlayerBlack() : this.getPlayerWhite();
+            return this.movePawn(player, origin, destination);
         }
         return null;
     }
 
-    private MoveResult movePawn(User user, Cell origin, Cell destination) {
+    private MoveResult movePawn(Player player, Cell origin, Cell destination) {
         try {
             Move move = this.boardManager.move(origin, destination);
-            checkPawnToDelete(move, user);
+            checkPawnToDelete(move, player);
             boolean becomesQueen = checkTransformToQueen(move);
-            this.nextUser = getNextUser(move) ? user.getColorPawn() : user.findOpponentColor();
-            return new MoveResult(origin, move, nextUser, becomesQueen, this.userWhite.getNbPawns(), this.userBlack.getNbPawns(), this.isUserWins(user));
+            this.nextUser = getNextUser(move) ? player.getColorPawn() : player.findOpponentColor();
+            return new MoveResult(origin, move, nextUser, becomesQueen, this.playerWhite.getNbPawns(), this.playerBlack.getNbPawns(), this.isUserWins(player));
         } catch (UnauthorizedMoveException e) {
             return null;
         }
     }
 
-    private boolean isUserWins(User user)
+    private boolean isUserWins(Player player)
     {
-        return (user.getOpponent().getNbPawns() == 0);
+        return (player.getOpponent().getNbPawns() == 0);
     }
 
     private boolean getNextUser(Move move) {
         return move.getPawnCellToDelete() != null;
     }
 
-    private void checkPawnToDelete(Move move, User user) {
+    private void checkPawnToDelete(Move move, Player player) {
         if (move.hasPawnToDelete()) {
             Cell pawnCellToDelete = move.getPawnCellToDelete();
-            user.decrementOpponentPawns();
+            player.decrementOpponentPawns();
             pawnCellToDelete.setPawn(null);
         }
     }
@@ -126,7 +128,7 @@ public class Board implements Serializable {
     public boolean checkTransformToQueen(Move move) {
         Pawn pawn = move.getDestination().getPawn();
         int row = move.getDestination().getPosition().getRow();
-        if ((pawn.getColor() == ColorPawn.BLACK && row == this.userBlack.getQueenRow()) || (pawn.getColor() == ColorPawn.WHITE && row == this.userWhite.getQueenRow())) {
+        if ((pawn.getColor() == ColorPawn.BLACK && row == this.playerBlack.getQueenRow()) || (pawn.getColor() == ColorPawn.WHITE && row == this.playerWhite.getQueenRow())) {
             pawn.toQueen();
             return true;
         }
@@ -144,26 +146,5 @@ public class Board implements Serializable {
     public BoardManager getBoardManager() {
         return boardManager;
     }
-
-    public void setCells(Cells cells) {
-        this.cells = cells;
-    }
-
-    public void setUserWhite(User userWhite) {
-        this.userWhite = userWhite;
-    }
-
-    public void setUserBlack(User userBlack) {
-        this.userBlack = userBlack;
-    }
-
-    public ColorPawn getNextUser() {
-        return nextUser;
-    }
-
-    public void setNextUser(ColorPawn nextUser) {
-        this.nextUser = nextUser;
-    }
-
 
 }

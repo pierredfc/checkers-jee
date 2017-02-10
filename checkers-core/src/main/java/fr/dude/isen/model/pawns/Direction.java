@@ -1,7 +1,7 @@
 package fr.dude.isen.model.pawns;
 
 /**
- * Created by pierredfc on 09/01/2017.
+ * Allowed direction for a pawn
  */
 public enum Direction {
     UP,

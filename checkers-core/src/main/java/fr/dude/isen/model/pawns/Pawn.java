@@ -1,15 +1,18 @@
 package fr.dude.isen.model.pawns;
 
-import fr.dude.isen.model.Cell;
-import fr.dude.isen.model.User;
-
 /**
- * Created by pierredfc on 09/01/2017.
+ * Class that represents a Pawn.
  */
 public class Pawn {
 
+    /**
+     * Pawn's color
+     */
     private ColorPawn color;
 
+    /**
+     * Direction's pawn
+     */
     private Direction direction;
 
     public Pawn(ColorPawn color, Direction direction) {
@@ -21,24 +24,15 @@ public class Pawn {
         return color;
     }
 
-    public void setColor(ColorPawn color) {
-        this.color = color;
-    }
-
     public Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-
+    /**
+     * Call when a pawn becomes a queen.
+     */
     public void toQueen() {
         this.direction = Direction.QUEEN;
     }
 
-    public boolean isFromUser(User user) {
-        return this.color == user.getColorPawn();
-    }
 }

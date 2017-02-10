@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Representation of a player in the database
  */
 @Entity
-public class UserEntity {
+public class PlayerEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -16,12 +16,12 @@ public class UserEntity {
 
     private Integer nbPawns;
 
-    public UserEntity()
+    public PlayerEntity()
     {
 
     }
 
-    public UserEntity(String username, Integer nbPawns)
+    public PlayerEntity(String username, Integer nbPawns)
     {
         this.username = username;
         this.nbPawns = nbPawns;

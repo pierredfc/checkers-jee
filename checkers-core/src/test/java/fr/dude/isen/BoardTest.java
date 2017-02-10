@@ -65,13 +65,13 @@ public class BoardTest {
     @Test
     public void isUsersCellsOk() {
         logger.info("[BoardTest][isUsersCellsOk] BEGIN");
-        this.isUserCellsOk(this.board.getUserWhite());
-        this.isUserCellsOk(this.board.getUserBlack());
+        this.isUserCellsOk(this.board.getPlayerWhite());
+        this.isUserCellsOk(this.board.getPlayerBlack());
         logger.info("[BoardTest][isUsersCellsOk] END");
     }
 
-    private void isUserCellsOk(User user) {
-        assertThat(user.getNbPawns()).isEqualTo(this.nbPawnRows * this.nbColumns / 2);
+    private void isUserCellsOk(Player player) {
+        assertThat(player.getNbPawns()).isEqualTo(this.nbPawnRows * this.nbColumns / 2);
     }
 
     @Test

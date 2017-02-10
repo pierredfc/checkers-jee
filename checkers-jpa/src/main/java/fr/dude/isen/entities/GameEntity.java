@@ -35,11 +35,14 @@ public class GameEntity {
     private List<TurnEntity> turnEntities = new ArrayList<>();
 
     @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.EAGER)
-    private UserEntity userWhite;
+    private PlayerEntity playerWhite;
 
     @OneToOne(cascade= CascadeType.ALL, fetch=FetchType.EAGER)
-    private UserEntity userBlack;
+    private PlayerEntity playerBlack;
 
+    /**
+     * By default, white starts!
+     */
     private String currentTurn = ColorPawn.WHITE.toString();
 
     public GameEntity() {
@@ -71,20 +74,20 @@ public class GameEntity {
         currentTurn = colour.toString();
     }
 
-    public UserEntity getUserBlack() {
-        return userBlack;
+    public PlayerEntity getPlayerBlack() {
+        return playerBlack;
     }
 
-    public UserEntity getUserWhite() {
-        return userWhite;
+    public PlayerEntity getPlayerWhite() {
+        return playerWhite;
     }
 
-    public void setUserBlack(UserEntity userBlack) {
-        this.userBlack = userBlack;
+    public void setPlayerBlack(PlayerEntity userBlack) {
+        this.playerBlack = userBlack;
     }
 
-    public void setUserWhite(UserEntity userWhite) {
-        this.userWhite = userWhite;
+    public void setPlayerWhite(PlayerEntity userWhite) {
+        this.playerWhite = userWhite;
     }
 
     public Date getCreatedAt() {

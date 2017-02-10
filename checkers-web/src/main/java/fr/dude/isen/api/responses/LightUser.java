@@ -1,6 +1,6 @@
 package fr.dude.isen.api.responses;
 
-import fr.dude.isen.model.User;
+import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.ColorPawn;
 
 /**
@@ -12,8 +12,8 @@ public class LightUser {
     private ColorPawn color;
     private int nbPawns;
 
-    public LightUser(User user) {
-        this(user.getName(), user.getColorPawn(), user.getNbPawns());
+    public LightUser(Player player) {
+        this(player.getName(), player.getColorPawn(), player.getNbPawns());
     }
 
     public LightUser(String name, ColorPawn colorPawn, int nbPawns) {

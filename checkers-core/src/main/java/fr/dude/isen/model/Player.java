@@ -7,22 +7,20 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
- * Created by Clement on 09/01/2017.
+ * Class that represents a player.
  */
-public class User {
-
-    public static final String USER_WHITE_DEFAULT_NAME = "Player 2";
-    public static final String USER_BLACK_DEFAULT_NAME = "Player 1";
+public class Player {
 
     private final Direction pawnDirection;
     private final int queenRow;
     private int nbPawns;
     private ColorPawn colorPawn;
     
-    private User opponent;
+    private Player opponent;
     private String name;
 
-    public User(String name, int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
+    public Player(String name, int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {
+        this.name = name;
         this.nbPawns = nbPawns;
         this.colorPawn = colorPawn;
         this.pawnDirection = pawnDirection;
@@ -57,12 +55,12 @@ public class User {
         return this.opponent.colorPawn;
     }
 
-    public void setOpponent(User opponent) {
+    public void setOpponent(Player opponent) {
         this.opponent = opponent;
     }
 
     @JsonIgnore
-    public User getOpponent() {
+    public Player getOpponent() {
         return opponent;
     }
 

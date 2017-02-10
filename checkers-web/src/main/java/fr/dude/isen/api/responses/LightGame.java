@@ -1,6 +1,6 @@
 package fr.dude.isen.api.responses;
 
-import fr.dude.isen.model.User;
+import fr.dude.isen.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +18,12 @@ public class LightGame {
         this(gameResponse.getToken(), gameResponse.getCreationDate().getTime(), gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
     }
 
-    public LightGame(String token, long date, User... users) {
+    public LightGame(String token, long date, Player... players) {
         this.token = token;
         this.date = date;
-        this.users = new ArrayList<>(users.length);
-        for(User user : users) {
-            this.users.add(new LightUser(user));
+        this.users = new ArrayList<>(players.length);
+        for(Player player : players) {
+            this.users.add(new LightUser(player));
         }
     }
 

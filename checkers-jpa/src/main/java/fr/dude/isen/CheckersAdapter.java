@@ -2,10 +2,10 @@ package fr.dude.isen;
 
 import fr.dude.isen.entities.GameEntity;
 import fr.dude.isen.entities.TurnEntity;
-import fr.dude.isen.entities.UserEntity;
+import fr.dude.isen.entities.PlayerEntity;
 import fr.dude.isen.model.Cell;
 import fr.dude.isen.model.MoveResult;
-import fr.dude.isen.model.User;
+import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
@@ -44,15 +44,24 @@ public class CheckersAdapter {
             this.coreGame.play(turnEntity.getInitPosition(), turnEntity.getDestination());
         }
 
-        User userBlack = this.coreGame.getUserBlack();
-        User userWhite = this.coreGame.getUserWhite();
+        Player playerBlack = this.coreGame.getUserBlack();
+        Player playerWhite = this.coreGame.getUserWhite();
 
-        if (userBlack != null && userWhite != null)
+        if ((this.gameEntity.getPlayerWhite() == null) && (this.gameEntity.getPlayerBlack() == null))
         {
-            userBlack.setName(gameEntity.getUserBlack().getUsername());
-            userWhite.setName(gameEntity.getUserWhite().getUsername());
-            userWhite.setOpponent(userBlack);
-            userBlack.setOpponent(userWhite);
+            this.gameEntity.setPlayerWhite(this.convertPlayerToPlayerEntity(playerWhite));
+            this.gameEntity.setPlayerBlack(this.convertPlayerToPlayerEntity(playerBlack));
+            dao.save(this.gameEntity);
+        }
+        else
+        {
+            if (playerBlack != null && playerWhite != null)
+            {
+                playerBlack.setName(gameEntity.getPlayerBlack().getUsername());
+                playerWhite.setName(gameEntity.getPlayerWhite().getUsername());
+                playerWhite.setOpponent(playerBlack);
+                playerBlack.setOpponent(playerWhite);
+            }
         }
     }
 
@@ -86,16 +95,16 @@ public class CheckersAdapter {
      */
     public String setUsername(String username, ColorPawn colorPawn)
     {
-        UserEntity user;
+        PlayerEntity user;
 
         if (ColorPawn.WHITE.equals(colorPawn))
         {
-            user = this.getUserWhite();
+            user = this.getPlayerWhite();
             this.coreGame.getUserWhite().setName(username);
         }
         else
         {
-            user = this.getUserBlack();
+            user = this.getPlayerBlack();
             this.coreGame.getUserBlack().setName(username);
         }
 
@@ -124,7 +133,7 @@ public class CheckersAdapter {
     }
 
     /**
-     * Switch turn's player
+     * Switch player's turn
      */
     private void switchTurn()
     {
@@ -136,13 +145,13 @@ public class CheckersAdapter {
         return this.gameEntity.getToken();
     }
 
-    public UserEntity getUserWhite()
+    public PlayerEntity getPlayerWhite()
     {
-        return this.gameEntity.getUserWhite();
+        return this.gameEntity.getPlayerWhite();
     }
-    public UserEntity getUserBlack()
+    public PlayerEntity getPlayerBlack()
     {
-        return this.gameEntity.getUserBlack();
+        return this.gameEntity.getPlayerBlack();
     }
 
     public Date getCreationDate()
@@ -161,5 +170,14 @@ public class CheckersAdapter {
             return true;
         }
         return false;
+    }
+
+
+    private PlayerEntity convertPlayerToPlayerEntity(Player player)
+    {
+        PlayerEntity playerEntity = new PlayerEntity();
+        playerEntity.setNbPawns(player.getNbPawns());
+        playerEntity.setUsername(player.getName());
+        return playerEntity;
     }
 }
