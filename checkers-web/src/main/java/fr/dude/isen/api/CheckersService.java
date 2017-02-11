@@ -3,7 +3,7 @@ package fr.dude.isen.api;
 
 import fr.dude.isen.CheckersAdapter;
 import fr.dude.isen.api.requests.PlayRequest;
-import fr.dude.isen.api.requests.UserNameRequest;
+import fr.dude.isen.api.requests.PlayerNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
 import fr.dude.isen.api.responses.LightGame;
 import fr.dude.isen.api.responses.TurnResponse;
@@ -38,7 +38,7 @@ public class CheckersService implements CheckersApi {
     @PUT
     @Path("/game/{token}/name")
     @Override
-    public String setName(@PathParam("token") String token, UserNameRequest request) {
+    public String setName(@PathParam("token") String token, PlayerNameRequest request) {
         this.checkersgame.loadFromToken(token);
         return this.checkersgame.setUsername(request);
     }

@@ -5,11 +5,18 @@ import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Position;
 
 /**
- * Created by Clement on 06/02/2017.
+ * Class that represents a turn response
  */
 public class TurnResponse {
 
+    /**
+     * Position from where the turn starts
+     */
     private Position origin;
+
+    /**
+     * Position where the turn ends
+     */
     private Position destination;
 
     public TurnResponse(Position origin, Position destination) {

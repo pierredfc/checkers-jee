@@ -3,11 +3,18 @@ package fr.dude.isen.api.requests;
 import fr.dude.isen.model.pawns.Position;
 
 /**
- * Created by Clement on 23/01/2017.
+ * Class that represents a play request
  */
 public class PlayRequest {
 
+    /**
+     * Position from where the pawn has to been moved.
+     */
     private Position origin;
+
+    /**
+     * Position where the pawn has to go.
+     */
     private Position destination;
 
     public PlayRequest() {

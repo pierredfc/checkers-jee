@@ -3,14 +3,21 @@ package fr.dude.isen.api.requests;
 import fr.dude.isen.model.pawns.ColorPawn;
 
 /**
- * Created by Clement on 31/01/2017.
+ * Class that represents an username modification request
  */
-public class UserNameRequest {
+public class PlayerNameRequest {
 
+    /**
+     * Player pawn's color
+     */
     private ColorPawn color;
+
+    /**
+     * New name of the player
+     */
     private String name;
 
-    public UserNameRequest() {
+    public PlayerNameRequest() {
 
     }
 

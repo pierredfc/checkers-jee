@@ -1,10 +1,13 @@
 package fr.dude.isen.api.requests;
 
 /**
- * Created by Clement on 31/01/2017.
+ * Class that represents a token request
  */
 public class TokenRequest {
 
+    /**
+     * Game's token
+     */
     private String token;
 
     public String getToken() {

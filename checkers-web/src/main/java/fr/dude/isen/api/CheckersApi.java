@@ -1,7 +1,7 @@
 package fr.dude.isen.api;
 
 import fr.dude.isen.api.requests.PlayRequest;
-import fr.dude.isen.api.requests.UserNameRequest;
+import fr.dude.isen.api.requests.PlayerNameRequest;
 import fr.dude.isen.api.responses.GameResponse;
 import fr.dude.isen.api.responses.LightGame;
 import fr.dude.isen.api.responses.TurnResponse;
@@ -12,65 +12,69 @@ import fr.dude.isen.model.pawns.Position;
 import java.util.List;
 
 /**
- * Created by Clement on 31/01/2017.
+ * Checkers API interface
  */
 public interface CheckersApi {
 
     /**
-     * Récupérer la liste des parties en cours
-     * @return La liste des parties en cours
+     * @return the list of saved games.
      */
     List<LightGame> getGames();
 
     /**
-     * Modifier le nom d'un joueur dans une partie
-     * @param token Le token de la partie
-     * @param request Le joueur concerné (couleur des pions) et son nouveau nom
-     * @return Le nouveau nom du joueur
+     * Modify the player's username
+     * @param token Game's token
+     * @param request Affected player and his new name
+     * @return the new username
      */
-    String setName(String token, UserNameRequest request);
+    String setName(String token, PlayerNameRequest request);
 
     /**
-     * Créer une nouvelle partie
-     * @return La nouvelle partie
+     * Create a new game
+     * @return the new game
      */
     GameResponse createGame();
 
     /**
-     * Récupérer la plateau de jeu d'une partie
-     * @param token Le token de la partie
-     * @return La partie
+     * Retrieve a game from its identifier
+     * @param token Game's identifier
+     * @return the matching game
      */
     GameResponse getGame(String token);
 
     /**
-     * Avancer un pion (avancer d'un tour) sur le plateau de jeu
-     * @param token Le token de la partie
-     * @param request La cellule d'origine, la cellule de destination
-     * @return Les conséquences du mouvement, ou null
+     * Move a pawn on a specific game
+     * @param token Game's identifier
+     * @param request Origin cell and destination cell
+     * @return a MoveResult on success. Null otherwise.
      */
     MoveResult play(String token, PlayRequest request);
 
     /**
-     * Récupérer les mouvements possibles sur une cellule donnée
-     * @param position La position du pion concerné
-     * @return Les mouvements possibles de ce pion
+     * Retrieve all possible moves for a specific position
+     * @param token Game's identifier
+     * @param position Pawn's position
+     * @return a list of possible moves on success. Empty list if no moves. Null on error (no pawn at the position).
      */
     List<Move> getPossibleMoves(String token, Position position);
 
     /**
-     * Suppression d'une partie à partir de son identifiant (token)
-     * @param token Identifiant de la partie
-     * @return Le token de la partie supprimée
+     * Delete a game
+     * @param token Game's identifier
+     * @return the deleted game's token
      */
     String deleteGame(String token);
 
     /**
-     * Récupère la liste des tours (Turn) effectués
-     * @param token Identifiant de la partie
-     * @return La liste des tours
+     * @param token Game's identifier
+     * @return the list of turns made in a specific game
      */
     List<TurnResponse> getHistory(String token);
 
+    /**
+     * DEBUG function in order to have a specific game configuration to have one less move to win
+     * @param token Game's identifier
+     * @return the game
+     */
     GameResponse skip(String token);
 }

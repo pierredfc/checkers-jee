@@ -5,12 +5,23 @@ import fr.dude.isen.CheckersGame;
 import java.util.Date;
 
 /**
- * Created by Clement on 31/01/2017.
+ * Class that represents a game response
  */
 public class GameResponse {
 
+    /**
+     * Game's token
+     */
     private String token;
+
+    /**
+     * Game's creation date
+     */
     private Date creationDate;
+
+    /**
+     * Game state
+     */
     private CheckersGame game;
 
     public GameResponse(String token, CheckersGame game, Date creationDate) {

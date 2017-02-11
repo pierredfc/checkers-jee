@@ -6,13 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Clement on 30/01/2017.
+ * Lighter version of a checkers game
  */
 public class LightGame {
 
+    /**
+     * Game's creation date
+     */
     private long date;
+
+    /**
+     * Game's token
+     */
     private String token;
-    private List<LightUser> users;
+
+    /**
+     * Game's players
+     */
+    private List<LightPlayer> players;
 
     public LightGame(GameResponse gameResponse) {
         this(gameResponse.getToken(), gameResponse.getCreationDate().getTime(), gameResponse.getGame().getPlayerWhite(), gameResponse.getGame().getPlayerBlack());
@@ -21,9 +32,10 @@ public class LightGame {
     public LightGame(String token, long date, Player... players) {
         this.token = token;
         this.date = date;
-        this.users = new ArrayList<>(players.length);
+        this.players = new ArrayList<>(players.length);
+
         for(Player player : players) {
-            this.users.add(new LightUser(player));
+            this.players.add(new LightPlayer(player));
         }
     }
 
@@ -43,11 +55,11 @@ public class LightGame {
         this.token = token;
     }
 
-    public List<LightUser> getUsers() {
-        return users;
+    public List<LightPlayer> getPlayers() {
+        return players;
     }
 
-    public void setUsers(List<LightUser> users) {
-        this.users = users;
+    public void setPlayers(List<LightPlayer> players) {
+        this.players = players;
     }
 }

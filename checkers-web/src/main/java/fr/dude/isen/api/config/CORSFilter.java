@@ -7,7 +7,7 @@
     import java.io.IOException;
 
     /**
-     * Created by Clement on 17/01/2017.
+     * Cross-origin resource sharing filter
      */
     @Provider
     public class CORSFilter implements ContainerResponseFilter {

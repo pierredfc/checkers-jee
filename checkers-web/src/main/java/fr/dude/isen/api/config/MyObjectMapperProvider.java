@@ -9,7 +9,7 @@ import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
 /**
- * Created by Clement on 23/01/2017.
+ * Object mapper provider for JSON mapper
  */
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,7 +32,6 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
         final ObjectMapper result = new ObjectMapper();
         result.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
         result.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
-        System.out.println("Configured ---------------");
         return result;
     }
 

@@ -4,19 +4,30 @@ import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.ColorPawn;
 
 /**
- * Created by Clement on 30/01/2017.
+ * Lighter version of a player
  */
-public class LightUser {
+public class LightPlayer {
 
+    /**
+     * Player's name
+     */
     private String name;
+
+    /**
+     * Pawn's color of the player
+     */
     private ColorPawn color;
+
+    /**
+     * Number of pawns that the player owns.
+     */
     private int nbPawns;
 
-    public LightUser(Player player) {
+    public LightPlayer(Player player) {
         this(player.getName(), player.getColorPawn(), player.getNbPawns());
     }
 
-    public LightUser(String name, ColorPawn colorPawn, int nbPawns) {
+    public LightPlayer(String name, ColorPawn colorPawn, int nbPawns) {
         this.name = name;
         this.color = colorPawn;
         this.nbPawns = nbPawns;
