@@ -38,30 +38,30 @@ public class MoveResult {
     /**
      * Number of white pawns left.
      */
-    private final int nbPawnsUserWhite;
+    private final int nbPawnsPlayerWhite;
 
     /**
      * Number of black pawns left.
      */
-    private final int nbPawnsUserBlack;
+    private final int nbPawnsPlayerBlack;
 
     /**
      * True if the game is finished. False otherwise.
      */
     private final boolean isWinningMove;
 
-    public MoveResult(Cell origin, Move move, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack, boolean isWinningMove) {
-        this(origin, move.getDestination(), move.getPawnCellToDelete(), nextUser, becomesQueen, nbPawnsUserWhite, nbPawnsUserBlack, isWinningMove);
+    public MoveResult(Cell origin, Move move, ColorPawn nextUser, boolean becomesQueen, int nbPawnsPlayerWhite, int nbPawnsPlayerBlack, boolean isWinningMove) {
+        this(origin, move.getDestination(), move.getPawnCellToDelete(), nextUser, becomesQueen, nbPawnsPlayerWhite, nbPawnsPlayerBlack, isWinningMove);
     }
 
-    public MoveResult(Cell origin, Cell destination, Cell kill, ColorPawn nextUser, boolean becomesQueen, int nbPawnsUserWhite, int nbPawnsUserBlack, boolean isWinningMove) {
+    public MoveResult(Cell origin, Cell destination, Cell kill, ColorPawn nextUser, boolean becomesQueen, int nbPawnsPlayerWhite, int nbPawnsPlayerBlack, boolean isWinningMove) {
         this.origin = origin.getPosition();
         this.destination = destination.getPosition();
         this.kill = kill != null ? kill.getPosition() : null;
         this.becomesQueen = becomesQueen;
         this.nextUser = nextUser;
-        this.nbPawnsUserBlack = nbPawnsUserBlack;
-        this.nbPawnsUserWhite = nbPawnsUserWhite;
+        this.nbPawnsPlayerBlack = nbPawnsPlayerBlack;
+        this.nbPawnsPlayerWhite = nbPawnsPlayerWhite;
         this.isWinningMove = isWinningMove;
     }
 
@@ -85,9 +85,9 @@ public class MoveResult {
         return nextUser;
     }
 
-    public int getNbPawnsUserWhite() { return nbPawnsUserWhite; }
+    public int getNbPawnsPlayerWhite() { return nbPawnsPlayerWhite; }
 
-    public int getNbPawnsUserBlack() { return nbPawnsUserBlack; }
+    public int getNbPawnsPlayerBlack() { return nbPawnsPlayerBlack; }
 
     public boolean isWinningMove() {
         return isWinningMove;
