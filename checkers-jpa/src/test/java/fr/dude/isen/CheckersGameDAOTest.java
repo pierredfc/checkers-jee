@@ -32,28 +32,41 @@ public class CheckersGameDAOTest {
 
     @Test
     public void daoIsInjected() throws Exception {
+        logger.info("[CheckersGameDAOTest][daoIsInjected] BEGIN");
         assertThat(dao).isNotNull();
+        logger.info("[CheckersGameDAOTest][daoIsInjected] CheckersGameDAO is well injected");
+        logger.info("[CheckersGameDAOTest][daoIsInjected] END");
     }
 
     @Test
     public void itCanCreateAndDeleteAGame() throws Exception {
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] BEGIN");
         CheckersAdapter game = dao.createGame();
         assertThat(game).isNotNull();
 
         String token = game.getToken();
-        assertThat(game.getToken()).isNotNull();
+        assertThat(token).isNotNull();
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] Game " + token + " created");
         em.clear();
+
         game = dao.loadFromToken(token);
         assertThat(game).isNotNull();
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] Game " + token + " successfully loaded from database");
 
         dao.delete(token);
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] Game " + token + " deleted");
         game = dao.loadFromToken(token);
         assertThat(game).isNull();
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] Game " + token + " can not be load");
+        logger.info("[CheckersGameDAOTest][itCanCreateAndDeleteAGame] END");
     }
 
     @Test
     public void itCanPlayWithAJPAGame() throws Exception {
+        logger.info("[CheckersGameDAOTest][itCanPlayWithAJPAGame] BEGIN");
         CheckersAdapter game = dao.createGame();
+        String token = game.getToken();
+        logger.info("[CheckersGameDAOTest][itCanPlayWithAJPAGame] Game " + token + " created");
 
         Position origin = new Position(6,0);
         Position destination = new Position(5,1);
@@ -65,13 +78,16 @@ public class CheckersGameDAOTest {
 
         assertThat(game.getCell(4, 2).getPawn()).isNotNull();
         assertThat(game.getCell(5, 1).getPawn()).isNotNull();
-        String token = game.getToken();
 
         em.clear();
         game = dao.loadFromToken(token);
         assertThat(game).isNotNull();
+
+        logger.info("[CheckersGameDAOTest][itCanPlayWithAJPAGame] Game " + token + " successfully loaded from database");
+
         assertThat(game.getCell(4, 2).getPawn()).isNotNull();
         assertThat(game.getCell(5, 1).getPawn()).isNotNull();
+        logger.info("[CheckersGameDAOTest][itCanPlayWithAJPAGame] END");
     }
 
 }
