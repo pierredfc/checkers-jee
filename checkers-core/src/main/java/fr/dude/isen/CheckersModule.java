@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * Created by Clement on 09/01/2017.
+ * Checkers Module
  */
 public class CheckersModule extends AbstractModule {
 

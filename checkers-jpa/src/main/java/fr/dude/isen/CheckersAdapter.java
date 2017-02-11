@@ -3,7 +3,7 @@ package fr.dude.isen;
 import fr.dude.isen.entities.GameEntity;
 import fr.dude.isen.entities.TurnEntity;
 import fr.dude.isen.entities.PlayerEntity;
-import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.ColorPawn;
@@ -44,8 +44,8 @@ public class CheckersAdapter {
             this.coreGame.play(turnEntity.getInitPosition(), turnEntity.getDestination());
         }
 
-        Player playerBlack = this.coreGame.getUserBlack();
-        Player playerWhite = this.coreGame.getUserWhite();
+        Player playerBlack = this.coreGame.getPlayerBlack();
+        Player playerWhite = this.coreGame.getPlayerWhite();
 
         // If it's a new game, we create the two user entities from the core game.
         if ((this.gameEntity.getPlayerWhite() == null) && (this.gameEntity.getPlayerBlack() == null))
@@ -102,12 +102,12 @@ public class CheckersAdapter {
         if (ColorPawn.WHITE.equals(colorPawn))
         {
             user = this.getPlayerWhite();
-            this.coreGame.getUserWhite().setName(username);
+            this.coreGame.getPlayerWhite().setName(username);
         }
         else
         {
             user = this.getPlayerBlack();
-            this.coreGame.getUserBlack().setName(username);
+            this.coreGame.getPlayerBlack().setName(username);
         }
 
         user.setUsername(username);

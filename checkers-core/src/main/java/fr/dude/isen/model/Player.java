@@ -11,12 +11,34 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 public class Player {
 
+    /**
+     *
+     */
     private final Direction pawnDirection;
+
+    /**
+     * Row index in which opponent pawns can become queens.
+     */
     private final int queenRow;
+
+    /**
+     * Number of pawns that the player owns.
+     */
     private int nbPawns;
+
+    /**
+     * Pawn's color of the player
+     */
     private ColorPawn colorPawn;
-    
+
+    /**
+     * Opponent of the player
+     */
     private Player opponent;
+
+    /**
+     * Player's name
+     */
     private String name;
 
     public Player(String name, int nbPawns, ColorPawn colorPawn, Direction pawnDirection, int queenRow) {

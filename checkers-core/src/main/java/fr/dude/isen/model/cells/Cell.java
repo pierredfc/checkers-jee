@@ -1,28 +1,45 @@
-package fr.dude.isen.model;
+package fr.dude.isen.model.cells;
 
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
 
 /**
- * Created by pierredfc on 09/01/2017.
+ * Class that represents a cell.
  */
 public class Cell {
 
+    /**
+     * Cell's color
+     */
     private ColorCell color;
 
+    /**
+     * Cell's position
+     */
     private Position position;
 
+    /**
+     * Set if a pawn is on the cell. Null otherwise.
+     */
     private Pawn pawn;
 
     public Cell(int column, int row) {
         this.position = new Position(row, column);
+        // According to the row and column indexes, we can infer the cell's color.
         this.color = (((row + (column % 2 == 0 ? 0 : 1)) % 2) == 0) ? ColorCell.DARK : ColorCell.LIGHT;
     }
 
+    /**
+     * @return true if there is a pawn on the cell. False otherwise.
+     */
     public boolean hasPawn() {
         return this.pawn != null;
     }
 
+    /**
+     * @param other An opponent pawn
+     * @return true if there is an opponent pawn on the cell according the pawn given in parameter. False otherwise.
+     */
     public boolean hasOpponentPawn(Pawn other) {
         return hasPawn() && getPawn().getColor() != other.getColor();
     }

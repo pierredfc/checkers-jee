@@ -15,7 +15,7 @@ public class LightGame {
     private List<LightUser> users;
 
     public LightGame(GameResponse gameResponse) {
-        this(gameResponse.getToken(), gameResponse.getCreationDate().getTime(), gameResponse.getGame().getUserWhite(), gameResponse.getGame().getUserBlack());
+        this(gameResponse.getToken(), gameResponse.getCreationDate().getTime(), gameResponse.getGame().getPlayerWhite(), gameResponse.getGame().getPlayerBlack());
     }
 
     public LightGame(String token, long date, Player... players) {

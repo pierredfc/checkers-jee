@@ -6,10 +6,14 @@ import java.util.Properties;
 import java.util.function.Function;
 
 /**
- * Created by Clement on 09/01/2017.
+ * Checkers factory
  */
 public class CheckersFactory {
 
+    /**
+     * @return checkers properties from the properties file.
+     * @throws IOException
+     */
     public Properties getProperties() throws IOException {
         Properties props = new Properties();
 

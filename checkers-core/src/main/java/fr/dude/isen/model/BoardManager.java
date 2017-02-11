@@ -1,6 +1,8 @@
 package fr.dude.isen.model;
 
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
+import fr.dude.isen.model.cells.Cell;
+import fr.dude.isen.model.cells.Cells;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Pawn;
@@ -10,10 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Clement on 16/01/2017.
+ * Board manager
  */
 public class BoardManager {
 
+    /**
+     * Cells of the board
+     */
     private final Cells cells;
 
     public BoardManager(Cells cells) {
@@ -26,6 +31,13 @@ public class BoardManager {
         destination.setPawn(pawn);
     }
 
+    /**
+     * Move a pawn from an initial position to a final position.
+     * @param origin Initial position of the pawn
+     * @param destination Final position of the move
+     * @return the Move on success. Null otherwise.
+     * @throws UnauthorizedMoveException
+     */
     public Move move(Position origin, Position destination) throws UnauthorizedMoveException {
         return this.move(cells.get(origin), cells.get(destination));
     }
@@ -45,6 +57,13 @@ public class BoardManager {
         throw new UnauthorizedMoveException(possibleMoves.isEmpty() ? null : possibleMoves);
     }
 
+    /**
+     * Move a pawn from an initial cell to a final cell.
+     * @param origin Initial cell of the pawn.
+     * @param destination Final cell of the move
+     * @return the Move on success. Null otherwise.
+     * @throws UnauthorizedMoveException
+     */
     public Move move(Cell origin, Cell destination) throws UnauthorizedMoveException {
 
         Move move = checkMove(origin, destination);
@@ -52,6 +71,10 @@ public class BoardManager {
         return move;
     }
 
+    /**
+     * @param originCell
+     * @return a list of possible moves from an origin cell.
+     */
     public List<Move> getPossibleMoves(Cell originCell) {
         if (originCell == null) return null;
 
@@ -96,10 +119,11 @@ public class BoardManager {
     }
 
     /**
+     * @param originCell From where the pawn has to been moved
      * @param direction the direction to go to
      * @param nbSteps   the maximum number of steps a pawn can move
      * @param result    true if this move is mandatory
-     * @return
+     * @return true if the move is possible. False otherwise.
      */
     private boolean tryAddMove(Cell originCell, Position direction, int nbSteps, List<Move> result) {
         Pawn pawn = originCell.getPawn();
@@ -136,6 +160,10 @@ public class BoardManager {
         return isMandatory;
     }
 
+    /**
+     * @param moves
+     * @return the list of the mandatory moves from a list of moves.
+     */
     private static List<Move> toMandatoryMoves(List<Move> moves) {
         List<Move> mandatoryMoves = new ArrayList<>(2);
         for (Move move : moves) {

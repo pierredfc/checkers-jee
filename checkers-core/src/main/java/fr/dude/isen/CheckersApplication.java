@@ -6,7 +6,7 @@ import com.google.inject.Injector;
 import java.io.IOException;
 
 /**
- * Created by Clement on 09/01/2017.
+ * Checkers application
  */
 public class CheckersApplication {
 
@@ -15,6 +15,10 @@ public class CheckersApplication {
         game.init();
     }
 
+    /**
+     * Launch a new game
+     * @return an implementation of a CheckersGame from properties. A CheckersGameImpl otherwise.
+     */
     public static CheckersGame launch() {
         CheckersModule module = new CheckersModule();
         Injector injector = Guice.createInjector(module);

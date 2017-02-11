@@ -1,6 +1,9 @@
 package fr.dude.isen;
 
 import fr.dude.isen.model.*;
+import fr.dude.isen.model.cells.Cell;
+import fr.dude.isen.model.cells.Cells;
+import fr.dude.isen.model.cells.ColorCell;
 import fr.dude.isen.model.pawns.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

@@ -1,6 +1,6 @@
 package fr.dude.isen;
 
-import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.Move;
@@ -14,12 +14,12 @@ import java.util.List;
 public interface CheckersGame {
 
     /**
-     *
+     * Initialize a checkers game
      */
     void init();
 
     /**
-     *
+     * Play a move with Positions
      * @param init
      * @param destination
      * @return
@@ -27,41 +27,35 @@ public interface CheckersGame {
     MoveResult play(Position init, Position destination);
 
     /**
-     *
-     * @param row
-     * @param column
-     * @return
+     * @param row Row index of the cell
+     * @param column Column index of the cell
+     * @return the cell at (row, column)
      */
     Cell getCell(int row, int column);
 
     /**
-     *
      * @param position
-     * @return
+     * @return the list of possible moves from a position.
      */
     List<Move> getPossibleMoves(Position position);
 
     /**
-     *
-     * @return
+     * @return the number of rows.
      */
     Integer getNbRows();
 
     /**
-     *
-     * @return
+     * @return the number of columns.
      */
     Integer getNbColumns();
 
     /**
-     *
-     * @return
+     * @return the player who owns white pawns.
      */
-    Player getUserWhite();
+    Player getPlayerWhite();
 
     /**
-     *
-     * @return
+     * @return the player who owns black pawns.
      */
-    Player getUserBlack();
+    Player getPlayerBlack();
 }

@@ -3,7 +3,7 @@ package fr.dude.isen;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import fr.dude.isen.model.Board;
-import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.*;
@@ -13,26 +13,41 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by pierredfc on 09/01/2017.
+ * Implementation of a CheckersGame
  */
 public class CheckersGameImpl implements CheckersGame, Serializable {
 
+    /**
+     * Board's size
+     */
     @Inject
     @Named("checkers.board.size")
     private Integer size;
 
+    /**
+     * Number of pawns by row
+     */
     @Inject
     @Named("checkers.board.pawn_rows")
     private Integer nbPawnRows;
 
+    /**
+     * White player's username
+     */
     @Inject
     @Named("checkers.board.player_white.name")
     private String usernamePlayerWhite;
 
+    /**
+     * Black player's username
+     */
     @Inject
     @Named("checkers.board.player_black.name")
     private String usernamePlayerBlack;
 
+    /**
+     * Board game
+     */
     private Board board;
 
     @Override
@@ -69,13 +84,13 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
 
     @JsonIgnore
     @Override
-    public Player getUserWhite() {
+    public Player getPlayerWhite() {
         return this.board.getPlayerWhite();
     }
 
     @JsonIgnore
     @Override
-    public Player getUserBlack() {
+    public Player getPlayerBlack() {
         return this.board.getPlayerBlack();
     }
 

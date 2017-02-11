@@ -5,10 +5,13 @@ import fr.dude.isen.model.pawns.Move;
 import java.util.List;
 
 /**
- * Created by pierredfc on 10/01/2017.
+ * Throw when a move is unauthorized.
  */
 public class UnauthorizedMoveException extends Exception {
 
+    /**
+     * List of mandatory destinations
+     */
     private List<Move> mandatoryDestination;
 
     public UnauthorizedMoveException(List<Move> mandatoryDestination)

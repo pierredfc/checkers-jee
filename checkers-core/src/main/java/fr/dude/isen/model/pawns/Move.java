@@ -1,6 +1,6 @@
 package fr.dude.isen.model.pawns;
 
-import fr.dude.isen.model.Cell;
+import fr.dude.isen.model.cells.Cell;
 
 /**
  * Class that represents a pawn's move to a specific destination cell.

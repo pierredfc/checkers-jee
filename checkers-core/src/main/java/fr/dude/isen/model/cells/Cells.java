@@ -1,4 +1,4 @@
-package fr.dude.isen.model;
+package fr.dude.isen.model.cells;
 
 import fr.dude.isen.model.pawns.Position;
 
@@ -6,13 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Clement on 10/01/2017.
+ * Class that represents and contains the board's cells
  */
 public class Cells {
 
+    /**
+     * Board's cells
+     */
     private List<List<Cell>> cells;
 
+    /**
+     * Number of columns on the board
+     */
     private int nbColumns;
+
+    /**
+     * Number of rows on the board
+     */
     private int nbRows;
 
     public Cells(int nbRows, int nbColumns) {
@@ -29,8 +39,6 @@ public class Cells {
             this.cells.add(rowArray);
         }
     }
-
-
 
     public List<Cell> getRow(int row) {
         return this.cells.get(row);
@@ -64,6 +72,9 @@ public class Cells {
         return this.nbRows;
     }
 
+    /**
+     * @return the last row index of the board.
+     */
     public int getLastRowIndex() {
         return this.nbRows - 1;
     }
