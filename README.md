@@ -18,6 +18,9 @@ You can find three maven projects:
 Checkers is installed by running the following commands in your terminal.
 
 ```shell
+# Clone the repository...
+git clone https://github.com/pierredfc/checkers-jee.git
+
 # Change directory to our repository
 cd checkers-jee/
 
