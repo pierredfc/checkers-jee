@@ -12,8 +12,14 @@ public class PlayerEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
+    /**
+     * Player's username
+     */
     private String username;
 
+    /**
+     * Number of pawns left for the player
+     */
     private Integer nbPawns;
 
     public PlayerEntity()

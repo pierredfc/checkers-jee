@@ -14,15 +14,27 @@ public class TurnEntity {
     @GeneratedValue(strategy= GenerationType.AUTO)
     Long id;
 
+    /**
+     * Row index of the initial position from where the pawn has been moved.
+     */
     @Column(name="initRow")
     private int initRow;
 
+    /**
+     * Column index of the initial position from where the pawn has been moved.
+     */
     @Column(name="initColumn")
     private int initColumn;
 
+    /**
+     * Row index of the destination.
+     */
     @Column(name="destRow")
     private int destRow;
 
+    /**
+     * Column index of the destination.
+     */
     @Column(name="destColumn")
     private int destColumn;
 

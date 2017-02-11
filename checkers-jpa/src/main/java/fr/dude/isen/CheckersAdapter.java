@@ -47,6 +47,7 @@ public class CheckersAdapter {
         Player playerBlack = this.coreGame.getUserBlack();
         Player playerWhite = this.coreGame.getUserWhite();
 
+        // If it's a new game, we create the two user entities from the core game.
         if ((this.gameEntity.getPlayerWhite() == null) && (this.gameEntity.getPlayerBlack() == null))
         {
             this.gameEntity.setPlayerWhite(this.convertPlayerToPlayerEntity(playerWhite));
@@ -55,6 +56,7 @@ public class CheckersAdapter {
         }
         else
         {
+            // It's a game load from its token, we retrieve users information from their entities.
             if (playerBlack != null && playerWhite != null)
             {
                 playerBlack.setName(gameEntity.getPlayerBlack().getUsername());
@@ -173,6 +175,11 @@ public class CheckersAdapter {
     }
 
 
+    /**
+     * Convert a player model to a PlayerEntity.
+     * @param player The player to be converted
+     * @return a PlayerEntity corresponding to a Player
+     */
     private PlayerEntity convertPlayerToPlayerEntity(Player player)
     {
         PlayerEntity playerEntity = new PlayerEntity();

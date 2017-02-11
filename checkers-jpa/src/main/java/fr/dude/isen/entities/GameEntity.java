@@ -67,7 +67,7 @@ public class GameEntity {
     }
 
     public ColorPawn getCurrentTurn() {
-        return  ColorPawn.valueOf(currentTurn);
+        return ColorPawn.valueOf(currentTurn);
     }
 
     public void setCurrentTurn(ColorPawn colour) {
