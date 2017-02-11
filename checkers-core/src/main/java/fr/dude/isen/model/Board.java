@@ -1,7 +1,5 @@
 package fr.dude.isen.model;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import fr.dude.isen.exceptions.UnauthorizedMoveException;
 import fr.dude.isen.model.pawns.*;
 
@@ -15,7 +13,7 @@ public class Board implements Serializable {
     private Cells cells;
     private BoardManager boardManager;
 
-    private ColorPawn nextUser = ColorPawn.WHITE;
+    private ColorPawn nextPlayer = ColorPawn.WHITE;
 
     private Player playerWhite;
     private Player playerBlack;
@@ -89,7 +87,7 @@ public class Board implements Serializable {
     }
 
     public MoveResult play(Cell origin, Cell destination) {
-        if (origin.hasPawn() && origin.getPawn().getColor() == this.nextUser) {
+        if (origin.hasPawn() && origin.getPawn().getColor() == this.nextPlayer) {
             Player player = origin.getPawn().getColor() == ColorPawn.BLACK ? this.getPlayerBlack() : this.getPlayerWhite();
             return this.movePawn(player, origin, destination);
         }
@@ -101,8 +99,8 @@ public class Board implements Serializable {
             Move move = this.boardManager.move(origin, destination);
             checkPawnToDelete(move, player);
             boolean becomesQueen = checkTransformToQueen(move);
-            this.nextUser = getNextUser(move) ? player.getColorPawn() : player.findOpponentColor();
-            return new MoveResult(origin, move, nextUser, becomesQueen, this.playerWhite.getNbPawns(), this.playerBlack.getNbPawns(), this.isUserWins(player));
+            this.nextPlayer = getNextUser(move) ? player.getColorPawn() : player.findOpponentColor();
+            return new MoveResult(origin, move, nextPlayer, becomesQueen, this.playerWhite.getNbPawns(), this.playerBlack.getNbPawns(), this.isUserWins(player));
         } catch (UnauthorizedMoveException e) {
             return null;
         }
@@ -147,4 +145,11 @@ public class Board implements Serializable {
         return boardManager;
     }
 
+    /**
+     * Needed by API
+     * @return Next player who has to move a pawn
+     */
+    public ColorPawn getNextPlayer() {
+        return nextPlayer;
+    }
 }
