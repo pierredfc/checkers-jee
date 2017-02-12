@@ -1,11 +1,12 @@
 package fr.dude.isen.model.pawns;
 
 import fr.dude.isen.model.cells.Cell;
+import fr.dude.isen.model.serializable.SerializableMove;
 
 /**
  * Class that represents a pawn's move to a specific destination cell.
  */
-public class Move {
+public class Move implements SerializableMove {
 
     /**
      * Destination of the pawn
@@ -26,23 +27,26 @@ public class Move {
         this.pawnCellToDelete = pawnCellToDelete;
     }
 
+    @Override
     public Cell getDestination() {
         return destination;
     }
 
+    @Override
     public Cell getPawnCellToDelete() {
         return pawnCellToDelete;
     }
 
-    public boolean hasPawnToDelete() {
-        return this.pawnCellToDelete != null && this.pawnCellToDelete.getPawn() != null;
-    }
-
     /**
-     * A move is mandatory if it's include to delete a pawn.
-     * @return
+     * A move is mandatory if it involves to delete a pawn.
+     * @return Whether the move is mandatory or not
      */
+    @Override
     public boolean isMandatory() {
         return hasPawnToDelete();
+    }
+
+    public boolean hasPawnToDelete() {
+        return this.pawnCellToDelete != null && this.pawnCellToDelete.getPawn() != null;
     }
 }

@@ -5,6 +5,7 @@ import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.cells.Cells;
 import fr.dude.isen.model.cells.ColorCell;
 import fr.dude.isen.model.pawns.*;
+import fr.dude.isen.model.serializable.SerializableBoard;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 /**
  * Class that represents a checkers board.
  */
-public class Board implements Serializable {
+public class Board implements SerializableBoard {
 
     /**
      * Represents the cells of the board.
@@ -193,18 +194,6 @@ public class Board implements Serializable {
         return false;
     }
 
-    public Cells getCells() {
-        return this.cells;
-    }
-
-    public Player getPlayerWhite() {
-        return this.playerWhite;
-    }
-
-    public Player getPlayerBlack() {
-        return this.playerBlack;
-    }
-
     public Cell getCell(int row, int col) {
         return this.cells.get(row, col);
     }
@@ -219,9 +208,37 @@ public class Board implements Serializable {
     }
 
     /**
-     * Needed by API
+     * Serialized field
+     * @return
+     */
+    @Override
+    public Cells getCells() {
+        return this.cells;
+    }
+
+    /**
+     * Serialized field
+     * @return
+     */
+    @Override
+    public Player getPlayerWhite() {
+        return this.playerWhite;
+    }
+
+    /**
+     * Serialized field
+     * @return
+     */
+    @Override
+    public Player getPlayerBlack() {
+        return this.playerBlack;
+    }
+
+    /**
+     * Serialized field
      * @return Next player who has to move a pawn
      */
+    @Override
     public ColorPawn getNextPlayer() {
         return nextPlayer;
     }

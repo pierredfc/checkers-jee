@@ -2,11 +2,12 @@ package fr.dude.isen.model.cells;
 
 import fr.dude.isen.model.pawns.Pawn;
 import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.serializable.SerializableCell;
 
 /**
  * Class that represents a cell.
  */
-public class Cell {
+public class Cell implements SerializableCell {
 
     /**
      * Cell's color
@@ -44,6 +45,7 @@ public class Cell {
         return hasPawn() && getPawn().getColor() != other.getColor();
     }
 
+    @Override
     public Pawn getPawn() {
         return pawn;
     }
@@ -52,6 +54,7 @@ public class Cell {
         this.pawn = pawn;
     }
 
+    @Override
     public ColorCell getColor() {
         return color;
     }
@@ -60,6 +63,7 @@ public class Cell {
         this.color = color;
     }
 
+    @Override
     public Position getPosition() {
         return position;
     }

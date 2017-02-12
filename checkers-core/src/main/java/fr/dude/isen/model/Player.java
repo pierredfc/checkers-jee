@@ -3,13 +3,14 @@ package fr.dude.isen.model;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Direction;
 import fr.dude.isen.model.pawns.Pawn;
+import fr.dude.isen.model.serializable.SerializablePlayer;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
  * Class that represents a player.
  */
-public class Player {
+public class Player implements SerializablePlayer {
 
     /**
      *
@@ -49,29 +50,14 @@ public class Player {
         this.queenRow = queenRow;
     }
 
-    public int getNbPawns() {
-        return nbPawns;
+    public Pawn newPawn() {
+        return new Pawn(colorPawn, pawnDirection);
     }
 
     public void removePawn(Pawn pawn) {
         this.nbPawns--;
     }
 
-    public Direction getPawnDirection() {
-        return pawnDirection;
-    }
-
-    public int getQueenRow() {
-        return queenRow;
-    }
-
-    public ColorPawn getColorPawn() {
-        return colorPawn;
-    }
-
-    public Pawn newPawn() {
-        return new Pawn(colorPawn, pawnDirection);
-    }
 
     public ColorPawn findOpponentColor() {
         return this.opponent.colorPawn;
@@ -94,6 +80,7 @@ public class Player {
         nbPawns--;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -102,8 +89,24 @@ public class Player {
         this.name = name;
     }
 
-    public void setNbPawns(int nbPawns)
-    {
-        this.nbPawns = nbPawns;
+    @Override
+    public int getNbPawns() {
+        return nbPawns;
     }
+
+    @Override
+    public Direction getPawnDirection() {
+        return pawnDirection;
+    }
+
+    @Override
+    public int getQueenRow() {
+        return queenRow;
+    }
+
+    @Override
+    public ColorPawn getColorPawn() {
+        return colorPawn;
+    }
+
 }

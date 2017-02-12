@@ -1,6 +1,7 @@
 package fr.dude.isen.api.responses;
 
 import fr.dude.isen.CheckersGame;
+import fr.dude.isen.model.serializable.SerializableCheckersGame;
 
 import java.util.Date;
 
@@ -22,9 +23,9 @@ public class GameResponse {
     /**
      * Game state
      */
-    private CheckersGame game;
+    private SerializableCheckersGame game;
 
-    public GameResponse(String token, CheckersGame game, Date creationDate) {
+    public GameResponse(String token, SerializableCheckersGame game, Date creationDate) {
         this.token = token;
         this.game = game;
         this.creationDate = creationDate;
@@ -34,7 +35,7 @@ public class GameResponse {
         return token;
     }
 
-    public CheckersGame getGame() {
+    public SerializableCheckersGame getGame() {
         return game;
     }
 

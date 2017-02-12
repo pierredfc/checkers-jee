@@ -1,6 +1,7 @@
 package fr.dude.isen.model.cells;
 
 import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.serializable.SerializableCells;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Class that represents and contains the board's cells
  */
-public class Cells {
+public class Cells implements SerializableCells {
 
     /**
      * Board's cells
@@ -56,6 +57,7 @@ public class Cells {
         }
     }
 
+    @Override
     public List<List<Cell>> getCells() {
         return cells;
     }

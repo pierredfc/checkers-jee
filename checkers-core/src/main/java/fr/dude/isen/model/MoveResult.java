@@ -4,11 +4,12 @@ import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.pawns.ColorPawn;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.serializable.SerializableMoveResult;
 
 /**
  * Class that represents the result of a move.
  */
-public class MoveResult {
+public class MoveResult implements SerializableMoveResult {
 
     /**
      * From which position the move has started.
@@ -65,30 +66,38 @@ public class MoveResult {
         this.isWinningMove = isWinningMove;
     }
 
+    @Override
     public Position getOrigin() {
         return origin;
     }
 
+    @Override
     public Position getDestination() {
         return destination;
     }
 
+    @Override
     public Position getKill() {
         return kill;
     }
 
+    @Override
     public boolean isBecomesQueen() {
         return becomesQueen;
     }
 
+    @Override
     public ColorPawn getNextUser() {
         return nextUser;
     }
 
+    @Override
     public int getNbPawnsPlayerWhite() { return nbPawnsPlayerWhite; }
 
+    @Override
     public int getNbPawnsPlayerBlack() { return nbPawnsPlayerBlack; }
 
+    @Override
     public boolean isWinningMove() {
         return isWinningMove;
     }

@@ -1,9 +1,11 @@
 package fr.dude.isen.model.pawns;
 
+import fr.dude.isen.model.serializable.SerializablePosition;
+
 /**
  * Class that represents a position on the board.
  */
-public class Position {
+public class Position implements SerializablePosition {
 
     /**
      * Indicates column index
@@ -25,6 +27,7 @@ public class Position {
         this.row = rowIndex;
     }
 
+    @Override
     public Integer getColumn() {
         return column;
     }
@@ -33,6 +36,7 @@ public class Position {
         this.column = column;
     }
 
+    @Override
     public Integer getRow() {
         return row;
     }

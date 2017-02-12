@@ -1,8 +1,8 @@
 package fr.dude.isen;
 
+import fr.dude.isen.model.serializable.SerializableCheckersGame;
 import fr.dude.isen.model.cells.Cell;
 import fr.dude.isen.model.MoveResult;
-import fr.dude.isen.model.Player;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by pierredfc on 09/01/2017.
  */
-public interface CheckersGame {
+public interface CheckersGame extends SerializableCheckersGame {
 
     /**
      * Initialize a checkers game
@@ -39,23 +39,5 @@ public interface CheckersGame {
      */
     List<Move> getPossibleMoves(Position position);
 
-    /**
-     * @return the number of rows.
-     */
-    Integer getNbRows();
 
-    /**
-     * @return the number of columns.
-     */
-    Integer getNbColumns();
-
-    /**
-     * @return the player who owns white pawns.
-     */
-    Player getPlayerWhite();
-
-    /**
-     * @return the player who owns black pawns.
-     */
-    Player getPlayerBlack();
 }

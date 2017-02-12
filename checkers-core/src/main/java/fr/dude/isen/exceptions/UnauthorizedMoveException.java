@@ -5,7 +5,7 @@ import fr.dude.isen.model.pawns.Move;
 import java.util.List;
 
 /**
- * Throw when a move is unauthorized.
+ * Thrown when a move is unauthorized.
  */
 public class UnauthorizedMoveException extends Exception {
 
@@ -19,6 +19,10 @@ public class UnauthorizedMoveException extends Exception {
         this.mandatoryDestination = mandatoryDestination;
     }
 
+    /**
+     *
+     * @return List of mandatory destinations
+     */
     public List<Move> getMandatoryDestination() {
         return mandatoryDestination;
     }

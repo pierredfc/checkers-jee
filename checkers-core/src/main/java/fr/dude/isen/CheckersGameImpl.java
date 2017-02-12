@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Implementation of a CheckersGame
  */
-public class CheckersGameImpl implements CheckersGame, Serializable {
+public class CheckersGameImpl implements CheckersGame {
 
     /**
      * Board's size
@@ -82,6 +82,11 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
         return size;
     }
 
+    @Override
+    public Board getBoard() {
+        return board;
+    }
+
     @JsonIgnore
     @Override
     public Player getPlayerWhite() {
@@ -94,15 +99,8 @@ public class CheckersGameImpl implements CheckersGame, Serializable {
         return this.board.getPlayerBlack();
     }
 
+    @JsonIgnore
     public Integer getNbPawnRows() { return nbPawnRows; }
 
-    public Integer getNbPawnsPerUser() { return getNbPawnRows() * size/2; }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
 }

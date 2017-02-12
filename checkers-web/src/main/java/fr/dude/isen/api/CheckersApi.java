@@ -8,6 +8,8 @@ import fr.dude.isen.api.responses.TurnResponse;
 import fr.dude.isen.model.MoveResult;
 import fr.dude.isen.model.pawns.Move;
 import fr.dude.isen.model.pawns.Position;
+import fr.dude.isen.model.serializable.SerializableMove;
+import fr.dude.isen.model.serializable.SerializableMoveResult;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public interface CheckersApi {
      * @param request Origin cell and destination cell
      * @return a MoveResult on success. Null otherwise.
      */
-    MoveResult play(String token, PlayRequest request);
+    SerializableMoveResult play(String token, PlayRequest request);
 
     /**
      * Retrieve all possible moves for a specific position
@@ -56,7 +58,7 @@ public interface CheckersApi {
      * @param position Pawn's position
      * @return a list of possible moves on success. Empty list if no moves. Null on error (no pawn at the position).
      */
-    List<Move> getPossibleMoves(String token, Position position);
+    List<? extends SerializableMove> getPossibleMoves(String token, Position position);
 
     /**
      * Delete a game
