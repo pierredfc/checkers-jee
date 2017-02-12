@@ -4,10 +4,12 @@ import fr.dude.isen.model.Player;
 import fr.dude.isen.model.cells.Cells;
 import fr.dude.isen.model.pawns.ColorPawn;
 
+import java.io.Serializable;
+
 /**
  * Interface providing the properties used by the API for a Board
  */
-public interface SerializableBoard {
+public interface SerializableBoard extends Serializable {
 
     /**
      *
